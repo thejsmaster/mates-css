@@ -26,7 +26,12 @@
   --m-success: #0e9f6e;
   --m-warning: #c27803;
   --m-danger: #e02424;
+  --m-on-success: #ffffff;
+  --m-on-warning: #ffffff;
+  --m-on-danger: #ffffff;
   --m-shadow: 0 1px 2px rgba(16,24,40,.06), 0 4px 12px rgba(16,24,40,.07);
+  --m-elev: 0 1px 2px rgba(16,24,40,.10), 0 3px 8px rgba(16,24,40,.14), 0 8px 20px rgba(16,24,40,.10);
+  --m-elev-active: 0 1px 2px rgba(16,24,40,.16), 0 2px 4px rgba(16,24,40,.12);
   --m-dur: .2s;
 }
 
@@ -47,7 +52,12 @@
     --m-success: #2ee06e;
     --m-warning: #ffc757;
     --m-danger: #ff5c5c;
+    --m-on-success: #14161a;
+    --m-on-warning: #14161a;
+    --m-on-danger: #14161a;
     --m-shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.35);
+    --m-elev: 0 2px 4px rgba(0,0,0,.45), 0 8px 20px rgba(0,0,0,.35);
+    --m-elev-active: 0 1px 3px rgba(0,0,0,.5);
   }
 }
 
@@ -67,7 +77,12 @@
   --m-success: #2ee06e;
   --m-warning: #ffc757;
   --m-danger: #ff5c5c;
+  --m-on-success: #14161a;
+  --m-on-warning: #14161a;
+  --m-on-danger: #14161a;
   --m-shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.35);
+  --m-elev: 0 2px 4px rgba(0,0,0,.45), 0 8px 20px rgba(0,0,0,.35);
+  --m-elev-active: 0 1px 3px rgba(0,0,0,.5);
 }
 
 /* reset */
@@ -147,31 +162,44 @@ button:active, .btn:active { background: var(--m-border-2); }
 button:disabled, .btn:disabled, .btn[disabled] { opacity: .5; cursor: not-allowed; pointer-events: none; }
 
 .btn-primary { background: var(--m-primary); color: var(--m-on-primary); }
-button.btn-primary:hover, .btn-primary:hover { background: var(--m-primary-h); }
-button.btn-primary:active, .btn-primary:active { background: var(--m-primary-a); }
+button.btn-primary:hover, .btn.btn-primary:hover { background: var(--m-primary-h); }
+button.btn-primary:active, .btn.btn-primary:active { background: var(--m-primary-a); }
 .btn-dark { background: var(--m-fg); color: var(--m-bg); }
-.btn-dark:hover { background: var(--m-fg); opacity: .88; }
-.btn-dark:active { opacity: .75; }
+button.btn-dark:hover, .btn.btn-dark:hover { background: var(--m-fg); opacity: .88; }
+button.btn-dark:active, .btn.btn-dark:active { opacity: .75; }
 .btn-light { background: var(--m-bg); color: var(--m-fg); border-color: var(--m-border); }
-.btn-light:hover { background: var(--m-surface); }
-.btn-light:active { background: var(--m-border); }
-.btn-success { background: var(--m-success); color: #fff; }
-.btn-success:hover { filter: brightness(1.1); }
-.btn-success:active { filter: brightness(.92); }
-.btn-danger { background: var(--m-danger); color: #fff; }
-.btn-danger:hover { filter: brightness(1.1); }
-.btn-danger:active { filter: brightness(.92); }
-.btn-warning { background: var(--m-warning); color: #fff; }
-.btn-warning:hover { filter: brightness(1.1); }
-.btn-warning:active { filter: brightness(.92); }
+button.btn-light:hover, .btn.btn-light:hover { background: var(--m-surface); }
+button.btn-light:active, .btn.btn-light:active { background: var(--m-border); }
+.btn-success { background: var(--m-success); color: var(--m-on-success); }
+button.btn-success:hover, .btn.btn-success:hover { background: var(--m-success); filter: brightness(1.08); }
+button.btn-success:active, .btn.btn-success:active { background: var(--m-success); filter: brightness(.92); }
+.btn-danger { background: var(--m-danger); color: var(--m-on-danger); }
+button.btn-danger:hover, .btn.btn-danger:hover { background: var(--m-danger); filter: brightness(1.08); }
+button.btn-danger:active, .btn.btn-danger:active { background: var(--m-danger); filter: brightness(.92); }
+.btn-warning { background: var(--m-warning); color: var(--m-on-warning); }
+button.btn-warning:hover, .btn.btn-warning:hover { background: var(--m-warning); filter: brightness(1.08); }
+button.btn-warning:active, .btn.btn-warning:active { background: var(--m-warning); filter: brightness(.92); }
 .btn-outline { background: transparent; border-color: var(--m-border-2); color: var(--m-primary); }
-.btn-outline:hover { background: var(--m-primary-soft); border-color: var(--m-primary); }
-.btn-outline:active { background: var(--m-primary); color: var(--m-on-primary); }
+button.btn-outline:hover, .btn.btn-outline:hover { background: var(--m-primary-soft); border-color: var(--m-primary); }
+button.btn-outline:active, .btn.btn-outline:active { background: var(--m-primary); color: var(--m-on-primary); }
 .btn-ghost { background: transparent; color: var(--m-fg-2); }
-.btn-ghost:hover { background: var(--m-surface); color: var(--m-fg); }
-.btn-ghost:active { background: var(--m-border); }
+button.btn-ghost:hover, .btn.btn-ghost:hover { background: var(--m-surface); color: var(--m-fg); }
+button.btn-ghost:active, .btn.btn-ghost:active { background: var(--m-border); }
 .btn-link { background: transparent; color: var(--m-primary); padding-inline: .2em; }
-.btn-link:hover { background: transparent; text-decoration: underline; }
+button.btn-link:hover, .btn.btn-link:hover { background: transparent; text-decoration: underline; }
+:where(button, .btn).btn-elevated {
+  box-shadow: var(--m-elev);
+}
+:where(button, .btn).btn-elevated:hover {
+  box-shadow: var(--m-elev);
+  filter: brightness(1.04);
+}
+:where(button, .btn).btn-elevated:active {
+  box-shadow: var(--m-elev-active);
+}
+:where(button, .btn).btn-elevated.btn-primary:hover { background: var(--m-primary-h); filter: none; }
+:where(button, .btn).btn-elevated.btn-primary:active { background: var(--m-primary-a); }
+
 .btn-sm { padding: .25em .7em; font-size: .72rem; }
 .btn-lg { padding: .55em 1.3em; font-size: .92rem; }
 .btn-block { display: flex; width: 100%; }
@@ -265,9 +293,9 @@ button.btn-primary:active, .btn-primary:active { background: var(--m-primary-a);
 /* forms */
 .label { display: block; font-weight: 700; font-size: .85rem; line-height: 1.4; margin: .8rem 0 .15rem; }
 .hint { display: block; font-size: .78rem; color: var(--m-fg-3); margin-top: .25rem; }
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
 select,
-textarea,
+textarea),
 .input {
   width: 100%;
   padding: .45em .8em;
@@ -278,8 +306,8 @@ textarea,
   transition: border-color var(--m-dur), box-shadow var(--m-dur);
 }
 ::placeholder { color: var(--m-fg-3); }
-input:focus, select:focus, textarea:focus, .input:focus { border-color: var(--m-primary); }
-input:focus-visible, select:focus-visible, textarea:focus-visible {
+:where(input, select, textarea):focus, .input:focus { border-color: var(--m-primary); }
+:where(input, select, textarea):focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--m-primary-soft);
 }

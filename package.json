@@ -1,6 +1,6 @@
 {
   "name": "mates-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A compact pure-CSS UI kit. Design tokens, blue primary with hover/active ramps, automatic dark mode and flex & grid utilities. No JS.",
   "style": "mates.css",
   "main": "mates.min.css",
@@ -25,13 +25,13 @@
     "no-js",
     "micro-framework"
   ],
-  "homepage": "https://github.com/your-username/mates-css#readme",
+  "homepage": "https://github.com/thejsmaster/mates-css#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/mates-css.git"
+    "url": "git+https://github.com/thejsmaster/mates-css.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/mates-css/issues"
+    "url": "https://github.com/thejsmaster/mates-css/issues"
   },
   "license": "MIT",
   "author": "your-name",

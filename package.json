@@ -1,7 +1,7 @@
 {
   "name": "mates-css",
   "version": "0.1.0",
-  "description": "A compact pure-CSS UI kit. Design tokens, blue primary with hover/active ramps, automatic dark mode, flex & grid utilities. No JS, no build step.",
+  "description": "A compact pure-CSS UI kit. Design tokens, blue primary with hover/active ramps, automatic dark mode and flex & grid utilities. No JS.",
   "style": "mates.css",
   "main": "mates.min.css",
   "files": [
@@ -45,5 +45,12 @@
     },
     "./min": "./mates.min.css",
     "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  },
+  "scripts": {
+    "build": "esbuild mates.css --minify --outfile=mates.min.css",
+    "watch": "esbuild mates.css --minify --outfile=mates.min.css --watch"
   }
 }

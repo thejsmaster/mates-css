@@ -82,10 +82,12 @@ Semantic on-colors: `--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-o
 <div class="m-grid m-grid-cols-auto">…</div>  <!-- responsive auto-fit -->
 ```
 
-- **Flex**: `.m-flex`, `.m-inline-flex`, `.m-flex-col`, `.m-flex-wrap/nowrap`, `.m-flex-1`, `.m-flex-auto`, `.m-flex-none`, `.m-grow`, `.m-shrink-0`, `.m-items-*` (start/center/end/stretch/baseline), `.m-self-*`, `.m-justify-*` (start/center/end/between/around/evenly), `.m-order-first/last`
-- **Grid**: `.m-grid`, `.m-inline-grid`, `.m-grid-cols-2/3/4/auto/auto-sm/auto-lg`, `.m-grid-rows-2/3`, `.m-grid-flow-dense`, `.m-col-span-2/3/full`, `.m-row-span-2` (multi-column grids collapse to one column under 640px)
-- **Gaps**: `.m-gap-0/xs/sm/(default)/lg/xl`, plus directional `.m-gap-x-*` / `.m-gap-y-*`
-- **Helpers**: `.container`, `.row`, `.col`, `.c-1`–`.c-12`, `.divider`, `.center`, `.muted`, `.subtle`, `.overline`, `.mono`, `.hidden`
+- **Directional stacks**: `.m-row`, `.m-col` — flex containers whose children share space equally; `.m-row-nowrap`, `.m-col-auto`
+- **Flex**: `.m-flex`, `.m-inline-flex`, `.m-flex-col`, `.m-flex-wrap/nowrap`, `.m-flex-1`, `.m-flex-auto`, `.m-flex-none`, `.m-grow`, `.m-shrink-0`, `.m-order-first/last`
+- **Alignment**: `.m-items-*` / short `.m-i-start/center/end/stretch/baseline`, `.m-self-*`, `.m-justify-*` / short `.m-j-start/center/end/between/around/evenly`
+- **Grid**: `.m-grid` (cols-2/3/4), `.m-grid-auto` (responsive auto-fit), `.m-grid-cols-auto-sm/auto-lg`, `.m-grid-rows-2/3`, `.m-grid-flow-dense`, `.m-col-span-2/3/full`, `.m-row-span-2` (multi-col grids collapse to 1 column under 640px)
+- **Gaps**: named `.m-gap-0/xs/sm/lg/xl` and **numeric px** `.m-gap-5/10/15/20/30/40`, plus directional `.m-gap-x-*` / `.m-gap-y-*` in both flavors; `.m-g-xs/sm/lg` set the stack gap variable
+- **Helpers**: `.container`, `.c-1`–`.c-12` 12-col widths, `.divider`, `.center`, `.muted`, `.subtle`, `.overline`, `.mono`, `.hidden`
 
 ## Accessibility
 
@@ -97,9 +99,9 @@ Semantic on-colors: `--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-o
 
 | | |
 |---|---|
-| Raw | 25.2kb |
-| Minified | 21.9kb |
-| **Min + gzip** | **5.4kb** |
+| Raw | 28.2kb |
+| Minified | 24.7kb |
+| **Min + gzip** | **6.0kb** |
 
 ## Demo
 

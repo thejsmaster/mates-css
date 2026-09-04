@@ -81,8 +81,8 @@
     </div>
 
     <h2 id="forms">Forms</h2>
-    <div class="row g-lg">
-      <div class="col c-6">
+    <div class="m-row m-g-lg">
+      <div class="m-col c-6">
         <label class="label" for="t1">Text</label>
         <input class="input" id="t1" type="text" placeholder="Placeholder…">
         <span class="hint">Hint text under inputs.</span>
@@ -96,7 +96,7 @@
         <label style="display:block;"><input type="checkbox" class="check"> Unchecked</label>
         <label style="display:block;"><input type="radio" class="check" name="r" checked> Radio A</label>
       </div>
-      <div class="col c-6">
+      <div class="m-col c-6">
         <label class="label" for="ta">Textarea</label>
         <textarea class="input" id="ta" placeholder="Write something…"></textarea>
         <label class="label">Switch</label>
@@ -236,6 +236,44 @@
         </div>
         <button class="btn btn-sm">Open</button>
       </div>
+    </div>
+
+    <h2>Layout — m-row / m-col / flex &amp; grid</h2>
+    <p class="subtle" style="font-size:.85rem;">m-row / m-col are directional flex containers; children share space equally.</p>
+    <div class="m-row m-g-sm" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0; text-align:center;">auto</div>
+      <div class="alert" style="margin:0; text-align:center;">auto</div>
+      <div class="alert" style="margin:0; text-align:center;">auto</div>
+    </div>
+    <div class="m-row m-gap-10" style="margin-bottom:1rem;">
+      <div class="alert m-col-span-full" style="margin:0;"></div>
+      <div class="c-4"><div class="alert" style="margin:0; text-align:center;">c-4</div></div>
+      <div class="c-8"><div class="alert" style="margin:0; text-align:center;">c-8</div></div>
+    </div>
+    <div class="m-col m-gap-10" style="max-width:16rem; margin-bottom:1rem;">
+      <button class="btn">Stacked</button>
+      <button class="btn btn-primary">In m-col</button>
+      <button class="btn">gap-10</button>
+    </div>
+    <div class="m-flex m-j-between m-i-center m-gap-10 m-flex-wrap" style="margin-bottom:1rem;">
+      <span class="tag tag-soft">m-j-between</span>
+      <span class="tag">m-i-center</span>
+      <span class="tag">m-gap-10</span>
+    </div>
+    <div class="m-flex m-i-end m-gap-15" style="margin-bottom:1rem;">
+      <button class="btn btn-sm">i-end</button>
+      <button class="btn">varied</button>
+      <button class="btn btn-lg">heights</button>
+    </div>
+    <div class="m-grid-auto m-gap-10" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0">auto-fit</div>
+      <div class="alert" style="margin:0">auto-fit</div>
+      <div class="alert" style="margin:0">auto-fit</div>
+    </div>
+    <div class="m-grid m-grid-cols-3 m-gap-10" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0">1</div>
+      <div class="alert alert-primary" style="margin:0">2</div>
+      <div class="alert" style="margin:0">3</div>
     </div>
 
     <h2>Spacing utilities</h2>

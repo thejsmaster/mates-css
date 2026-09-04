@@ -55,11 +55,24 @@ Everything is a `--m-*` CSS variable. Override on `:root` to rebrand:
 
 Semantic on-colors: `--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-on-danger` flip per theme (white ink in light, dark ink in dark) so fills always stay readable.
 
+## Zero-class styling
+
+`<button>`, `<input>`, `<select>`, `<textarea>`, and checkboxes/radios are styled with no classes at all:
+
+```html
+<button>Test</button>                    <!-- looks like a default btn -->
+<button class="btn-primary">Go</button>  <!-- variant class on the bare tag -->
+<input type="text" placeholder="…">
+<input type="checkbox"> Remember me
+```
+
+Classes like `.btn` exist to extend the same styling to non-button elements (`<a class="btn">`), and variant classes (`btn-primary`, `input-error`, …) work on both bare tags and classed elements.
+
 ## Components
 
 | Class | Notes |
 |---|---|
-| `.btn` + `.btn-primary/dark/light/success/warning/danger/outline/ghost/link` | hover + darker active states |
+| `.btn` (or bare `<button>`) + `.btn-primary/dark/light/success/warning/danger/outline/ghost/link` | hover + darker active states |
 | `.btn-elevated` | big resting shadow that shrinks when pressed |
 | `.btn-sm/lg/block`, `.btn-group`, `.btn-spin`, `.btn-close` | |
 | `.tag` + `.tag-primary/success/warning/danger/soft/soft-success/soft-danger/rounded` | `.tag-x` removable dot |
@@ -101,7 +114,7 @@ Semantic on-colors: `--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-o
 |---|---|
 | Raw | 28.2kb |
 | Minified | 24.7kb |
-| **Min + gzip** | **6.0kb** |
+| **Min + gzip** | **6.1kb** |
 
 ## Demo
 

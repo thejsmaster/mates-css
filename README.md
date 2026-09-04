@@ -77,6 +77,8 @@ Classes like `.btn` exist to extend the same styling to non-button elements (`<a
 | `.btn-sm/lg/block`, `.btn-group`, `.btn-spin`, `.btn-close` | |
 | `.tag` + `.tag-primary/success/warning/danger/soft/soft-success/soft-danger/rounded` | `.tag-x` removable dot |
 | `.input`, `.check`, `.switch`, `.range`, `.fgroup` | custom checkbox/radio SVGs, select arrow, search icon, success/error states |
+
+**Input width** — inputs default to `100%` via `--m-input-w`. Set it globally (`:root { --m-input-w: 24rem }`) or per-field (`style="--m-input-w: 10rem"`), or use utilities: `.m-w-auto/xs/sm/md/lg/full`.
 | `.card`, `.card-body/bar/title/sub`, `.card-hover` | |
 | `.table` + `.striped/.bordered/.selected` | |
 | `.tabs` / `.tabs-line` | pill or underline, `.tab.selected` |

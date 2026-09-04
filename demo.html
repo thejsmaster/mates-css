@@ -326,6 +326,12 @@
       else document.documentElement.setAttribute('data-theme', mode);
       document.querySelector('.theme-toggle .btn').textContent = 'Theme: ' + mode;
     }
+    // demo-only: live range fill (WebKit needs --m-range-progress; Firefox is native)
+    document.querySelectorAll('input[type="range"]').forEach(r => {
+      const update = () => r.style.setProperty('--m-range-progress', (r.value / (r.max || 100) * 100) + '%');
+      update();
+      r.addEventListener('input', update);
+    });
     // demo-only: removable tags
     document.querySelectorAll('.tag-x').forEach(x => x.addEventListener('click', e => e.target.closest('.tag').remove()));
   </script>

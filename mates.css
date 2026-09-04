@@ -409,8 +409,19 @@ input[type="checkbox"]:disabled, input[type="radio"]:disabled, .check:disabled {
 .switch input:checked + i::after { left: calc(100% - 1.05em - 3px); }
 .switch input:focus-visible + i { outline: 2px solid var(--m-primary); outline-offset: 2px; }
 
-input[type="range"] { appearance: none; width: 100%; height: 1.4em; background: transparent; cursor: pointer; }
-input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: var(--m-r-full); background: var(--m-border); }
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 1.4em;
+  background: transparent;
+  cursor: pointer;
+  /* filled portion: set --m-range-progress (0-100) from JS on input; default 50% */
+  --m-range-progress: 50%;
+  background: linear-gradient(to right,
+      var(--m-primary) var(--m-range-progress),
+      var(--m-border) var(--m-range-progress)) no-repeat center / 100% 4px;
+}
+input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: var(--m-r-full); background: transparent; }
 input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 1em;
@@ -422,6 +433,7 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 0 0 1px var(--m-border-2);
 }
 input[type="range"]::-moz-range-track { height: 4px; border-radius: var(--m-r-full); background: var(--m-border); }
+input[type="range"]::-moz-range-progress { height: 4px; border-radius: var(--m-r-full); background: var(--m-primary); }
 input[type="range"]::-moz-range-thumb { width: 1em; height: 1em; border-radius: 50%; background: var(--m-primary); border: 2px solid var(--m-bg); }
 input[type="color"] { width: 2.8em; height: 2.2em; padding: .15em; cursor: pointer; }
 

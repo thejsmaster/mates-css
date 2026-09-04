@@ -293,6 +293,29 @@ button.btn-link:hover, .btn.btn-link:hover { background: transparent; text-decor
 /* forms */
 .label { display: block; font-weight: 700; font-size: .85rem; line-height: 1.4; margin: .8rem 0 .15rem; }
 .hint { display: block; font-size: .78rem; color: var(--m-fg-3); margin-top: .25rem; }
+
+/* validation: wrap a field in .m-error to color control + message */
+.m-error .input,
+.m-error input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+.m-error select,
+.m-error textarea {
+  border-color: var(--m-danger);
+}
+.m-error .input:focus-visible,
+.m-error input:focus-visible, .m-error select:focus-visible, .m-error textarea:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--m-danger) 18%, transparent);
+}
+.m-error .hint { color: var(--m-danger); }
+.m-error .label { color: var(--m-danger); }
+
+/* success variant for the wrapper */
+.m-valid .input,
+.m-valid input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+.m-valid select,
+.m-valid textarea {
+  border-color: var(--m-success);
+}
+.m-valid .hint { color: var(--m-success); }
 :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
 select,
 textarea),

@@ -90,7 +90,16 @@
         <select class="input" id="s1"><option>Choose one…</option><option>Option A</option></select>
         <label class="label" for="ok">States</label>
         <input class="input-success" id="ok" type="text" value="Bare input + .input-success">
-        <input class="input-error" type="text" value="Bare input + .input-error" style="margin-top:.5rem;">
+        <div class="m-error">
+          <label class="label" for="err1" style="margin-top:.5rem;">Username</label>
+          <input id="err1" type="text" value="ada!!">
+          <span class="hint">Only letters and numbers allowed.</span>
+        </div>
+        <div class="m-valid">
+          <label class="label" for="ok1" style="margin-top:.5rem;">Email</label>
+          <input id="ok1" type="email" value="ada@example.com">
+          <span class="hint">Looks good.</span>
+        </div>
         <label class="label">Checks &amp; radios</label>
         <label style="display:block;"><input type="checkbox" class="check" checked> Checked</label>
         <label style="display:block;"><input type="checkbox" class="check"> Unchecked</label>

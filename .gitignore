@@ -5,4 +5,6 @@ docs
 index.html
 yarn.lock
 .npmrc
-.idea/**/*
+.idea/**/*node_modules/
+bun.lock
+*.min.css.gz

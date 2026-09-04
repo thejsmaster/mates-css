@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mates CSS — Demo</title>
+  <link rel="stylesheet" href="mates.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
+  <style>
+    .demo { max-width: 56rem; margin: 0 auto; padding: 1rem 1.25rem 4rem; }
+    .theme-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 999; }
+    .row-demo { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: .75rem; }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <button class="btn btn-sm" onclick="cycleTheme()">Theme: light</button>
+  </div>
+
+  <div class="demo">
+    <p class="overline">v0.1.0 · ~6kb gzipped</p>
+    <h1 style="margin-top:.2em;">Mates CSS</h1>
+    <p class="muted">Compact pure-CSS UI kit. Same design system as the full framework — blue primary, tokens, auto dark mode. No JS required (the theme toggle below is only for previewing).</p>
+
+    <!-- nav -->
+    <nav class="nav" style="margin: 1.5rem 0;">
+      <span class="nav-brand">Mates</span>
+      <a href="#buttons" class="selected">Buttons</a>
+      <a href="#forms">Forms</a>
+      <a href="#overlays">Overlays</a>
+      <span class="nav-space"></span>
+      <span class="avatar avatar-sm" data-tip="AV">AV</span>
+    </nav>
+
+    <h2 id="buttons">Buttons</h2>
+    <div class="row-demo">
+      <button class="btn">Default</button>
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-dark">Dark</button>
+      <button class="btn btn-light">Light</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-link">Link</button>
+      <button class="btn" disabled>Disabled</button>
+      <button class="btn btn-close" aria-label="Close"></button>
+    </div>
+    <div class="row-demo">
+      <button class="btn btn-sm btn-spin">Loading</button>
+      <button class="btn btn-sm">Small</button>
+      <button class="btn">Normal</button>
+      <button class="btn btn-lg">Large</button>
+      <div class="btn-group">
+        <button class="btn btn-primary">Left</button>
+        <button class="btn btn-primary">Middle</button>
+        <button class="btn btn-primary">Right</button>
+      </div>
+    </div>
+    <div class="row-demo">
+      <button class="btn btn-elevated">Elevated</button>
+      <button class="btn btn-elevated btn-primary">Elevated primary</button>
+      <button class="btn btn-elevated btn-light">Elevated light</button>
+      <span class="hint" style="margin:0;">Hold click — the shadow shrinks (button sinks).</span>
+    </div>
+
+    <h2>Tags</h2>
+    <div class="row-demo">
+      <span class="tag">Default</span>
+      <span class="tag tag-primary">Primary</span>
+      <span class="tag tag-success">Success</span>
+      <span class="tag tag-warning">Warning</span>
+      <span class="tag tag-danger">Danger</span>
+      <span class="tag tag-soft">Soft</span>
+      <span class="tag tag-soft-success">Soft success</span>
+      <span class="tag tag-soft-danger">Soft danger</span>
+      <span class="tag tag-rounded">Rounded</span>
+      <span class="tag tag-primary">Removable <span class="tag-x"></span></span>
+    </div>
+
+    <h2 id="forms">Forms</h2>
+    <div class="row g-lg">
+      <div class="col c-6">
+        <label class="label" for="t1">Text</label>
+        <input class="input" id="t1" type="text" placeholder="Placeholder…">
+        <span class="hint">Hint text under inputs.</span>
+        <label class="label" for="s1">Select</label>
+        <select class="input" id="s1"><option>Choose one…</option><option>Option A</option></select>
+        <label class="label" for="ok">States</label>
+        <input class="input input-success" id="ok" type="text" value="Looks good">
+        <input class="input input-error" type="text" value="Has an error" style="margin-top:.5rem;">
+        <label class="label">Checks &amp; radios</label>
+        <label style="display:block;"><input type="checkbox" class="check" checked> Checked</label>
+        <label style="display:block;"><input type="checkbox" class="check"> Unchecked</label>
+        <label style="display:block;"><input type="radio" class="check" name="r" checked> Radio A</label>
+      </div>
+      <div class="col c-6">
+        <label class="label" for="ta">Textarea</label>
+        <textarea class="input" id="ta" placeholder="Write something…"></textarea>
+        <label class="label">Switch</label>
+        <label class="switch"><input type="checkbox" checked><i></i></label>
+        <label class="switch" style="margin-left:.75rem;"><input type="checkbox"><i></i></label>
+        <label class="label" for="rg">Range</label>
+        <input type="range" class="range" id="rg" value="60">
+        <label class="label">Form group</label>
+        <div class="fgroup">
+          <span class="fgroup-label">https://</span>
+          <input class="input" type="text" value="example.com">
+          <button class="btn btn-primary">Go</button>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cards</h2>
+    <div class="grid">
+      <div class="card card-hover">
+        <div class="card-body">
+          <p class="card-title">Card title</p>
+          <p class="card-sub">With subtitle</p>
+          <p>Shadow deepens on hover. No JS, no jumping.</p>
+        </div>
+        <div class="card-bar">
+          <button class="btn btn-primary btn-sm">Action</button>
+          <button class="btn btn-sm">Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Badges inside</p>
+          <p class="muted" style="display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem;">
+            <span class="tag tag-soft-success">active</span>
+            <span class="tag tag-soft-danger">failed</span>
+            <span class="tag">draft</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Table &amp; tabs</h2>
+    <div class="table-wrap">
+      <table class="table striped">
+        <thead><tr><th>Plan</th><th>Price</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Free</td><td>$0</td><td><span class="tag tag-soft-success">active</span></td></tr>
+          <tr class="selected"><td>Pro</td><td>$20</td><td><span class="tag tag-primary">selected</span></td></tr>
+          <tr><td>Team</td><td>$75</td><td><span class="tag">draft</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tabs" style="margin-top:1rem;">
+      <button class="tab selected">Overview</button>
+      <button class="tab">Analytics</button>
+      <button class="tab">Settings</button>
+    </div>
+    <div class="tabs tabs-line" style="margin-top:1rem;">
+      <button class="tab selected">Underline</button>
+      <button class="tab">Variant</button>
+    </div>
+
+    <h2>Alerts &amp; toasts</h2>
+    <div class="alert">Neutral alert with a left accent bar.</div>
+    <div class="alert alert-success"><strong>Done.</strong> Changes saved.</div>
+    <div class="alert alert-warning"><strong>Careful.</strong> Cannot be undone.</div>
+    <div class="alert alert-danger"><strong>Error.</strong> Please retry.</div>
+    <div class="row-demo" style="margin-top:1rem;">
+      <div class="toast" style="max-width:18rem;"><p class="toast-title">Toast</p><p>Neutral dark toast.</p></div>
+      <div class="toast toast-primary" style="max-width:18rem;"><p class="toast-title">Primary</p><p>Brand colored.</p></div>
+      <div class="toast toast-success" style="max-width:18rem;"><p class="toast-title">Success</p><p>Saved.</p></div>
+    </div>
+
+    <h2 id="overlays">Tooltips, modal, accordion</h2>
+    <div class="row-demo" style="padding:1.5rem 0;">
+      <button class="btn tooltip" data-tip="Top tooltip">Top</button>
+      <button class="btn tooltip tooltip-b" data-tip="Bottom tooltip">Bottom</button>
+      <button class="btn tooltip tooltip-r" data-tip="Right">Right</button>
+      <label for="m1" class="btn btn-primary">Open modal</label>
+    </div>
+    <input type="checkbox" id="m1" class="modal-toggle" hidden>
+    <div class="modal">
+      <label class="modal-overlay" for="m1"></label>
+      <div class="modal-box">
+        <div class="modal-head">
+          <p class="modal-title">Modal title</p>
+          <label class="btn btn-close" for="m1" style="margin:0;"></label>
+        </div>
+        <div class="modal-body"><p>Pure CSS modal via hidden checkbox. Click overlay to close.</p></div>
+        <div class="modal-foot">
+          <label class="btn" for="m1">Close</label>
+          <label class="btn btn-primary" for="m1">Got it</label>
+        </div>
+      </div>
+    </div>
+    <details class="acc">
+      <summary>Accordion item one</summary>
+      <p>Expand/collapse with native details — no JS.</p>
+    </details>
+    <details class="acc">
+      <summary>Accordion item two</summary>
+      <p>Another panel.</p>
+    </details>
+
+    <h2>Flex &amp; grid</h2>
+    <div class="m-grid m-grid-cols-3 m-gap-sm" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0">col</div>
+      <div class="alert alert-primary" style="margin:0">col</div>
+      <div class="alert" style="margin:0">col</div>
+    </div>
+    <div class="m-grid m-grid-cols-4 m-gap-sm" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0">auto</div>
+      <div class="alert" style="margin:0">auto</div>
+      <div class="alert" style="margin:0">auto</div>
+      <div class="alert" style="margin:0">auto</div>
+    </div>
+    <div class="m-grid m-grid-cols-3 m-gap-sm" style="margin-bottom:1rem;">
+      <div class="alert" style="margin:0">span 1</div>
+      <div class="alert alert-primary m-col-span-2" style="margin:0">m-col-span-2</div>
+    </div>
+    <div class="m-flex m-items-center m-justify-between m-gap-sm m-flex-wrap" style="margin-bottom:1rem;">
+      <span class="tag tag-soft">m-justify-between</span>
+      <span class="tag">with</span>
+      <span class="tag">m-gap-sm</span>
+    </div>
+    <div class="m-flex m-items-end m-gap" style="margin-bottom:1rem;">
+      <button class="btn btn-sm">items-end</button>
+      <button class="btn">center row</button>
+      <button class="btn btn-lg">varied heights</button>
+    </div>
+    <div class="card" style="max-width:24rem;">
+      <div class="card-body m-flex m-items-center m-gap-sm">
+        <span class="avatar">M</span>
+        <div class="m-flex-1">
+          <p class="card-title" style="margin:0">m-flex-1 filler</p>
+          <p class="card-sub">text takes remaining space</p>
+        </div>
+        <button class="btn btn-sm">Open</button>
+      </div>
+    </div>
+
+    <h2>Spacing utilities</h2>
+    <div class="card" style="max-width:30rem;">
+      <div class="card-body">
+        <p class="m-0 m-b-10"><span class="tag tag-soft">m-b-10</span> margin-bottom: 10px</p>
+        <p class="m-0 p-10" style="background:var(--m-surface); border-radius:4px;"><span class="tag">p-10</span> padding: 10px</p>
+        <p class="m-0 m-t-5 p-x-5 subtle" style="font-size:.8rem;">m-t-5 + p-x-5 on this line</p>
+      </div>
+    </div>
+
+    <h2>Misc</h2>
+    <progress class="progress" value="65" max="100"></progress>
+    <div class="divider">divider</div>
+    <div class="row-demo">
+      <span class="avatar">AL</span>
+      <span class="avatar avatar-sm">SM</span>
+      <span class="avatar avatar-lg">LG</span>
+      <kbd>Ctrl</kbd> <kbd>K</kbd>
+      <mark>marked</mark>
+      <blockquote style="margin:0;">Blockquote</blockquote>
+    </div>
+    <div class="row g-sm" style="margin-top:1rem;">
+      <div class="c-4"><div class="alert" style="margin:0">c-4</div></div>
+      <div class="c-8"><div class="alert" style="margin:0">c-8</div></div>
+    </div>
+  </div>
+
+  <footer class="container center" style="padding-block:2rem;">
+    <hr>
+    <small>Mates CSS — 19.8kb / 4.8kb gzipped. MIT.</small>
+  </footer>
+
+  <script>
+    const modes = ['light', 'dark', 'auto'];
+    let idx = 0;
+    function cycleTheme() {
+      idx = (idx + 1) % modes.length;
+      const mode = modes[idx];
+      if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('.theme-toggle .btn').textContent = 'Theme: ' + mode;
+    }
+    // demo-only: removable tags
+    document.querySelectorAll('.tag-x').forEach(x => x.addEventListener('click', e => e.target.closest('.tag').remove()));
+  </script>
+</body>
+</html>

@@ -44,6 +44,8 @@
       "default": "./mates.min.css"
     },
     "./min": "./mates.min.css",
+    "./mates.css": "./mates.css",
+    "./style.css": "./mates.css",
     "./package.json": "./package.json"
   },
   "devDependencies": {

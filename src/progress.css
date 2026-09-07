@@ -1,0 +1,13 @@
+progress.progress {
+  appearance: none;
+  width: 100%;
+  height: .5rem;
+  border: 0;
+  overflow: hidden;
+  border-radius: var(--m-r-full);
+  background: var(--m-surface);
+  display: block;
+}
+progress.progress::-webkit-progress-bar { background: var(--m-surface); }
+progress.progress::-webkit-progress-value { background: var(--m-primary); border-radius: var(--m-r-full); }
+progress.progress::-moz-progress-bar { background: var(--m-primary); border-radius: var(--m-r-full); }

@@ -1,15 +1,17 @@
 # Mates CSS
 
-A compact pure-CSS UI kit — **37.9kb raw (7.4kb gzipped)**. No JS, no SCSS, no build step. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
+A compact pure-CSS UI kit — **61.6kb raw (10.8kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
 
-Styled via **native tags** when possible, and **classes** when you need variants or non-semantic elements. Dark and light modes included. Tables, layouts, and charts are CSS-only.
+Styled via **native tags** when possible, and **classes** when you need variants or non-semantic elements. Dark and light modes included. Tables, layouts, overlays, and charts are CSS-only. Your app only adds or removes classes, attributes, or `--v` style props when state changes.
+
+Sources live in `src/`. `npm run build` bundles them into `dist/mates.min.css`. `import "mates-css"` resolves to that single minified file.
 
 ## Use it
 
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/mates-css@0.4.0/mates.min.css">
+<link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/dist/mates.min.css">
 ```
 
 ### npm
@@ -18,11 +20,15 @@ Styled via **native tags** when possible, and **classes** when you need variants
 npm install mates-css
 ```
 
-```html
-<link rel="stylesheet" href="node_modules/mates-css/mates.min.css">
+```js
+import "mates-css";
 ```
 
-Or copy `mates.css` into your project. That's all.
+```html
+<link rel="stylesheet" href="node_modules/mates-css/dist/mates.min.css">
+```
+
+Unminified bundle: `mates-css/css` or `dist/mates.css`. Copy that file if you don't want a bundler.
 
 ## Dark mode
 
@@ -62,17 +68,28 @@ Semantic on-colors (`--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-o
 | [Buttons](#buttons) | bare `<button>` or `.btn` |
 | [Tags](#tags) | `.tag` |
 | [Forms](#forms) | bare inputs / `.input`, `.check`, `.switch`, `.fgroup` |
+| [Form extras](#form-extras) | `.field`, `.input-wrap`, `.chip`, `.rate`, `.seg`, `.drop`, `.search` |
 | [Cards](#cards) | `.card` + parts |
-| [Tables](#tables) | `.table` (+ `.table-wrap`) |
+| [Tables](#tables) | `.table` (+ `.table-wrap`, `.sticky`) |
 | [Tabs](#tabs) | `.tabs` + `.tab` |
-| [Alerts & toasts](#alerts--toasts) | `.alert` / `.toast` |
+| [Alerts & toasts](#alerts--toasts) | `.alert` / `.toast` / `.toasts` / `.banner` |
+| [Skeleton, spinner, empty](#skeleton-spinner-empty) | `.skel` / `.spin` / `.empty` |
 | [Tooltips](#tooltips) | `.tooltip` + `data-tip` |
-| [Modal](#modal) | checkbox + `.modal*` |
+| [Modal](#modal) | checkbox + `.modal*` or `.open` |
+| [Menu](#menu) | `.menu` + `:focus-within` (closes on blur) |
+| [Drawer & sheet](#drawer--sheet) | checkbox + `.drawer*` / `.sheet*` |
+| [Popover](#popover) | `.pop` + `:focus-within` or `.open` |
 | [Accordion](#accordion) | `details.acc` |
 | [Nav](#nav) | `.nav` |
-| [Avatar](#avatar) | `.avatar` |
+| [Breadcrumbs, pager, steps](#breadcrumbs-pager-steps) | `.crumbs` / `.pager` / `.steps` |
+| [Sidenav](#sidenav) | `.sidenav` |
+| [Avatar, status, badge](#avatar) | `.avatar` / `.status` / `.badge` |
 | [Progress](#progress) | `progress.progress` |
-| [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark`, … |
+| [Lists & timeline](#lists--timeline) | `.list` / `.timeline` |
+| [Stats & definition list](#stats--definition-list) | `.stat` / `.dl` |
+| [Code & prose](#code--prose) | `.code` / `.code-block` / `.prose` |
+| [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark`, `.meter`, `.heat`, `.gauge` |
+| [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.board`, `.split`, `.media`, `.snap`, `.aspect` |
 | [Layout utilities](#layout-flex--grid) | `.m-flex`, `.m-grid`, `.m-row`, … |
 
 ---
@@ -256,7 +273,7 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 |---|---|
 | `.table-wrap` | optional outer wrapper (horizontal scroll) |
 | `.table` | on `<table>` |
-| `.striped` / `.bordered` | on the same `<table>` |
+| `.striped` / `.bordered` / `.sticky` | on the same `<table>` |
 | `.selected` | on a `<tr>` |
 
 ```html
@@ -354,7 +371,7 @@ Pure CSS via a hidden checkbox. Classes and wiring:
 | `.modal-box` | dialog panel |
 | `.modal-head` / `.modal-title` / `.modal-body` / `.modal-foot` | structure inside the box |
 
-Open/close with `<label for="same-id">` (any trigger, overlay, or close button).
+Open/close with `<label for="same-id">`, or add `.open` on `.modal` from JS.
 
 ```html
 <label for="m1" class="btn btn-primary">Open modal</label>
@@ -416,12 +433,19 @@ Open/close with `<label for="same-id">` (any trigger, overlay, or close button).
 
 ## Avatar
 
-**Required:** `.avatar`. Optional size: `.avatar-sm` / `.avatar-lg`. Put initials as text content, or nest an `<img>`.
+**.avatar** — optional `.avatar-sm` / `.avatar-lg`.
+
+**Status:** `.status` + `.status-dot` with `.online` / `.away` / `.busy` / `.offline` on the status or the dot.
+
+**Badge:** wrap a control in `.badge`. Child `.badge-dot` or `.badge-n` with `data-n="8"`.
 
 ```html
 <span class="avatar">AL</span>
-<span class="avatar avatar-sm">SM</span>
-<span class="avatar avatar-lg">LG</span>
+<span class="status online"><i class="status-dot"></i> Online</span>
+<span class="badge">
+  <button class="btn btn-sm">Inbox</button>
+  <i class="badge-n" data-n="8"></i>
+</span>
 ```
 
 ---
@@ -529,6 +553,309 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
   <span><i class="s1"></i>Organic</span>
   <span><i class="s2"></i>Paid</span>
 </div>
+<div class="legend legend-v">…</div>
+```
+
+### Meter, heatmap, gauge, comparison
+
+```html
+<div class="meter">
+  <i class="s1" style="--sv:45"></i>
+  <i class="s2" style="--sv:30"></i>
+  <i class="s3" style="--sv:15"></i>
+</div>
+
+<div class="heat" style="--cols:7">
+  <i style="--v:10"></i><i style="--v:80"></i>
+</div>
+
+<div class="gauge" style="--v:72"><b>72</b></div>
+
+<div class="cmp-row" style="--a:62;--b:38"><span>Us</span><i></i><span>Them</span></div>
+```
+
+`--sv` is segment share on `.meter > i`. `--v` is 0–100 intensity on `.heat > i`. `--a` / `--b` are the two sides of a comparison bar.
+
+---
+
+## Form extras
+
+### Field stack
+
+**Required:** `.field` wrapping `.label` + control + `.hint`.
+
+```html
+<div class="field">
+  <label class="label" for="nm">Name</label>
+  <input id="nm" type="text">
+  <span class="hint">Public.</span>
+</div>
+```
+
+### Fieldset
+
+**Required:** `<fieldset class="fieldset">` + native `<legend>`.
+
+### Input with icons
+
+**Required:** `.input-wrap`. Put `.input-ico` on leading/trailing slots.
+
+```html
+<div class="input-wrap">
+  <span class="input-ico">@</span>
+  <input class="input" type="text">
+</div>
+```
+
+### Search results
+
+**Required:** `.search` wrapping the field. `.search-panel` shows on `:focus-within` or `.open`.
+
+```html
+<div class="search">
+  <input type="search" placeholder="Search…">
+  <div class="search-panel">
+    <a class="menu-item" href="#">Result</a>
+  </div>
+</div>
+```
+
+### Dropzone
+
+**Required:** `.drop` on a `<label>`. Add `.active` from JS on `dragover`.
+
+```html
+<label class="drop">
+  <input type="file" hidden>
+  <span>Drop files</span>
+  <span class="hint">or click to browse</span>
+</label>
+```
+
+### Chips
+
+**Required:** `.chip`. Use a checkbox inside, or toggle `.selected` from JS.
+
+```html
+<label class="chip"><input type="checkbox" checked> Design</label>
+<button class="chip selected">Filter</button>
+```
+
+### Rating
+
+**Required:** `.rate` with radios in **reverse** order (5 → 1) so CSS sibling selectors fill stars.
+
+```html
+<span class="rate">
+  <input type="radio" name="stars" value="5">
+  <input type="radio" name="stars" value="4">
+  <input type="radio" name="stars" value="3" checked>
+  <input type="radio" name="stars" value="2">
+  <input type="radio" name="stars" value="1">
+</span>
+```
+
+### Segmented control
+
+**Required:** `.seg` parent, `.seg-item` children. Active via `.selected` or a checked radio inside.
+
+```html
+<div class="seg">
+  <label class="seg-item"><input type="radio" name="p" checked> Day</label>
+  <label class="seg-item"><input type="radio" name="p"> Week</label>
+</div>
+```
+
+---
+
+## Skeleton, spinner, empty
+
+```html
+<div class="skel skel-avatar"></div>
+<div class="skel skel-text"></div>
+<div class="skel skel-card"></div>
+
+<i class="spin"></i>
+<div class="spin-block"><i class="spin spin-lg"></i></div>
+
+<div class="empty">
+  <p class="empty-title">No projects</p>
+  <p class="muted">Create one to get started.</p>
+  <div class="empty-actions"><button class="btn btn-primary">New</button></div>
+</div>
+```
+
+---
+
+## Menu
+
+**Required:** `.menu` wrapping a focusable trigger (`<button class="btn">`) and `.menu-panel`. Items are `.menu-item` (use links or buttons). Optional `.menu-r`, `.menu-sep`, `.menu-danger`.
+
+Opens while the button or a menu item has focus (`:focus-within`). Click elsewhere (blur) closes it — no JS. Do **not** use `<details>` for this: the `open` attribute cannot be cleared with CSS, so the panel would stay up after blur.
+
+```html
+<div class="menu">
+  <button type="button" class="btn" aria-haspopup="menu">Actions</button>
+  <div class="menu-panel" role="menu">
+    <a class="menu-item" href="#" role="menuitem">Edit</a>
+    <hr class="menu-sep">
+    <button type="button" class="menu-item menu-danger" role="menuitem">Delete</button>
+  </div>
+</div>
+```
+
+JS fallback if you need to force it open: add `.open` on `.menu`.
+
+---
+
+## Drawer & sheet
+
+Same hidden-checkbox pattern as modal. JS alternative: add `.open` on `.drawer` / `.sheet`.
+
+| Class | Where |
+|---|---|
+| `.drawer-toggle` / `.sheet-toggle` | hidden checkbox with `id` |
+| `.drawer` / `.sheet` | sibling overlay root |
+| `.drawer-overlay` / `.sheet-overlay` | `<label for="…">` dismiss layer |
+| `.drawer-panel` / `.sheet-panel` | sliding panel |
+| `.drawer-r` | on `.drawer` to dock right |
+| `.sheet-handle` | grabber bar inside the sheet |
+
+```html
+<label for="d1" class="btn">Open drawer</label>
+<input type="checkbox" id="d1" class="drawer-toggle" hidden>
+<div class="drawer">
+  <label class="drawer-overlay" for="d1"></label>
+  <aside class="drawer-panel">…</aside>
+</div>
+```
+
+---
+
+## Popover
+
+**Required:** `.pop` wrapping a trigger + `.pop-panel`. Opens on `:focus-within` or `.open`. Direction: `.pop-t` `.pop-l` `.pop-r`.
+
+```html
+<div class="pop" tabindex="0">
+  <button class="btn">More</button>
+  <div class="pop-panel">Extra content</div>
+</div>
+```
+
+---
+
+## Breadcrumbs, pager, steps
+
+```html
+<nav class="crumbs">
+  <a href="#">Home</a>
+  <a href="#">Docs</a>
+  <span class="current">Here</span>
+</nav>
+
+<nav class="pager">
+  <a class="disabled">Prev</a>
+  <a class="selected">1</a>
+  <a>2</a>
+  <a>Next</a>
+</nav>
+
+<ol class="steps">
+  <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
+  <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
+  <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
+</ol>
+```
+
+Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user moves.
+
+---
+
+## Sidenav
+
+**Required:** `.sidenav` + `.sidenav-item`. Active: `.selected`.
+
+```html
+<nav class="sidenav">
+  <a class="sidenav-item selected" href="#">Home</a>
+  <a class="sidenav-item" href="#">Docs</a>
+</nav>
+```
+
+---
+
+## Lists & timeline
+
+```html
+<div class="list">
+  <a class="list-item selected" href="#">Inbox <span class="list-meta">12</span></a>
+  <a class="list-item" href="#">Sent</a>
+</div>
+
+<div class="timeline">
+  <div class="tl-item">
+    <i class="tl-dot"></i>
+    <div class="tl-content">Shipped v0.5</div>
+  </div>
+</div>
+```
+
+---
+
+## Stats & definition list
+
+```html
+<div class="stat">
+  <span class="stat-label">Revenue</span>
+  <span class="stat-val">$24k</span>
+  <span class="stat-delta up">+12%</span>
+</div>
+
+<dl class="dl">
+  <dt>Plan</dt><dd>Pro</dd>
+</dl>
+```
+
+---
+
+## Code & prose
+
+```html
+<code class="code">import "mates-css"</code>
+<pre class="code-block">npm install mates-css</pre>
+<article class="prose">…</article>
+<span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span>
+```
+
+Banner: `.banner` (optional `.banner-warn` / `.banner-danger`). Toast stack: `.toasts` (corner `.toasts-tl/tr/bl`) wrapping `.toast` children.
+
+---
+
+## Shell & layout blocks
+
+| Class | Role |
+|---|---|
+| `.shell` | app grid: `.shell-top` + `.shell-side` + `.shell-main` |
+| `.collapsed` | on `.shell` to shrink the side (`--m-side`) |
+| `.sticky-t` / `.sticky-b` | sticky top/bottom |
+| `.split` + `.split-a` / `.split-b` | split panes; width via `--split` |
+| `.board` + `.board-col` + `.board-head` | kanban columns |
+| `.media` + `.media-img` + `.media-body` | media object |
+| `.aspect` + `.aspect-1x1/4x3/16x9` | aspect boxes |
+| `.snap` + `.snap-x/y` + `.snap-item` | scroll-snap carousel |
+
+```html
+<div class="shell">
+  <header class="shell-top">…</header>
+  <aside class="shell-side">…</aside>
+  <main class="shell-main">…</main>
+</div>
+
+<div class="split" style="--split: 35%">
+  <div class="split-a">A</div>
+  <div class="split-b">B</div>
+</div>
 ```
 
 ---
@@ -585,7 +912,14 @@ Directional: `.m-gap-x-*` / `.m-gap-y-*` (same scales)
 
 ### Width / container helpers
 
-`.container` · `.c-1`–`.c-12` (12-col flex widths) · `.divider` · `.center` · `.muted` · `.subtle` · `.overline` · `.mono` · `.hidden`
+`.container` · `.c-1`–`.c-12` · `.divider` · `.center` · `.muted` · `.subtle` · `.overline` · `.mono` · `.hidden`
+
+**Surface:** `.surface` `.elev-1/2/3` `.border` `.radius-sm` `.radius` `.radius-full`  
+**Text:** `.truncate` `.clamp-2/3` `.text-sm/lg` `.fw-500/700` `.tabular`  
+**Position:** `.rel` `.abs` `.fixed` `.inset-0` `.z-10/20/50` `.sticky-t/b`  
+**A11y:** `.sr-only` `.skip-link`  
+**State:** `.is-disabled` `.is-loading` (also `.open` / `.selected` / `.collapsed` / `.active` on components)  
+**Print:** `.print-only` `.no-print`
 
 ### Spacing (margin / padding)
 
@@ -603,9 +937,18 @@ Directional: `.m-gap-x-*` / `.m-gap-y-*` (same scales)
 
 | | |
 |---|---|
-| Raw | 37.9kb |
-| Minified | 32.4kb |
-| **Min + gzip** | **7.4kb** |
+| Raw | 61.6kb |
+| Minified | 50.3kb |
+| **Min + gzip** | **10.8kb** |
+
+## Source
+
+Edit files in `src/`. Entry is `src/index.css`. Do not hand-edit `dist/`.
+
+```sh
+npm run build   # dist/mates.css + dist/mates.min.css
+npm run watch
+```
 
 ## Demo
 

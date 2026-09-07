@@ -1,0 +1,101 @@
+/* buttons — <button> is styled by default; .btn applies the same to links/spans */
+button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45em;
+  padding: .5em 1.15em;
+  border: 1px solid transparent;
+  border-radius: var(--m-r-sm);
+  font-family: var(--m-font-head);
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  line-height: 1.5;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  background: var(--m-surface);
+  color: var(--m-fg);
+  transition: background var(--m-dur), color var(--m-dur), border-color var(--m-dur);
+}
+button:hover, .btn:hover { background: var(--m-border); text-decoration: none; }
+button:active, .btn:active { background: var(--m-border-2); }
+button:disabled, .btn:disabled, .btn[disabled] { opacity: .5; cursor: not-allowed; pointer-events: none; }
+
+.btn-primary { background: var(--m-primary); color: var(--m-on-primary); }
+button.btn-primary:hover, .btn.btn-primary:hover { background: var(--m-primary-h); }
+button.btn-primary:active, .btn.btn-primary:active { background: var(--m-primary-a); }
+.btn-dark { background: var(--m-fg); color: var(--m-bg); }
+button.btn-dark:hover, .btn.btn-dark:hover { background: var(--m-fg); opacity: .88; }
+button.btn-dark:active, .btn.btn-dark:active { opacity: .75; }
+.btn-light { background: var(--m-bg); color: var(--m-fg); border-color: var(--m-border); }
+button.btn-light:hover, .btn.btn-light:hover { background: var(--m-surface); }
+button.btn-light:active, .btn.btn-light:active { background: var(--m-border); }
+.btn-success { background: var(--m-success); color: var(--m-on-success); }
+button.btn-success:hover, .btn.btn-success:hover { background: var(--m-success); filter: brightness(1.08); }
+button.btn-success:active, .btn.btn-success:active { background: var(--m-success); filter: brightness(.92); }
+.btn-danger { background: var(--m-danger); color: var(--m-on-danger); }
+button.btn-danger:hover, .btn.btn-danger:hover { background: var(--m-danger); filter: brightness(1.08); }
+button.btn-danger:active, .btn.btn-danger:active { background: var(--m-danger); filter: brightness(.92); }
+.btn-warning { background: var(--m-warning); color: var(--m-on-warning); }
+button.btn-warning:hover, .btn.btn-warning:hover { background: var(--m-warning); filter: brightness(1.08); }
+button.btn-warning:active, .btn.btn-warning:active { background: var(--m-warning); filter: brightness(.92); }
+.btn-outline { background: transparent; border-color: var(--m-border-2); color: var(--m-primary); }
+button.btn-outline:hover, .btn.btn-outline:hover { background: var(--m-primary-soft); border-color: var(--m-primary); }
+button.btn-outline:active, .btn.btn-outline:active { background: var(--m-primary); color: var(--m-on-primary); }
+.btn-ghost { background: transparent; color: var(--m-fg-2); }
+button.btn-ghost:hover, .btn.btn-ghost:hover { background: var(--m-surface); color: var(--m-fg); }
+button.btn-ghost:active, .btn.btn-ghost:active { background: var(--m-border); }
+.btn-link { background: transparent; color: var(--m-primary); padding-inline: .2em; }
+button.btn-link:hover, .btn.btn-link:hover { background: transparent; text-decoration: underline; }
+:where(button, .btn).btn-elevated { box-shadow: var(--m-elev); }
+:where(button, .btn).btn-elevated:hover { box-shadow: var(--m-elev); filter: brightness(1.04); }
+:where(button, .btn).btn-elevated:active { box-shadow: var(--m-elev-active); }
+:where(button, .btn).btn-elevated.btn-primary:hover { background: var(--m-primary-h); filter: none; }
+:where(button, .btn).btn-elevated.btn-primary:active { background: var(--m-primary-a); }
+
+.btn-sm { padding: .32em .85em; font-size: .8rem; }
+.btn-lg { padding: .62em 1.4em; font-size: 1rem; }
+.btn-block { display: flex; width: 100%; }
+.btn-group { display: inline-flex; }
+.btn-group button, .btn-group .btn { border-radius: 0; margin-left: -1px; }
+.btn-group button:first-child, .btn-group .btn:first-child { border-radius: var(--m-r-sm) 0 0 var(--m-r-sm); margin-left: 0; }
+.btn-group button:last-child, .btn-group .btn:last-child { border-radius: 0 var(--m-r-sm) var(--m-r-sm) 0; }
+
+.btn-spin::after {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: m-spin .6s linear infinite;
+}
+@keyframes m-spin { to { transform: rotate(360deg); } }
+
+.btn-close {
+  width: 20px;
+  height: 20px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--m-r-full);
+  background: rgb(from currentColor r g b / .18);
+  position: relative;
+}
+.btn-close::before, .btn-close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  height: 2px;
+  background: currentColor;
+  translate: -50% -50%;
+  rotate: 45deg;
+}
+.btn-close::after { rotate: -45deg; }
+.btn-close:hover { background: rgb(from currentColor r g b / .3); }

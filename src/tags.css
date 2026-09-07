@@ -1,0 +1,44 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  padding: .22em .75em;
+  border-radius: var(--m-r-full);
+  font-size: .82rem;
+  font-weight: 600;
+  line-height: 1.6;
+  background: var(--m-surface);
+  color: var(--m-fg-2);
+  border: 1px solid var(--m-border);
+  white-space: nowrap;
+}
+.tag-primary { background: var(--m-primary); border-color: var(--m-primary); color: var(--m-on-primary); }
+.tag-success { background: var(--m-success); border-color: var(--m-success); color: #fff; }
+.tag-warning { background: var(--m-warning); border-color: var(--m-warning); color: #fff; }
+.tag-danger { background: var(--m-danger); border-color: var(--m-danger); color: #fff; }
+.tag-soft { background: var(--m-primary-soft); border-color: transparent; color: var(--m-primary); }
+.tag-soft-success { background: color-mix(in srgb, var(--m-success) 14%, transparent); border-color: transparent; color: var(--m-success); }
+.tag-soft-danger { background: color-mix(in srgb, var(--m-danger) 12%, transparent); border-color: transparent; color: var(--m-danger); }
+.tag-rounded { border-radius: 6px; }
+.tag-x {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  background: rgb(from currentColor r g b / .2);
+  position: relative;
+  cursor: pointer;
+}
+.tag-x::before, .tag-x::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 55%;
+  height: 1.5px;
+  background: currentColor;
+  translate: -50% -50%;
+  rotate: 45deg;
+}
+.tag-x::after { rotate: -45deg; }
+.tag-x:hover { background: rgb(from currentColor r g b / .4); }

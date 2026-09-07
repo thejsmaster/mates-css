@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mates CSS — Demo</title>
-  <link rel="stylesheet" href="mates.css">
+  <link rel="stylesheet" href="dist/mates.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
   <style>
@@ -19,7 +19,7 @@
   </div>
 
   <div class="demo">
-    <p class="overline">v0.4.0 · ~7kb gzipped</p>
+    <p class="overline">v0.5.0 · ~10.8kb gzipped</p>
     <h1 style="margin-top:.2em;">Mates CSS</h1>
     <p class="muted">Compact pure-CSS UI kit. Same design system as the full framework — blue primary, tokens, auto dark mode. No JS required (the theme toggle below is only for previewing).</p>
 
@@ -30,8 +30,10 @@
       <a href="#forms">Forms</a>
       <a href="#charts">Charts</a>
       <a href="#overlays">Overlays</a>
+      <a href="#navplus">Nav</a>
+      <a href="#shell">Shell</a>
       <span class="nav-space"></span>
-      <span class="avatar avatar-sm" data-tip="AV">AV</span>
+      <span class="badge"><span class="avatar avatar-sm">AV</span><i class="badge-dot"></i></span>
     </nav>
 
     <h2 id="buttons">Buttons</h2>
@@ -286,6 +288,226 @@
       <p>Another panel.</p>
     </details>
 
+    <h2>Menu, popover, drawer, sheet</h2>
+    <div class="row-demo">
+      <div class="menu">
+        <button type="button" class="btn" aria-haspopup="menu">Actions</button>
+        <div class="menu-panel" role="menu">
+          <a class="menu-item" href="#overlays" role="menuitem">Edit</a>
+          <a class="menu-item" href="#overlays" role="menuitem">Duplicate</a>
+          <hr class="menu-sep">
+          <button type="button" class="menu-item menu-danger" role="menuitem">Delete</button>
+        </div>
+      </div>
+      <div class="pop" tabindex="0">
+        <button class="btn">Popover</button>
+        <div class="pop-panel"><p class="m-0">Focus this popover. No JS — <span class="mono">:focus-within</span>.</p></div>
+      </div>
+      <label for="d1" class="btn">Open drawer</label>
+      <label for="s1sheet" class="btn">Open sheet</label>
+    </div>
+    <input type="checkbox" id="d1" class="drawer-toggle" hidden>
+    <div class="drawer">
+      <label class="drawer-overlay" for="d1"></label>
+      <aside class="drawer-panel">
+        <p class="card-title">Drawer</p>
+        <p class="muted">Checkbox pattern, same as modal. Add <span class="mono">.drawer-r</span> to dock right.</p>
+        <label for="d1" class="btn btn-sm">Close</label>
+      </aside>
+    </div>
+    <input type="checkbox" id="s1sheet" class="sheet-toggle" hidden>
+    <div class="sheet">
+      <label class="sheet-overlay" for="s1sheet"></label>
+      <div class="sheet-panel">
+        <div class="sheet-handle"></div>
+        <p class="card-title">Bottom sheet</p>
+        <p class="muted">Slide up from the bottom. Toggle <span class="mono">.open</span> from JS if you prefer.</p>
+        <label for="s1sheet" class="btn btn-primary btn-sm">Done</label>
+      </div>
+    </div>
+
+    <h2 id="navplus">Breadcrumbs, pager, steps, segmented</h2>
+    <nav class="crumbs m-b-15">
+      <a href="#">Home</a>
+      <a href="#">Docs</a>
+      <span class="current">Components</span>
+    </nav>
+    <nav class="pager m-b-15">
+      <a class="disabled">Prev</a>
+      <a>1</a>
+      <a class="selected">2</a>
+      <a>3</a>
+      <a>Next</a>
+    </nav>
+    <ol class="steps">
+      <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
+      <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
+      <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
+    </ol>
+    <div class="seg m-t-10">
+      <label class="seg-item"><input type="radio" name="seg" checked> Day</label>
+      <label class="seg-item"><input type="radio" name="seg"> Week</label>
+      <label class="seg-item"><input type="radio" name="seg"> Month</label>
+    </div>
+
+    <h2>Feedback extras</h2>
+    <div class="banner m-b-15">Scheduled maintenance tonight <span class="tag tag-soft">banner</span></div>
+    <div class="m-grid m-grid-cols-3 m-gap">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Skeleton</p>
+          <div class="m-flex m-i-center m-gap-sm m-b-10">
+            <div class="skel skel-avatar"></div>
+            <div class="m-flex-1">
+              <div class="skel skel-text m-b-5"></div>
+              <div class="skel skel-text" style="width:60%"></div>
+            </div>
+          </div>
+          <div class="skel skel-card"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Empty + spinner</p>
+          <div class="empty p-10">
+            <p class="empty-title">No projects</p>
+            <p class="muted m-0">Create one to get started.</p>
+            <div class="empty-actions"><button class="btn btn-primary btn-sm">New</button></div>
+          </div>
+          <div class="m-flex m-i-center m-gap-sm"><i class="spin"></i><i class="spin spin-lg"></i></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Status + badge</p>
+          <p class="status online m-b-10"><i class="status-dot"></i> Online</p>
+          <p class="status away m-b-10"><i class="status-dot"></i> Away</p>
+          <span class="badge m-r-10"><button class="btn btn-sm">Inbox</button><i class="badge-n" data-n="8"></i></span>
+          <span class="status"><i class="status-dot busy"></i> Busy</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Lists, timeline, stats</h2>
+    <div class="m-grid m-grid-cols-2 m-gap">
+      <div class="list">
+        <a class="list-item selected" href="#navplus">Inbox <span class="list-meta">12</span></a>
+        <a class="list-item" href="#navplus">Sent <span class="list-meta">3</span></a>
+        <a class="list-item disabled" href="#navplus">Archive</a>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><i class="tl-dot"></i><div class="tl-content"><b>Shipped 0.5</b><p class="muted m-0">New overlays and shell.</p></div></div>
+        <div class="tl-item"><i class="tl-dot"></i><div class="tl-content"><b>Charts</b><p class="muted m-0">Bars, donut, spark.</p></div></div>
+      </div>
+    </div>
+    <div class="m-grid m-grid-cols-3 m-gap m-t-15">
+      <div class="stat"><span class="stat-label">Revenue</span><span class="stat-val">$24k</span><span class="stat-delta up">+12%</span></div>
+      <div class="stat"><span class="stat-label">Churn</span><span class="stat-val">2.1%</span><span class="stat-delta down">-0.4%</span></div>
+      <dl class="dl"><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd><dt>Region</dt><dd>eu-west</dd></dl>
+    </div>
+
+    <h2>Form extras</h2>
+    <fieldset class="fieldset">
+      <legend>Profile</legend>
+      <div class="field">
+        <label class="label" for="nm">Name</label>
+        <div class="input-wrap">
+          <span class="input-ico">@</span>
+          <input id="nm" class="input" type="text" placeholder="username">
+        </div>
+        <span class="hint">Shown on your public profile.</span>
+      </div>
+      <div class="search m-b-10">
+        <input type="search" placeholder="Search commands…">
+        <div class="search-panel">
+          <a class="menu-item" href="#forms">Open forms</a>
+          <a class="menu-item" href="#charts">Open charts</a>
+        </div>
+      </div>
+      <div class="row-demo">
+        <label class="chip"><input type="checkbox" checked> Design</label>
+        <label class="chip"><input type="checkbox"> Backend</label>
+        <span class="chip selected">Always on</span>
+        <span class="rate" aria-label="Rating">
+          <input type="radio" name="stars" value="5" aria-label="5">
+          <input type="radio" name="stars" value="4" aria-label="4">
+          <input type="radio" name="stars" value="3" checked aria-label="3">
+          <input type="radio" name="stars" value="2" aria-label="2">
+          <input type="radio" name="stars" value="1" aria-label="1">
+        </span>
+      </div>
+      <label class="drop m-t-10">
+        <input type="file" hidden>
+        <span>Drop files here</span>
+        <span class="hint">or click to browse</span>
+      </label>
+    </fieldset>
+
+    <h2 id="shell">Shell, board, snap, split</h2>
+    <div class="shell m-b-15" style="min-height:14rem;border:1px solid var(--m-border);border-radius:var(--m-r);overflow:hidden">
+      <header class="shell-top p-10"><span class="nav-brand">App shell</span></header>
+      <aside class="shell-side">
+        <nav class="sidenav">
+          <a class="sidenav-item selected" href="#shell">Home</a>
+          <a class="sidenav-item" href="#charts">Charts</a>
+          <a class="sidenav-item disabled" href="#shell">Admin</a>
+        </nav>
+      </aside>
+      <main class="shell-main p-10"><p class="muted m-0">Toggle <span class="mono">.collapsed</span> on <span class="mono">.shell</span> to shrink the side.</p></main>
+    </div>
+    <div class="board m-b-15">
+      <div class="board-col">
+        <div class="board-head">Todo <span class="tag">2</span></div>
+        <div class="card"><div class="card-body p-10"><p class="m-0">Write README</p></div></div>
+        <div class="card"><div class="card-body p-10"><p class="m-0">Ship 0.5</p></div></div>
+      </div>
+      <div class="board-col">
+        <div class="board-head">Doing <span class="tag tag-soft">1</span></div>
+        <div class="card"><div class="card-body p-10"><p class="m-0">Build components</p></div></div>
+      </div>
+      <div class="board-col">
+        <div class="board-head">Done</div>
+        <div class="card"><div class="card-body p-10"><p class="m-0">Charts</p></div></div>
+      </div>
+    </div>
+    <div class="split m-b-15" style="--split:35%;min-height:8rem">
+      <div class="split-a p-10 surface">Pane A · <span class="mono">--split</span></div>
+      <div class="split-b p-10">Pane B</div>
+    </div>
+    <div class="snap snap-x">
+      <div class="snap-item card"><div class="card-body">Snap 1 — scroll sideways</div></div>
+      <div class="snap-item card"><div class="card-body">Snap 2</div></div>
+      <div class="snap-item card"><div class="card-body">Snap 3</div></div>
+    </div>
+    <div class="media m-t-15">
+      <span class="avatar media-img">M</span>
+      <div class="media-body">
+        <p class="card-title m-0">Media object</p>
+        <p class="card-sub">Avatar + body without custom CSS.</p>
+      </div>
+    </div>
+
+    <h2>More charts</h2>
+    <div class="m-grid m-grid-cols-2 m-gap">
+      <div class="card"><div class="card-body">
+        <p class="card-title">Meter + heatmap</p>
+        <div class="meter m-b-10"><i class="s1" style="--sv:45"></i><i class="s2" style="--sv:30"></i><i class="s3" style="--sv:15"></i></div>
+        <div class="heat" style="--cols:7">
+          <i style="--v:10"></i><i style="--v:40"></i><i style="--v:80"></i><i style="--v:20"></i><i style="--v:60"></i><i style="--v:90"></i><i style="--v:30"></i>
+          <i style="--v:50"></i><i style="--v:15"></i><i style="--v:70"></i><i style="--v:35"></i><i style="--v:55"></i><i style="--v:25"></i><i style="--v:85"></i>
+        </div>
+      </div></div>
+      <div class="card"><div class="card-body m-flex m-i-center m-gap">
+        <div class="gauge" style="--v:72;--m-donut-size:8rem"><b>72</b></div>
+        <div class="cmp m-flex-1">
+          <div class="cmp-row" style="--a:62;--b:38"><span>Us</span><i></i><span>Them</span></div>
+          <div class="cmp-row" style="--a:45;--b:55"><span>Q1</span><i></i><span>Q2</span></div>
+        </div>
+      </div></div>
+    </div>
+    <p class="m-t-15"><code class="code">import "mates-css"</code> · <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span></p>
+    <pre class="code-block">npm install mates-css</pre>
+
     <h2>Flex &amp; grid</h2>
     <div class="m-grid m-grid-cols-3 m-gap-sm" style="margin-bottom:1rem;">
       <div class="alert" style="margin:0">col</div>
@@ -389,7 +611,7 @@
 
   <footer class="container center" style="padding-block:2rem;">
     <hr>
-    <small>Mates CSS — 37.9kb / 7.4kb gzipped. MIT.</small>
+    <small>Mates CSS — 61.6kb / 10.8kb gzipped. MIT.</small>
   </footer>
 
   <script>
@@ -405,6 +627,12 @@
       r.addEventListener('input', sync);
       sync();
     });
+    const drop = document.querySelector('.drop');
+    if (drop) {
+      drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('active'); });
+      drop.addEventListener('dragleave', () => drop.classList.remove('active'));
+      drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('active'); });
+    }
   </script>
 </body>
 </html>

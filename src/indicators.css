@@ -1,0 +1,60 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 50%;
+  background: var(--m-primary-soft);
+  color: var(--m-primary);
+  font-weight: 700;
+  font-size: .85rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar-sm { width: 2em; height: 2em; font-size: .7rem; }
+.avatar-lg { width: 3.4em; height: 3.4em; font-size: 1.05rem; }
+
+.status { display: inline-flex; align-items: center; gap: .4em; font-size: .85rem; color: var(--m-fg-2); }
+.status-dot {
+  width: .55em;
+  height: .55em;
+  border-radius: 50%;
+  background: var(--m-fg-3);
+  flex-shrink: 0;
+}
+.status-dot.online, .status.online .status-dot { background: var(--m-success); }
+.status-dot.away, .status.away .status-dot { background: var(--m-warning); }
+.status-dot.busy, .status.busy .status-dot { background: var(--m-danger); }
+.status-dot.offline, .status.offline .status-dot { background: var(--m-fg-3); }
+
+.badge { position: relative; display: inline-flex; }
+.badge-dot, .badge-n {
+  position: absolute;
+  top: 0;
+  right: 0;
+  translate: 40% -40%;
+  z-index: 1;
+}
+.badge-dot {
+  width: .55em;
+  height: .55em;
+  background: var(--m-danger);
+  border: 2px solid var(--m-bg);
+  border-radius: 50%;
+}
+.badge-n {
+  min-width: 1.15em;
+  height: 1.15em;
+  padding: 0 .3em;
+  background: var(--m-danger);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  border-radius: var(--m-r-full);
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--m-bg);
+  line-height: 1;
+}
+.badge-n::after { content: attr(data-n); }

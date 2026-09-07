@@ -1,0 +1,21 @@
+.card {
+  background: var(--m-bg);
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r);
+  box-shadow: var(--m-shadow);
+  overflow: hidden;
+}
+.card-body { padding: 1rem 1.25rem; }
+.card-title { font-size: 1.08rem; margin: 0 0 .2em; }
+.card-sub { font-size: .85rem; color: var(--m-fg-3); margin: 0; }
+.card-bar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .8rem 1.25rem;
+  border-top: 1px solid var(--m-border);
+  background: var(--m-surface);
+}
+.card-img { width: 100%; display: block; }
+.card-hover { transition: box-shadow var(--m-dur); }
+.card-hover:hover { box-shadow: 0 2px 4px rgba(16,24,40,.08), 0 10px 24px rgba(16,24,40,.12); }

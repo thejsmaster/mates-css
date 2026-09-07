@@ -1,0 +1,21 @@
+details.acc {
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r-sm);
+  background: var(--m-bg);
+  padding: .7em 1em;
+  margin: .5em 0;
+}
+details.acc summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+details.acc summary::-webkit-details-marker { display: none; }
+details.acc summary::after {
+  content: "";
+  width: .55em;
+  height: .55em;
+  border: 2px solid var(--m-fg-3);
+  border-top: 0;
+  border-left: 0;
+  rotate: 45deg;
+  transition: rotate var(--m-dur);
+}
+details.acc[open] summary::after { rotate: 225deg; }
+details.acc[open] summary { margin-bottom: .4em; }

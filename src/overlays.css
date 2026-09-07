@@ -1,0 +1,194 @@
+.tooltip { position: relative; }
+.tooltip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 2px;
+  padding: .3em .7em;
+  border-radius: var(--m-r-sm);
+  background: var(--m-fg);
+  color: var(--m-bg);
+  font-size: .72rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--m-dur), translate var(--m-dur);
+  z-index: 50;
+}
+.tooltip:hover::after { opacity: 1; translate: -50% 0; }
+.tooltip-b::after { bottom: auto; top: calc(100% + 6px); translate: -50% -2px; }
+.tooltip-b:hover::after { translate: -50% 0; }
+.tooltip-r::after { bottom: auto; top: 50%; left: calc(100% + 6px); translate: -2px -50%; }
+.tooltip-r:hover::after { translate: 0 -50%; }
+.tooltip-l::after { bottom: auto; top: 50%; right: calc(100% + 6px); left: auto; translate: 2px -50%; }
+.tooltip-l:hover::after { translate: 0 -50%; }
+
+.modal-toggle { display: none; }
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--m-dur), visibility var(--m-dur);
+  z-index: var(--m-z-modal);
+}
+.modal-toggle:checked ~ .modal,
+.modal.open { visibility: visible; opacity: 1; }
+.modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+.modal-box {
+  position: relative;
+  width: min(28rem, 100%);
+  background: var(--m-bg);
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r);
+  box-shadow: var(--m-shadow);
+}
+.modal-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem .5rem; }
+.modal-title { margin: 0; font-size: 1.1rem; }
+.modal-foot { display: flex; justify-content: flex-end; gap: .5rem; padding: .75rem 1.25rem 1.1rem; }
+.modal-box > .modal-body { padding: .25rem 1.25rem; }
+
+.menu { position: relative; display: inline-block; }
+.menu > summary { list-style: none; cursor: pointer; }
+.menu > summary::-webkit-details-marker { display: none; }
+.menu-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 12rem;
+  background: var(--m-bg);
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r-sm);
+  box-shadow: var(--m-shadow);
+  padding: .35rem;
+  z-index: var(--m-z-menu);
+}
+/* Open while the trigger or an item is focused. Panel :hover keeps it
+   painted through mousedown so a click on an item still lands (blur of
+   the button happens before click). Click elsewhere → blur → close. */
+.menu:focus-within > .menu-panel,
+.menu > .menu-panel:hover,
+.menu.open > .menu-panel { display: block; }
+.menu-r > .menu-panel { left: auto; right: 0; }
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  padding: .45em .7em;
+  border-radius: calc(var(--m-r-sm) - 1px);
+  color: var(--m-fg);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+.menu-item:hover { background: var(--m-surface); text-decoration: none; }
+.menu-item.selected { background: var(--m-primary-soft); color: var(--m-primary); }
+.menu-danger { color: var(--m-danger); }
+.menu-sep { border: 0; border-top: 1px solid var(--m-border); margin: .3rem .35rem; }
+
+.drawer-toggle { display: none; }
+.drawer {
+  position: fixed;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  z-index: var(--m-z-drawer);
+  transition: opacity var(--m-dur), visibility var(--m-dur);
+}
+.drawer-toggle:checked ~ .drawer,
+.drawer.open { visibility: visible; opacity: 1; }
+.drawer-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.drawer-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(var(--m-drawer-w), 100%);
+  background: var(--m-bg);
+  border-right: 1px solid var(--m-border);
+  box-shadow: var(--m-shadow);
+  translate: -100% 0;
+  transition: translate var(--m-dur);
+  overflow: auto;
+  padding: 1rem;
+}
+.drawer-toggle:checked ~ .drawer .drawer-panel,
+.drawer.open .drawer-panel { translate: 0; }
+.drawer.drawer-r .drawer-panel,
+.drawer-r > .drawer-panel {
+  left: auto;
+  right: 0;
+  border-right: 0;
+  border-left: 1px solid var(--m-border);
+  translate: 100% 0;
+}
+.drawer-toggle:checked ~ .drawer.drawer-r .drawer-panel,
+.drawer.drawer-r.open .drawer-panel { translate: 0; }
+
+.sheet-toggle { display: none; }
+.sheet {
+  position: fixed;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  z-index: var(--m-z-drawer);
+  transition: opacity var(--m-dur), visibility var(--m-dur);
+}
+.sheet-toggle:checked ~ .sheet,
+.sheet.open { visibility: visible; opacity: 1; }
+.sheet-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.sheet-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: var(--m-sheet-h);
+  background: var(--m-bg);
+  border-radius: var(--m-r) var(--m-r) 0 0;
+  box-shadow: var(--m-shadow);
+  translate: 0 100%;
+  transition: translate var(--m-dur);
+  overflow: auto;
+  padding: 0 1.15rem 1.15rem;
+}
+.sheet-toggle:checked ~ .sheet .sheet-panel,
+.sheet.open .sheet-panel { translate: 0; }
+.sheet-handle {
+  width: 2.5rem;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--m-border-2);
+  margin: .65rem auto .85rem;
+}
+
+.pop { position: relative; display: inline-block; }
+.pop-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 0;
+  min-width: 12rem;
+  padding: .75rem 1rem;
+  background: var(--m-bg);
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r-sm);
+  box-shadow: var(--m-shadow);
+  z-index: var(--m-z-menu);
+}
+.pop:focus-within > .pop-panel,
+.pop.open > .pop-panel { display: block; }
+.pop-t > .pop-panel { top: auto; bottom: calc(100% + 6px); }
+.pop-l > .pop-panel { left: auto; right: calc(100% + 6px); top: 50%; translate: 0 -50%; }
+.pop-r > .pop-panel { left: calc(100% + 6px); top: 50%; translate: 0 -50%; }

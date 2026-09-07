@@ -1,17 +1,17 @@
 # Mates CSS
 
-A compact pure-CSS UI kit — **61.6kb raw (10.8kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
+A compact pure-CSS UI kit — **64.1kb raw (11.1kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
 
-Styled via **native tags** when possible, and **classes** when you need variants or non-semantic elements. Dark and light modes included. Tables, layouts, overlays, and charts are CSS-only. Your app only adds or removes classes, attributes, or `--v` style props when state changes.
+Styled via **native tags** when possible (`button`, `label`, `input`, `table`…). **Classes** are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`). Overlay open state is the `.open` class — your app toggles it.
 
-Sources live in `src/`. `npm run build` bundles them into `dist/mates.min.css`. `import "mates-css"` resolves to that single minified file.
+Sources live in `src/`. `npm run build` bundles them into `mates.min.css` at the repo root. `import "mates-css"` resolves to that single minified file.
 
 ## Use it
 
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/dist/mates.min.css">
+<link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/mates.min.css">
 ```
 
 ### npm
@@ -25,10 +25,10 @@ import "mates-css";
 ```
 
 ```html
-<link rel="stylesheet" href="node_modules/mates-css/dist/mates.min.css">
+<link rel="stylesheet" href="node_modules/mates-css/mates.min.css">
 ```
 
-Unminified bundle: `mates-css/css` or `dist/mates.css`. Copy that file if you don't want a bundler.
+Unminified bundle: `mates-css/css` or `mates.css`. Copy that file if you don't want a bundler.
 
 ## Dark mode
 
@@ -38,10 +38,20 @@ Automatic via `prefers-color-scheme`. Force it per page:
 <html data-theme="dark">
 ```
 
-Toggle at runtime (optional — the only JS you'd ever need):
+Toggle at runtime:
 
 ```js
 document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+## Open states
+
+Menus, popovers, modals, drawers, sheets, and search panels stay closed until you add **`.open`** on the root. Nothing auto-opens on focus or via a hidden checkbox — toggle the class from your click, focus, or framework handler.
+
+```js
+el.classList.add('open');
+el.classList.remove('open');
+el.classList.toggle('open');
 ```
 
 ## Tokens
@@ -61,35 +71,37 @@ Everything is a `--m-*` CSS variable. Override on `:root` to rebrand:
 
 Semantic on-colors (`--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-on-danger`) flip per theme so fills stay readable.
 
+Stacking, low to high: `--m-z-sticky` (20) → `--m-z-menu` (40, also popover and search) → `--m-z-drawer` (90, also sheet) → `--m-z-modal` (100) → `--m-z-toast` (110) → `--m-z-tooltip` (120) → `--m-z-skip` (200).
+
 ## Component index
 
 | Component | How you get it |
 |---|---|
-| [Buttons](#buttons) | bare `<button>` or `.btn` |
+| [Buttons](#buttons) | bare `<button>` (`.btn` on links) |
 | [Tags](#tags) | `.tag` |
-| [Forms](#forms) | bare inputs / `.input`, `.check`, `.switch`, `.fgroup` |
+| [Forms](#forms) | bare `<label>` / inputs / `.switch` / `.fgroup` |
 | [Form extras](#form-extras) | `.field`, `.input-wrap`, `.chip`, `.rate`, `.seg`, `.drop`, `.search` |
 | [Cards](#cards) | `.card` + parts |
-| [Tables](#tables) | `.table` (+ `.table-wrap`, `.sticky`) |
+| [Tables](#tables) | bare `<table>` (+ `.table-wrap`, `.sticky`) |
 | [Tabs](#tabs) | `.tabs` + `.tab` |
 | [Alerts & toasts](#alerts--toasts) | `.alert` / `.toast` / `.toasts` / `.banner` |
 | [Skeleton, spinner, empty](#skeleton-spinner-empty) | `.skel` / `.spin` / `.empty` |
 | [Tooltips](#tooltips) | `.tooltip` + `data-tip` |
-| [Modal](#modal) | checkbox + `.modal*` or `.open` |
-| [Menu](#menu) | `.menu` + `:focus-within` (closes on blur) |
-| [Drawer & sheet](#drawer--sheet) | checkbox + `.drawer*` / `.sheet*` |
-| [Popover](#popover) | `.pop` + `:focus-within` or `.open` |
-| [Accordion](#accordion) | `details.acc` |
+| [Modal](#modal) | `.modal` + `.open` |
+| [Menu](#menu) | `.menu` + `.open` |
+| [Drawer & sheet](#drawer--sheet) | `.drawer` / `.sheet` + `.open` |
+| [Popover](#popover) | `.pop` + `.open` |
+| [Accordion](#accordion) | bare `<details>` |
 | [Nav](#nav) | `.nav` |
 | [Breadcrumbs, pager, steps](#breadcrumbs-pager-steps) | `.crumbs` / `.pager` / `.steps` |
 | [Sidenav](#sidenav) | `.sidenav` |
 | [Avatar, status, badge](#avatar) | `.avatar` / `.status` / `.badge` |
-| [Progress](#progress) | `progress.progress` |
+| [Progress](#progress) | bare `<progress>` |
 | [Lists & timeline](#lists--timeline) | `.list` / `.timeline` |
-| [Stats & definition list](#stats--definition-list) | `.stat` / `.dl` |
-| [Code & prose](#code--prose) | `.code` / `.code-block` / `.prose` |
+| [Stats & definition list](#stats--definition-list) | `.stat` / bare `<dl>` |
+| [Code & prose](#code--prose) | bare `<code>` / `<pre>` / `.prose` |
 | [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark`, `.meter`, `.heat`, `.gauge` |
-| [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.board`, `.split`, `.media`, `.snap`, `.aspect` |
+| [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.board`, `.split`, `.media`, `.aspect` |
 | [Layout utilities](#layout-flex--grid) | `.m-flex`, `.m-grid`, `.m-row`, … |
 
 ---
@@ -98,19 +110,22 @@ Semantic on-colors (`--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-o
 
 These tags are styled with **no class**:
 
-- `<button>`
+- `<button>`, `<input type="submit|button|reset">`
+- `<label>` (field captions; checkbox/radio wraps stay inline)
 - `<input>`, `<select>`, `<textarea>`
-- checkboxes and radios
+- `<table>`, `<fieldset>`, `<legend>`, `<details>`, `<progress>`
+- `<code>`, `<pre>`, `<dl>`
 - headings, links, `hr`, `blockquote`, `kbd`, `mark`, lists
 
 ```html
 <button>Default</button>
 <button class="btn-primary">Primary variant</button>
+<label for="email">Email</label>
 <input type="text" placeholder="…">
 <input type="checkbox"> Remember me
 ```
 
-Use `.btn` / `.input` / `.check` when you need the same look on a non-native element (e.g. `<a class="btn">`).
+Use `.btn` / `.input` / `.check` / `.label` / `.table` / `.acc` / `.progress` when you need the same look on a non-native element (e.g. `<a class="btn">`).
 
 ---
 
@@ -122,10 +137,10 @@ Use `.btn` / `.input` / `.check` when you need the same look on a non-native ele
 
 | Class | Role |
 |---|---|
-| `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` | fills |
-| `.btn-outline` `.btn-ghost` `.btn-link` | quiet styles |
+| `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` | solid fills |
+| `.btn-outline` `.btn-soft` `.btn-ghost` `.btn-link` | quiet styles |
 | `.btn-sm` `.btn-lg` `.btn-block` | size / full width |
-| `.btn-elevated` | resting shadow that shrinks on press |
+| `.btn-elevated` | faint rest shadow (not a 3D bevel) |
 | `.btn-spin` | loading spinner (`::after`) |
 | `.btn-close` | icon-only close control |
 | `.btn-group` | **on the parent** wrapping sibling buttons |
@@ -133,11 +148,12 @@ Use `.btn` / `.input` / `.check` when you need the same look on a non-native ele
 ```html
 <button>Default</button>
 <button class="btn-primary">Primary</button>
+<button class="btn-soft">Soft</button>
 <a class="btn btn-outline" href="#">Link as button</a>
 
-<button class="btn btn-sm btn-spin">Loading</button>
-<button class="btn btn-elevated btn-primary">Elevated</button>
-<button class="btn btn-close" aria-label="Close"></button>
+<button class="btn-sm btn-spin">Loading</button>
+<button class="btn-elevated btn-primary">Elevated</button>
+<button class="btn-close" aria-label="Close"></button>
 
 <div class="btn-group">
   <button class="btn-primary">Left</button>
@@ -169,10 +185,7 @@ Use `.btn` / `.input` / `.check` when you need the same look on a non-native ele
 
 ### Labels & hints
 
-| Class | Where |
-|---|---|
-| `.label` | on `<label>` (or any label text) |
-| `.hint` | sibling under the field |
+Bare `<label>` is the field caption. Use `.label` on a `<span>` if you need the same look without a `<label>`. `.hint` is the sibling under the field.
 
 ### Text fields
 
@@ -188,12 +201,12 @@ Bare `<input>`, `<select>`, `<textarea>` are styled. Use `.input` to apply the s
 Inputs default to `width: var(--m-input-w)` (`100%`). Override globally (`:root { --m-input-w: 24rem }`) or per field (`style="--m-input-w: 10rem"`).
 
 ```html
-<label class="label" for="email">Email</label>
+<label for="email">Email</label>
 <input id="email" type="email" placeholder="you@example.com">
 <span class="hint">We'll never share it.</span>
 
 <div class="m-error">
-  <label class="label" for="user">Username</label>
+  <label for="user">Username</label>
   <input id="user" type="text">
   <span class="hint">Only letters and numbers.</span>
 </div>
@@ -224,18 +237,18 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 
 ```html
 <input type="range" min="0" max="100" value="50"
-  oninput="this.style.setProperty('--v', this.value)">
+ oninput="this.style.setProperty('--v', this.value)">
 ```
 
 ### Form group (prefix / suffix)
 
-**Required:** `.fgroup` on the flex row. Put `.fgroup-label` on the prefix/suffix span; nest `.input` and `.btn` as siblings.
+**Required:** `.fgroup` on the flex row. Put `.fgroup-label` on the prefix/suffix span; nest the input and button as siblings.
 
 ```html
 <div class="fgroup">
   <span class="fgroup-label">https://</span>
-  <input class="input" type="text" value="example.com">
-  <button class="btn btn-primary">Go</button>
+  <input type="text" value="example.com">
+  <button class="btn-primary">Go</button>
 </div>
 ```
 
@@ -259,8 +272,8 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
     <p class="card-sub">With subtitle</p>
   </div>
   <div class="card-bar">
-    <button class="btn btn-primary btn-sm">Action</button>
-    <button class="btn btn-sm">Cancel</button>
+    <button class="btn-primary btn-sm">Action</button>
+    <button class="btn-sm">Cancel</button>
   </div>
 </div>
 ```
@@ -272,13 +285,14 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 | Class | Where |
 |---|---|
 | `.table-wrap` | optional outer wrapper (horizontal scroll) |
-| `.table` | on `<table>` |
-| `.striped` / `.bordered` / `.sticky` | on the same `<table>` |
+| *(none)* | bare `<table>` is styled |
+| `.table` | same look on a non-table wrapper |
+| `.striped` / `.bordered` / `.sticky` | on the `<table>` |
 | `.selected` | on a `<tr>` |
 
 ```html
 <div class="table-wrap">
-  <table class="table striped">
+  <table class="striped">
     <thead>
       <tr><th>Plan</th><th>Price</th><th>Status</th></tr>
     </thead>
@@ -352,44 +366,39 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 **Direction** (optional, on the same element): `.tooltip-b` (bottom), `.tooltip-r` (right), `.tooltip-l` (left). Default is top.
 
 ```html
-<button class="btn tooltip" data-tip="Top tooltip">Top</button>
-<button class="btn tooltip tooltip-b" data-tip="Bottom">Bottom</button>
-<button class="btn tooltip tooltip-r" data-tip="Right">Right</button>
+<button class="tooltip" data-tip="Top tooltip">Top</button>
+<button class="tooltip tooltip-b" data-tip="Bottom">Bottom</button>
+<button class="tooltip tooltip-r" data-tip="Right">Right</button>
 ```
 
 ---
 
 ## Modal
 
-Pure CSS via a hidden checkbox. Classes and wiring:
+Add `.open` on `.modal` to show it. Remove `.open` to hide.
 
 | Class | Where |
 |---|---|
-| `.modal-toggle` | on the hidden `<input type="checkbox">` (needs an `id`) |
-| `.modal` | overlay root (must be a **sibling after** the checkbox) |
-| `.modal-overlay` | full-screen dismiss layer — use `<label for="…">` |
+| `.modal` | overlay root |
+| `.modal-overlay` | full-screen dismiss layer |
 | `.modal-box` | dialog panel |
 | `.modal-head` / `.modal-title` / `.modal-body` / `.modal-foot` | structure inside the box |
 
-Open/close with `<label for="same-id">`, or add `.open` on `.modal` from JS.
-
 ```html
-<label for="m1" class="btn btn-primary">Open modal</label>
+<button type="button" class="btn-primary" onclick="document.getElementById('m1').classList.add('open')">Open modal</button>
 
-<input type="checkbox" id="m1" class="modal-toggle" hidden>
-<div class="modal">
-  <label class="modal-overlay" for="m1"></label>
+<div id="m1" class="modal">
+  <div class="modal-overlay" onclick="this.parentElement.classList.remove('open')"></div>
   <div class="modal-box">
     <div class="modal-head">
       <p class="modal-title">Modal title</p>
-      <label class="btn btn-close" for="m1" aria-label="Close"></label>
+      <button type="button" class="btn-close" aria-label="Close" onclick="this.closest('.modal').classList.remove('open')"></button>
     </div>
     <div class="modal-body">
-      <p>Pure CSS modal — click overlay to close.</p>
+      <p>Add <code>.open</code> on <code>.modal</code> from your handler.</p>
     </div>
     <div class="modal-foot">
-      <label class="btn" for="m1">Close</label>
-      <label class="btn btn-primary" for="m1">Got it</label>
+      <button type="button" onclick="this.closest('.modal').classList.remove('open')">Close</button>
     </div>
   </div>
 </div>
@@ -399,10 +408,10 @@ Open/close with `<label for="same-id">`, or add `.open` on `.modal` from JS.
 
 ## Accordion
 
-**Required:** `details` + class `.acc`. Use native `<summary>` for the header.
+Bare `<details>` + `<summary>`. Use `.acc` only on a non-`details` host.
 
 ```html
-<details class="acc">
+<details>
   <summary>Accordion item one</summary>
   <p>Expand/collapse with native details — no JS.</p>
 </details>
@@ -443,7 +452,7 @@ Open/close with `<label for="same-id">`, or add `.open` on `.modal` from JS.
 <span class="avatar">AL</span>
 <span class="status online"><i class="status-dot"></i> Online</span>
 <span class="badge">
-  <button class="btn btn-sm">Inbox</button>
+  <button class="btn-sm">Inbox</button>
   <i class="badge-n" data-n="8"></i>
 </span>
 ```
@@ -452,10 +461,10 @@ Open/close with `<label for="same-id">`, or add `.open` on `.modal` from JS.
 
 ## Progress
 
-**Required:** class `.progress` on a native `<progress>`.
+Bare `<progress>`. Use `.progress` on a non-native host.
 
 ```html
-<progress class="progress" value="65" max="100"></progress>
+<progress value="65" max="100"></progress>
 ```
 
 ---
@@ -582,11 +591,11 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ### Field stack
 
-**Required:** `.field` wrapping `.label` + control + `.hint`.
+**Required:** `.field` wrapping `<label>` + control + `.hint`.
 
 ```html
 <div class="field">
-  <label class="label" for="nm">Name</label>
+  <label for="nm">Name</label>
   <input id="nm" type="text">
   <span class="hint">Public.</span>
 </div>
@@ -594,7 +603,7 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ### Fieldset
 
-**Required:** `<fieldset class="fieldset">` + native `<legend>`.
+**Required:** `<fieldset>` + native `<legend>`.
 
 ### Input with icons
 
@@ -603,17 +612,17 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 ```html
 <div class="input-wrap">
   <span class="input-ico">@</span>
-  <input class="input" type="text">
+  <input type="text">
 </div>
 ```
 
 ### Search results
 
-**Required:** `.search` wrapping the field. `.search-panel` shows on `:focus-within` or `.open`.
+**Required:** `.search` wrapping the field. Add `.open` to show `.search-panel` (on focus, input, or your own trigger).
 
 ```html
-<div class="search">
-  <input type="search" placeholder="Search…">
+<div class="search" id="search">
+  <input type="search" placeholder="Search…" onfocus="this.parentElement.classList.add('open')">
   <div class="search-panel">
     <a class="menu-item" href="#">Result</a>
   </div>
@@ -681,7 +690,7 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 <div class="empty">
   <p class="empty-title">No projects</p>
   <p class="muted">Create one to get started.</p>
-  <div class="empty-actions"><button class="btn btn-primary">New</button></div>
+  <div class="empty-actions"><button class="btn-primary">New</button></div>
 </div>
 ```
 
@@ -689,13 +698,13 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ## Menu
 
-**Required:** `.menu` wrapping a focusable trigger (`<button class="btn">`) and `.menu-panel`. Items are `.menu-item` (use links or buttons). Optional `.menu-r`, `.menu-sep`, `.menu-danger`.
+**Required:** `.menu` wrapping a trigger (`<button>`) and `.menu-panel`. Items are `.menu-item` (use links or buttons). Optional `.menu-r`, `.menu-sep`, `.menu-danger`.
 
-Opens while the button or a menu item has focus (`:focus-within`). Click elsewhere (blur) closes it — no JS. Do **not** use `<details>` for this: the `open` attribute cannot be cleared with CSS, so the panel would stay up after blur.
+Add `.open` on `.menu` to show the panel. Toggle it from a click handler; close it on outside click if you want that.
 
 ```html
-<div class="menu">
-  <button type="button" class="btn" aria-haspopup="menu">Actions</button>
+<div class="menu" id="actions">
+  <button type="button" aria-haspopup="menu" onclick="this.parentElement.classList.toggle('open')">Actions</button>
   <div class="menu-panel" role="menu">
     <a class="menu-item" href="#" role="menuitem">Edit</a>
     <hr class="menu-sep">
@@ -704,28 +713,25 @@ Opens while the button or a menu item has focus (`:focus-within`). Click elsewhe
 </div>
 ```
 
-JS fallback if you need to force it open: add `.open` on `.menu`.
-
 ---
 
 ## Drawer & sheet
 
-Same hidden-checkbox pattern as modal. JS alternative: add `.open` on `.drawer` / `.sheet`.
+Add `.open` on `.drawer` or `.sheet`. Optional `.drawer-r` docks the drawer to the right.
 
 | Class | Where |
 |---|---|
-| `.drawer-toggle` / `.sheet-toggle` | hidden checkbox with `id` |
-| `.drawer` / `.sheet` | sibling overlay root |
-| `.drawer-overlay` / `.sheet-overlay` | `<label for="…">` dismiss layer |
+| `.drawer` / `.sheet` | overlay root |
+| `.drawer-overlay` / `.sheet-overlay` | dismiss layer |
 | `.drawer-panel` / `.sheet-panel` | sliding panel |
 | `.drawer-r` | on `.drawer` to dock right |
 | `.sheet-handle` | grabber bar inside the sheet |
 
 ```html
-<label for="d1" class="btn">Open drawer</label>
-<input type="checkbox" id="d1" class="drawer-toggle" hidden>
-<div class="drawer">
-  <label class="drawer-overlay" for="d1"></label>
+<button type="button" onclick="document.getElementById('d1').classList.add('open')">Open drawer</button>
+
+<div id="d1" class="drawer">
+  <div class="drawer-overlay" onclick="this.parentElement.classList.remove('open')"></div>
   <aside class="drawer-panel">…</aside>
 </div>
 ```
@@ -734,11 +740,11 @@ Same hidden-checkbox pattern as modal. JS alternative: add `.open` on `.drawer` 
 
 ## Popover
 
-**Required:** `.pop` wrapping a trigger + `.pop-panel`. Opens on `:focus-within` or `.open`. Direction: `.pop-t` `.pop-l` `.pop-r`.
+**Required:** `.pop` wrapping a trigger + `.pop-panel`. Add `.open` to show the panel. Direction: `.pop-t` `.pop-l` `.pop-r`.
 
 ```html
-<div class="pop" tabindex="0">
-  <button class="btn">More</button>
+<div class="pop" id="more">
+  <button type="button" onclick="this.parentElement.classList.toggle('open')">More</button>
   <div class="pop-panel">Extra content</div>
 </div>
 ```
@@ -812,7 +818,7 @@ Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user move
   <span class="stat-delta up">+12%</span>
 </div>
 
-<dl class="dl">
+<dl>
   <dt>Plan</dt><dd>Pro</dd>
 </dl>
 ```
@@ -821,9 +827,11 @@ Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user move
 
 ## Code & prose
 
+Bare `<code>` and `<pre>`. Use `.code` / `.code-block` on a non-native host. `.prose` is an optional reading-width wrapper.
+
 ```html
-<code class="code">import "mates-css"</code>
-<pre class="code-block">npm install mates-css</pre>
+<code>import "mates-css"</code>
+<pre>npm install mates-css</pre>
 <article class="prose">…</article>
 <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span>
 ```
@@ -843,7 +851,6 @@ Banner: `.banner` (optional `.banner-warn` / `.banner-danger`). Toast stack: `.t
 | `.board` + `.board-col` + `.board-head` | kanban columns |
 | `.media` + `.media-img` + `.media-body` | media object |
 | `.aspect` + `.aspect-1x1/4x3/16x9` | aspect boxes |
-| `.snap` + `.snap-x/y` + `.snap-item` | scroll-snap carousel |
 
 ```html
 <div class="shell">
@@ -937,16 +944,16 @@ Directional: `.m-gap-x-*` / `.m-gap-y-*` (same scales)
 
 | | |
 |---|---|
-| Raw | 61.6kb |
-| Minified | 50.3kb |
-| **Min + gzip** | **10.8kb** |
+| Raw | 64.1kb |
+| Minified | 52.5kb |
+| **Min + gzip** | **11.1kb** |
 
 ## Source
 
-Edit files in `src/`. Entry is `src/index.css`. Do not hand-edit `dist/`.
+Edit files in `src/`. Entry is `src/index.css`. Do not hand-edit `mates.css` or `mates.min.css`.
 
 ```sh
-npm run build   # dist/mates.css + dist/mates.min.css
+npm run build   # mates.css + mates.min.css
 npm run watch
 ```
 

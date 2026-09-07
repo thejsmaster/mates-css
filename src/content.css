@@ -64,10 +64,12 @@
 .stat-delta.up { color: var(--m-success); }
 .stat-delta.down { color: var(--m-danger); }
 
+dl,
 .dl { display: grid; grid-template-columns: max-content 1fr; gap: .35rem 1.25rem; }
-.dl dt { color: var(--m-fg-3); font-size: .84rem; }
-.dl dd { margin: 0; font-weight: 600; }
+dl dt, .dl dt { color: var(--m-fg-3); font-size: .84rem; }
+dl dd, .dl dd { margin: 0; font-weight: 600; }
 
+code,
 .code {
   font-family: var(--m-mono);
   font-size: .86em;
@@ -76,6 +78,7 @@
   border: 1px solid var(--m-border);
   border-radius: 4px;
 }
+pre,
 .code-block {
   font-family: var(--m-mono);
   font-size: .82rem;
@@ -86,6 +89,7 @@
   overflow: auto;
   line-height: 1.55;
 }
+pre code, .code-block code { padding: 0; background: none; border: 0; }
 
 .prose { max-width: 42rem; }
 .prose :where(p) { margin: .8em 0; }

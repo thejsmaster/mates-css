@@ -12,8 +12,8 @@
   .shell-side { border-right: 0; border-bottom: 1px solid var(--m-border); }
 }
 
-.sticky-t { position: sticky; top: 0; z-index: 20; }
-.sticky-b { position: sticky; bottom: 0; z-index: 20; }
+.sticky-t { position: sticky; top: 0; z-index: var(--m-z-sticky); }
+.sticky-b { position: sticky; bottom: 0; z-index: var(--m-z-sticky); }
 
 .split { display: flex; min-height: 12rem; border: 1px solid var(--m-border); border-radius: var(--m-r); overflow: hidden; }
 .split-a { flex: 0 0 var(--split, 40%); min-width: 0; border-right: 1px solid var(--m-border); overflow: auto; }
@@ -48,13 +48,3 @@
 .aspect-1x1 { aspect-ratio: 1; }
 .aspect-4x3 { aspect-ratio: 4 / 3; }
 .aspect-16x9 { aspect-ratio: 16 / 9; }
-
-.snap {
-  display: flex;
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-  gap: 1rem;
-}
-.snap-x { flex-direction: row; }
-.snap-y { flex-direction: column; scroll-snap-type: y mandatory; max-height: 16rem; }
-.snap-item { scroll-snap-align: start; flex: 0 0 80%; min-width: 0; }

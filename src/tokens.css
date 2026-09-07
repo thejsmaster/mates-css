@@ -39,10 +39,13 @@
   --m-drawer-w: 18rem;
   --m-side: 14rem;
   --m-sheet-h: 70vh;
+  --m-z-sticky: 20;
   --m-z-menu: 40;
   --m-z-drawer: 90;
   --m-z-modal: 100;
   --m-z-toast: 110;
+  --m-z-tooltip: 120;
+  --m-z-skip: 200;
 }
 
 @media (prefers-color-scheme: dark) {

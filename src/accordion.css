@@ -1,13 +1,17 @@
-details.acc {
+details,
+.acc {
   border: 1px solid var(--m-border);
   border-radius: var(--m-r-sm);
   background: var(--m-bg);
   padding: .7em 1em;
   margin: .5em 0;
 }
-details.acc summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; justify-content: space-between; }
-details.acc summary::-webkit-details-marker { display: none; }
-details.acc summary::after {
+details summary,
+.acc summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+details summary::-webkit-details-marker,
+.acc summary::-webkit-details-marker { display: none; }
+details summary::after,
+.acc summary::after {
   content: "";
   width: .55em;
   height: .55em;
@@ -17,5 +21,7 @@ details.acc summary::after {
   rotate: 45deg;
   transition: rotate var(--m-dur);
 }
-details.acc[open] summary::after { rotate: 225deg; }
-details.acc[open] summary { margin-bottom: .4em; }
+details[open] summary::after,
+.acc[open] summary::after { rotate: 225deg; }
+details[open] summary,
+.acc[open] summary { margin-bottom: .4em; }

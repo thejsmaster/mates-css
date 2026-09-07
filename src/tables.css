@@ -1,6 +1,9 @@
 .table-wrap { overflow-x: auto; }
+table,
 .table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+table th, table td,
 .table th, .table td { padding: .55em .8em; text-align: left; border-bottom: 1px solid var(--m-border); }
+table thead th,
 .table thead th {
   font-size: .74rem;
   font-weight: 700;
@@ -9,10 +12,17 @@
   color: var(--m-fg-3);
   background: var(--m-surface);
 }
+table tbody tr,
 .table tbody tr { transition: background var(--m-dur); }
+table tbody tr:hover,
 .table tbody tr:hover { background: var(--m-surface); }
+table tr.selected,
 .table tr.selected { background: var(--m-primary-soft); }
+table.striped tbody tr:nth-child(even),
 .table.striped tbody tr:nth-child(even) { background: color-mix(in srgb, var(--m-surface) 55%, transparent); }
+table.bordered th, table.bordered td,
 .table.bordered th, .table.bordered td { border: 1px solid var(--m-border); }
+table caption,
 .table caption { caption-side: bottom; padding: .5em 0; font-size: .8rem; color: var(--m-fg-3); text-align: left; }
+table.sticky thead th,
 .table.sticky thead th { position: sticky; top: 0; z-index: 1; }

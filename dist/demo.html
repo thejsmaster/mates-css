@@ -15,13 +15,13 @@
 </head>
 <body>
   <div class="theme-toggle">
-    <button class="btn-sm" onclick="cycleTheme()">Theme: light</button>
+    <button class="btn btn-sm" onclick="cycleTheme()">Theme: light</button>
   </div>
 
   <div class="demo">
     <p class="overline">v0.5.0 · ~11kb gzipped</p>
     <h1 style="margin-top:.2em;">Mates CSS</h1>
-    <p class="muted">Compact CSS UI kit — blue primary, tokens, auto dark mode. Overlays open when you add <span class="mono">.open</span> (the demo script below is only a preview).</p>
+    <p class="muted">Compact pure-CSS UI kit. Same design system as the full framework — blue primary, tokens, auto dark mode. No JS required (the theme toggle below is only for previewing).</p>
 
     <!-- nav -->
     <nav class="nav" style="margin: 1.5rem 0;">
@@ -38,37 +38,36 @@
 
     <h2 id="buttons">Buttons</h2>
     <div class="row-demo">
-      <button>Default</button>
-      <button class="btn-primary">Primary</button>
-      <button class="btn-dark">Dark</button>
-      <button class="btn-light">Light</button>
-      <button class="btn-success">Success</button>
-      <button class="btn-warning">Warning</button>
-      <button class="btn-danger">Danger</button>
-      <button class="btn-outline">Outline</button>
-      <button class="btn-soft">Soft</button>
-      <button class="btn-ghost">Ghost</button>
-      <button class="btn-link">Link</button>
-      <button disabled>Disabled</button>
-      <a class="btn" href="#forms">As a link</a>
-      <button class="btn-close" aria-label="Close"></button>
+      <button class="btn">Default</button>
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-dark">Dark</button>
+      <button class="btn btn-light">Light</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-soft">Soft</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-link">Link</button>
+      <button class="btn" disabled>Disabled</button>
+      <button class="btn btn-close" aria-label="Close"></button>
     </div>
     <div class="row-demo">
-      <button class="btn-sm btn-spin">Loading</button>
-      <button class="btn-sm">Small</button>
-      <button>Normal</button>
-      <button class="btn-lg">Large</button>
+      <button class="btn btn-sm btn-spin">Loading</button>
+      <button class="btn btn-sm">Small</button>
+      <button class="btn">Normal</button>
+      <button class="btn btn-lg">Large</button>
       <div class="btn-group">
-        <button class="btn-primary">Left</button>
-        <button class="btn-primary">Middle</button>
-        <button class="btn-primary">Right</button>
+        <button class="btn btn-primary">Left</button>
+        <button class="btn btn-primary">Middle</button>
+        <button class="btn btn-primary">Right</button>
       </div>
     </div>
     <div class="row-demo">
-      <button class="btn-elevated">Elevated</button>
-      <button class="btn-elevated btn-primary">Elevated primary</button>
-      <button class="btn-elevated btn-light">Elevated light</button>
-      <span class="hint" style="margin:0;">Click and release — a CSS ripple from the center (no JS).</span>
+      <button class="btn btn-elevated">Elevated</button>
+      <button class="btn btn-elevated btn-primary">Elevated primary</button>
+      <button class="btn btn-elevated btn-light">Elevated light</button>
+      <span class="hint" style="margin:0;">Hover = color only. Hold click — a 1px press.</span>
     </div>
 
     <h2>Tags</h2>
@@ -88,42 +87,42 @@
     <h2 id="forms">Forms</h2>
     <div class="m-row m-g-lg">
       <div class="m-col c-6">
-        <label for="t1">Text</label>
-        <input id="t1" type="text" placeholder="Placeholder…">
+        <label class="label" for="t1">Text</label>
+        <input class="input" id="t1" type="text" placeholder="Placeholder…">
         <span class="hint">Hint text under inputs.</span>
-        <label for="s1">Select</label>
-        <select id="s1"><option>Choose one…</option><option>Option A</option></select>
-        <label for="ok">States</label>
+        <label class="label" for="s1">Select</label>
+        <select class="input" id="s1"><option>Choose one…</option><option>Option A</option></select>
+        <label class="label" for="ok">States</label>
         <input class="input-success" id="ok" type="text" value="Bare input + .input-success">
         <div class="m-error">
-          <label for="err1" style="margin-top:.5rem;">Username</label>
+          <label class="label" for="err1" style="margin-top:.5rem;">Username</label>
           <input id="err1" type="text" value="ada!!">
           <span class="hint">Only letters and numbers allowed.</span>
         </div>
         <div class="m-valid">
-          <label for="ok1" style="margin-top:.5rem;">Email</label>
+          <label class="label" for="ok1" style="margin-top:.5rem;">Email</label>
           <input id="ok1" type="email" value="ada@example.com">
           <span class="hint">Looks good.</span>
         </div>
-        <label>Checks &amp; radios</label>
-        <label><input type="checkbox" checked> Checked</label>
-        <label><input type="checkbox"> Unchecked</label>
-        <label><input type="radio" name="r" checked> Radio A</label>
+        <label class="label">Checks &amp; radios</label>
+        <label style="display:block;"><input type="checkbox" class="check" checked> Checked</label>
+        <label style="display:block;"><input type="checkbox" class="check"> Unchecked</label>
+        <label style="display:block;"><input type="radio" class="check" name="r" checked> Radio A</label>
       </div>
       <div class="m-col c-6">
-        <label for="ta">Textarea</label>
-        <textarea id="ta" placeholder="Write something…"></textarea>
-        <label>Switch</label>
+        <label class="label" for="ta">Textarea</label>
+        <textarea class="input" id="ta" placeholder="Write something…"></textarea>
+        <label class="label">Switch</label>
         <label class="switch"><input type="checkbox" checked><i></i></label>
         <label class="switch" style="margin-left:.75rem;"><input type="checkbox"><i></i></label>
-        <label for="rg">Range</label>
+        <label class="label" for="rg">Range</label>
         <input type="range" id="rg" value="60">
         <input type="range" value="35" style="--m-range-h: 12px; margin-top:.5rem;" aria-label="Thick track example">
-        <label>Form group</label>
+        <label class="label">Form group</label>
         <div class="fgroup">
           <span class="fgroup-label">https://</span>
-          <input type="text" value="example.com">
-          <button class="btn-primary">Go</button>
+          <input class="input" type="text" value="example.com">
+          <button class="btn btn-primary">Go</button>
         </div>
       </div>
     </div>
@@ -137,8 +136,8 @@
           <p>Shadow deepens on hover. No JS, no jumping.</p>
         </div>
         <div class="card-bar">
-          <button class="btn-primary btn-sm">Action</button>
-          <button class="btn-sm">Cancel</button>
+          <button class="btn btn-primary btn-sm">Action</button>
+          <button class="btn btn-sm">Cancel</button>
         </div>
       </div>
       <div class="card">
@@ -155,7 +154,7 @@
 
     <h2>Table &amp; tabs</h2>
     <div class="table-wrap">
-      <table class="striped">
+      <table class="table striped">
         <thead><tr><th>Plan</th><th>Price</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td>Free</td><td>$0</td><td><span class="tag tag-soft-success">active</span></td></tr>
@@ -261,38 +260,39 @@
 
     <h2 id="overlays">Tooltips, modal, accordion</h2>
     <div class="row-demo" style="padding:1.5rem 0;">
-      <button class="tooltip" data-tip="Top tooltip">Top</button>
-      <button class="tooltip tooltip-b" data-tip="Bottom tooltip">Bottom</button>
-      <button class="tooltip tooltip-r" data-tip="Right">Right</button>
-      <button type="button" class="btn-primary" data-open="m1">Open modal</button>
+      <button class="btn tooltip" data-tip="Top tooltip">Top</button>
+      <button class="btn tooltip tooltip-b" data-tip="Bottom tooltip">Bottom</button>
+      <button class="btn tooltip tooltip-r" data-tip="Right">Right</button>
+      <label for="m1" class="btn btn-primary">Open modal</label>
     </div>
-    <div id="m1" class="modal">
-      <div class="modal-overlay" data-close="m1"></div>
+    <input type="checkbox" id="m1" class="modal-toggle" hidden>
+    <div class="modal">
+      <label class="modal-overlay" for="m1"></label>
       <div class="modal-box">
         <div class="modal-head">
           <p class="modal-title">Modal title</p>
-          <button type="button" class="btn-close" data-close="m1" aria-label="Close"></button>
+          <label class="btn btn-close" for="m1" style="margin:0;"></label>
         </div>
-        <div class="modal-body"><p>Toggle <span class="mono">.open</span> on <span class="mono">.modal</span> from your click handler.</p></div>
+        <div class="modal-body"><p>Pure CSS modal via hidden checkbox. Click overlay to close.</p></div>
         <div class="modal-foot">
-          <button type="button" data-close="m1">Close</button>
-          <button type="button" class="btn-primary" data-close="m1">Got it</button>
+          <label class="btn" for="m1">Close</label>
+          <label class="btn btn-primary" for="m1">Got it</label>
         </div>
       </div>
     </div>
-    <details>
+    <details class="acc">
       <summary>Accordion item one</summary>
       <p>Expand/collapse with native details — no JS.</p>
     </details>
-    <details>
+    <details class="acc">
       <summary>Accordion item two</summary>
       <p>Another panel.</p>
     </details>
 
     <h2>Menu, popover, drawer, sheet</h2>
     <div class="row-demo">
-      <div class="menu" id="demo-menu">
-        <button type="button" aria-haspopup="menu" data-toggle="demo-menu">Actions</button>
+      <div class="menu">
+        <button type="button" class="btn" aria-haspopup="menu">Actions</button>
         <div class="menu-panel" role="menu">
           <a class="menu-item" href="#overlays" role="menuitem">Edit</a>
           <a class="menu-item" href="#overlays" role="menuitem">Duplicate</a>
@@ -300,28 +300,30 @@
           <button type="button" class="menu-item menu-danger" role="menuitem">Delete</button>
         </div>
       </div>
-      <div class="pop" id="demo-pop">
-        <button type="button" data-toggle="demo-pop">Popover</button>
-        <div class="pop-panel"><p class="m-0">Add <span class="mono">.open</span> on <span class="mono">.pop</span> from a click handler.</p></div>
+      <div class="pop" tabindex="0">
+        <button class="btn">Popover</button>
+        <div class="pop-panel"><p class="m-0">Focus this popover. No JS — <span class="mono">:focus-within</span>.</p></div>
       </div>
-      <button type="button" data-open="d1">Open drawer</button>
-      <button type="button" data-open="s1sheet">Open sheet</button>
+      <label for="d1" class="btn">Open drawer</label>
+      <label for="s1sheet" class="btn">Open sheet</label>
     </div>
-    <div id="d1" class="drawer">
-      <div class="drawer-overlay" data-close="d1"></div>
+    <input type="checkbox" id="d1" class="drawer-toggle" hidden>
+    <div class="drawer">
+      <label class="drawer-overlay" for="d1"></label>
       <aside class="drawer-panel">
         <p class="card-title">Drawer</p>
-        <p class="muted">Toggle <span class="mono">.open</span> on <span class="mono">.drawer</span>. Add <span class="mono">.drawer-r</span> to dock right.</p>
-        <button type="button" class="btn-sm" data-close="d1">Close</button>
+        <p class="muted">Checkbox pattern, same as modal. Add <span class="mono">.drawer-r</span> to dock right.</p>
+        <label for="d1" class="btn btn-sm">Close</label>
       </aside>
     </div>
-    <div id="s1sheet" class="sheet">
-      <div class="sheet-overlay" data-close="s1sheet"></div>
+    <input type="checkbox" id="s1sheet" class="sheet-toggle" hidden>
+    <div class="sheet">
+      <label class="sheet-overlay" for="s1sheet"></label>
       <div class="sheet-panel">
         <div class="sheet-handle"></div>
         <p class="card-title">Bottom sheet</p>
-        <p class="muted">Toggle <span class="mono">.open</span> on <span class="mono">.sheet</span>.</p>
-        <button type="button" class="btn-primary btn-sm" data-close="s1sheet">Done</button>
+        <p class="muted">Slide up from the bottom. Toggle <span class="mono">.open</span> from JS if you prefer.</p>
+        <label for="s1sheet" class="btn btn-primary btn-sm">Done</label>
       </div>
     </div>
 
@@ -371,7 +373,7 @@
           <div class="empty p-10">
             <p class="empty-title">No projects</p>
             <p class="muted m-0">Create one to get started.</p>
-            <div class="empty-actions"><button class="btn-primary btn-sm">New</button></div>
+            <div class="empty-actions"><button class="btn btn-primary btn-sm">New</button></div>
           </div>
           <div class="m-flex m-i-center m-gap-sm"><i class="spin"></i><i class="spin spin-lg"></i></div>
         </div>
@@ -381,7 +383,7 @@
           <p class="card-title">Status + badge</p>
           <p class="status online m-b-10"><i class="status-dot"></i> Online</p>
           <p class="status away m-b-10"><i class="status-dot"></i> Away</p>
-          <span class="badge m-r-10"><button class="btn-sm">Inbox</button><i class="badge-n" data-n="8"></i></span>
+          <span class="badge m-r-10"><button class="btn btn-sm">Inbox</button><i class="badge-n" data-n="8"></i></span>
           <span class="status"><i class="status-dot busy"></i> Busy</span>
         </div>
       </div>
@@ -402,21 +404,21 @@
     <div class="m-grid m-grid-cols-3 m-gap m-t-15">
       <div class="stat"><span class="stat-label">Revenue</span><span class="stat-val">$24k</span><span class="stat-delta up">+12%</span></div>
       <div class="stat"><span class="stat-label">Churn</span><span class="stat-val">2.1%</span><span class="stat-delta down">-0.4%</span></div>
-      <dl><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd><dt>Region</dt><dd>eu-west</dd></dl>
+      <dl class="dl"><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd><dt>Region</dt><dd>eu-west</dd></dl>
     </div>
 
     <h2>Form extras</h2>
-    <fieldset>
+    <fieldset class="fieldset">
       <legend>Profile</legend>
       <div class="field">
-        <label for="nm">Name</label>
+        <label class="label" for="nm">Name</label>
         <div class="input-wrap">
           <span class="input-ico">@</span>
-          <input id="nm" type="text" placeholder="username">
+          <input id="nm" class="input" type="text" placeholder="username">
         </div>
         <span class="hint">Shown on your public profile.</span>
       </div>
-      <div class="search m-b-10" id="demo-search">
+      <div class="search m-b-10">
         <input type="search" placeholder="Search commands…">
         <div class="search-panel">
           <a class="menu-item" href="#forms">Open forms</a>
@@ -499,8 +501,8 @@
         </div>
       </div></div>
     </div>
-    <p class="m-t-15"><code>import "mates-css"</code> · <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span></p>
-    <pre>npm install mates-css</pre>
+    <p class="m-t-15"><code class="code">import "mates-css"</code> · <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span></p>
+    <pre class="code-block">npm install mates-css</pre>
 
     <h2>Flex &amp; grid</h2>
     <div class="m-grid m-grid-cols-3 m-gap-sm" style="margin-bottom:1rem;">
@@ -524,9 +526,9 @@
       <span class="tag">m-gap-sm</span>
     </div>
     <div class="m-flex m-items-end m-gap" style="margin-bottom:1rem;">
-      <button class="btn-sm">items-end</button>
-      <button>center row</button>
-      <button class="btn-lg">varied heights</button>
+      <button class="btn btn-sm">items-end</button>
+      <button class="btn">center row</button>
+      <button class="btn btn-lg">varied heights</button>
     </div>
     <div class="card" style="max-width:24rem;">
       <div class="card-body m-flex m-items-center m-gap-sm">
@@ -535,7 +537,7 @@
           <p class="card-title" style="margin:0">m-flex-1 filler</p>
           <p class="card-sub">text takes remaining space</p>
         </div>
-        <button class="btn-sm">Open</button>
+        <button class="btn btn-sm">Open</button>
       </div>
     </div>
 
@@ -552,9 +554,9 @@
       <div class="c-8"><div class="alert" style="margin:0; text-align:center;">c-8</div></div>
     </div>
     <div class="m-col m-gap-10" style="max-width:16rem; margin-bottom:1rem;">
-      <button>Stacked</button>
-      <button class="btn-primary">In m-col</button>
-      <button>gap-10</button>
+      <button class="btn">Stacked</button>
+      <button class="btn btn-primary">In m-col</button>
+      <button class="btn">gap-10</button>
     </div>
     <div class="m-flex m-j-between m-i-center m-gap-10 m-flex-wrap" style="margin-bottom:1rem;">
       <span class="tag tag-soft">m-j-between</span>
@@ -562,9 +564,9 @@
       <span class="tag">m-gap-10</span>
     </div>
     <div class="m-flex m-i-end m-gap-15" style="margin-bottom:1rem;">
-      <button class="btn-sm">i-end</button>
-      <button>varied</button>
-      <button class="btn-lg">heights</button>
+      <button class="btn btn-sm">i-end</button>
+      <button class="btn">varied</button>
+      <button class="btn btn-lg">heights</button>
     </div>
     <div class="m-grid-auto m-gap-10" style="margin-bottom:1rem;">
       <div class="alert" style="margin:0">auto-fit</div>
@@ -587,7 +589,7 @@
     </div>
 
     <h2>Misc</h2>
-    <progress value="65" max="100"></progress>
+    <progress class="progress" value="65" max="100"></progress>
     <div class="divider">divider</div>
     <div class="row-demo">
       <span class="avatar">AL</span>
@@ -605,7 +607,7 @@
 
   <footer class="container center" style="padding-block:2rem;">
     <hr>
-    <small>Mates CSS — 64.1kb / 11.1kb gzipped. MIT.</small>
+    <small>Mates CSS — 63.0kb / 11.0kb gzipped. MIT.</small>
   </footer>
 
   <script>
@@ -627,42 +629,6 @@
       drop.addEventListener('dragleave', () => drop.classList.remove('active'));
       drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('active'); });
     }
-    const byId = (id) => document.getElementById(id);
-    document.querySelectorAll('[data-open]').forEach((el) => {
-      el.addEventListener('click', () => {
-        document.querySelectorAll('.menu.open, .pop.open, .search.open').forEach((m) => m.classList.remove('open'));
-        byId(el.getAttribute('data-open')).classList.add('open');
-      });
-    });
-    document.querySelectorAll('[data-close]').forEach((el) => {
-      el.addEventListener('click', () => {
-        byId(el.getAttribute('data-close')).classList.remove('open');
-      });
-    });
-    document.querySelectorAll('[data-toggle]').forEach((el) => {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const t = byId(el.getAttribute('data-toggle'));
-        const willOpen = !t.classList.contains('open');
-        document.querySelectorAll('.menu.open, .pop.open').forEach((m) => m.classList.remove('open'));
-        if (willOpen) t.classList.add('open');
-      });
-    });
-    document.querySelectorAll('.menu-item').forEach((el) => {
-      el.addEventListener('click', () => {
-        const menu = el.closest('.menu');
-        if (menu) menu.classList.remove('open');
-      });
-    });
-    const search = byId('demo-search');
-    if (search) {
-      search.querySelector('input').addEventListener('focus', () => search.classList.add('open'));
-    }
-    document.addEventListener('click', (e) => {
-      document.querySelectorAll('.menu.open, .pop.open, .search.open').forEach((el) => {
-        if (!el.contains(e.target)) el.classList.remove('open');
-      });
-    });
   </script>
 </body>
 </html>

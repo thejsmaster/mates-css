@@ -1,68 +1,178 @@
-/* buttons — <button> is styled by default; .btn applies the same to links/spans */
+/* buttons — <button> and submit/reset inputs are styled by default; .btn is for links/spans */
 button,
-.btn {
+.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: .45em;
-  padding: .5em 1.15em;
-  border: 1px solid transparent;
-  border-radius: var(--m-r-sm);
+  padding: .5em 1.05em;
+  border: 1px solid var(--m-border);
+  border-radius: var(--m-r-full);
   font-family: var(--m-font-head);
-  font-size: .9rem;
+  font-size: .875rem;
   font-weight: 600;
-  letter-spacing: .02em;
-  line-height: 1.5;
+  letter-spacing: 0;
+  line-height: 1.45;
   cursor: pointer;
   user-select: none;
   text-decoration: none;
-  background: var(--m-surface);
+  background: var(--m-bg);
   color: var(--m-fg);
-  transition: background var(--m-dur), color var(--m-dur), border-color var(--m-dur);
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background var(--m-dur), color var(--m-dur), border-color var(--m-dur), box-shadow var(--m-dur), filter var(--m-dur);
 }
-button:hover, .btn:hover { background: var(--m-border); text-decoration: none; }
-button:active, .btn:active { background: var(--m-border-2); }
-button:disabled, .btn:disabled, .btn[disabled] { opacity: .5; cursor: not-allowed; pointer-events: none; }
+button:hover, .btn:hover,
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+  background: var(--m-surface);
+  border-color: var(--m-border-2);
+  text-decoration: none;
+}
+button:active, .btn:active,
+input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active { background: var(--m-border); }
+button:disabled, .btn:disabled, .btn[disabled],
+input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled { opacity: .5; cursor: not-allowed; pointer-events: none; }
 
-.btn-primary { background: var(--m-primary); color: var(--m-on-primary); }
-button.btn-primary:hover, .btn.btn-primary:hover { background: var(--m-primary-h); }
-button.btn-primary:active, .btn.btn-primary:active { background: var(--m-primary-a); }
-.btn-dark { background: var(--m-fg); color: var(--m-bg); }
-button.btn-dark:hover, .btn.btn-dark:hover { background: var(--m-fg); opacity: .88; }
-button.btn-dark:active, .btn.btn-dark:active { opacity: .75; }
+.btn-primary {
+  background: var(--m-primary);
+  border-color: transparent;
+  color: var(--m-on-primary);
+}
+.btn-primary:hover {
+  background: var(--m-primary-h);
+  border-color: transparent;
+}
+.btn-primary:active {
+  background: var(--m-primary-a);
+  border-color: transparent;
+}
+.btn-dark {
+  background: var(--m-fg);
+  border-color: transparent;
+  color: var(--m-bg);
+}
+.btn-dark:hover { background: var(--m-fg); opacity: .88; border-color: transparent; }
+.btn-dark:active { opacity: .78; }
 .btn-light { background: var(--m-bg); color: var(--m-fg); border-color: var(--m-border); }
-button.btn-light:hover, .btn.btn-light:hover { background: var(--m-surface); }
-button.btn-light:active, .btn.btn-light:active { background: var(--m-border); }
-.btn-success { background: var(--m-success); color: var(--m-on-success); }
-button.btn-success:hover, .btn.btn-success:hover { background: var(--m-success); filter: brightness(1.08); }
-button.btn-success:active, .btn.btn-success:active { background: var(--m-success); filter: brightness(.92); }
-.btn-danger { background: var(--m-danger); color: var(--m-on-danger); }
-button.btn-danger:hover, .btn.btn-danger:hover { background: var(--m-danger); filter: brightness(1.08); }
-button.btn-danger:active, .btn.btn-danger:active { background: var(--m-danger); filter: brightness(.92); }
-.btn-warning { background: var(--m-warning); color: var(--m-on-warning); }
-button.btn-warning:hover, .btn.btn-warning:hover { background: var(--m-warning); filter: brightness(1.08); }
-button.btn-warning:active, .btn.btn-warning:active { background: var(--m-warning); filter: brightness(.92); }
-.btn-outline { background: transparent; border-color: var(--m-border-2); color: var(--m-primary); }
-button.btn-outline:hover, .btn.btn-outline:hover { background: var(--m-primary-soft); border-color: var(--m-primary); }
-button.btn-outline:active, .btn.btn-outline:active { background: var(--m-primary); color: var(--m-on-primary); }
-.btn-ghost { background: transparent; color: var(--m-fg-2); }
-button.btn-ghost:hover, .btn.btn-ghost:hover { background: var(--m-surface); color: var(--m-fg); }
-button.btn-ghost:active, .btn.btn-ghost:active { background: var(--m-border); }
-.btn-link { background: transparent; color: var(--m-primary); padding-inline: .2em; }
-button.btn-link:hover, .btn.btn-link:hover { background: transparent; text-decoration: underline; }
-:where(button, .btn).btn-elevated { box-shadow: var(--m-elev); }
-:where(button, .btn).btn-elevated:hover { box-shadow: var(--m-elev); filter: brightness(1.04); }
-:where(button, .btn).btn-elevated:active { box-shadow: var(--m-elev-active); }
-:where(button, .btn).btn-elevated.btn-primary:hover { background: var(--m-primary-h); filter: none; }
-:where(button, .btn).btn-elevated.btn-primary:active { background: var(--m-primary-a); }
+.btn-light:hover { background: var(--m-surface); }
+.btn-light:active { background: var(--m-border); }
+.btn-success {
+  background: var(--m-success);
+  border-color: transparent;
+  color: var(--m-on-success);
+}
+.btn-success:hover { background: var(--m-success); border-color: transparent; filter: brightness(1.06); }
+.btn-success:active { background: var(--m-success); filter: brightness(.94); }
+.btn-danger {
+  background: var(--m-danger);
+  border-color: transparent;
+  color: var(--m-on-danger);
+}
+.btn-danger:hover { background: var(--m-danger); border-color: transparent; filter: brightness(1.06); }
+.btn-danger:active { background: var(--m-danger); filter: brightness(.94); }
+.btn-warning {
+  background: var(--m-warning);
+  border-color: transparent;
+  color: var(--m-on-warning);
+}
+.btn-warning:hover { background: var(--m-warning); border-color: transparent; filter: brightness(1.06); }
+.btn-warning:active { background: var(--m-warning); filter: brightness(.94); }
+.btn-outline {
+  background: transparent;
+  border-color: var(--m-border-2);
+  color: var(--m-primary);
+}
+.btn-outline:hover {
+  background: var(--m-primary-soft);
+  border-color: var(--m-primary);
+}
+.btn-outline:active {
+  background: var(--m-primary);
+  border-color: var(--m-primary);
+  color: var(--m-on-primary);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--m-fg-2);
+}
+.btn-ghost:hover {
+  background: var(--m-surface);
+  border-color: transparent;
+  color: var(--m-fg);
+}
+.btn-ghost:active { background: var(--m-border); }
+.btn-link {
+  background: transparent;
+  border-color: transparent;
+  color: var(--m-primary);
+  padding-inline: .2em;
+  overflow: visible;
+}
+.btn-link:hover { background: transparent; border-color: transparent; text-decoration: underline; }
+.btn-link:active { background: transparent; }
 
-.btn-sm { padding: .32em .85em; font-size: .8rem; }
-.btn-lg { padding: .62em 1.4em; font-size: 1rem; }
+/* soft fill — modern default for emphasis without a hard slab */
+.btn-soft {
+  background: var(--m-primary-soft);
+  border-color: transparent;
+  color: var(--m-primary);
+}
+.btn-soft:hover {
+  background: color-mix(in srgb, var(--m-primary) 22%, transparent);
+  border-color: transparent;
+}
+.btn-soft:active {
+  background: color-mix(in srgb, var(--m-primary) 30%, transparent);
+}
+
+.btn-elevated {
+  box-shadow: 0 1px 2px rgb(16 24 40 / .06), 0 4px 10px rgb(16 24 40 / .06);
+}
+.btn-elevated:hover { filter: none; }
+.btn-elevated:active {
+  box-shadow: 0 1px 2px rgb(16 24 40 / .08);
+}
+.btn-elevated.btn-primary:hover { background: var(--m-primary-h); }
+.btn-elevated.btn-primary:active { background: var(--m-primary-a); }
+
+:is(.tab, .menu-item, .seg-item, .list-item, .chip):is(:hover, :active) {
+  box-shadow: none;
+}
+.tab, .menu-item, .seg-item, .list-item { overflow: visible; }
+
+/* centered ripple — click origin needs JS; this expands from the middle on release */
+button:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item)::before,
+.btn:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle, currentColor 12%, transparent 12.01%) center / 100% 100% no-repeat;
+  transform: scale(14);
+  opacity: 0;
+  transition: transform .45s ease-out, opacity .55s ease-out;
+}
+button:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item):active::before,
+.btn:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item):active::before {
+  transform: scale(0);
+  opacity: .22;
+  transition: transform 0s, opacity 0s;
+}
+
+.btn-sm { padding: .28em .75em; font-size: .8rem; }
+.btn-lg { padding: .62em 1.25em; font-size: 1rem; }
 .btn-block { display: flex; width: 100%; }
 .btn-group { display: inline-flex; }
 .btn-group button, .btn-group .btn { border-radius: 0; margin-left: -1px; }
-.btn-group button:first-child, .btn-group .btn:first-child { border-radius: var(--m-r-sm) 0 0 var(--m-r-sm); margin-left: 0; }
-.btn-group button:last-child, .btn-group .btn:last-child { border-radius: 0 var(--m-r-sm) var(--m-r-sm) 0; }
+.btn-group button:first-child, .btn-group .btn:first-child { border-radius: var(--m-r-full) 0 0 var(--m-r-full); margin-left: 0; }
+.btn-group button:last-child, .btn-group .btn:last-child { border-radius: 0 var(--m-r-full) var(--m-r-full) 0; }
 
 .btn-spin::after {
   content: "";
@@ -77,25 +187,33 @@ button.btn-link:hover, .btn.btn-link:hover { background: transparent; text-decor
 @keyframes m-spin { to { transform: rotate(360deg); } }
 
 .btn-close {
-  width: 20px;
-  height: 20px;
+  width: 1.5rem;
+  height: 1.5rem;
   min-width: 0;
   padding: 0;
   border: 0;
   border-radius: var(--m-r-full);
-  background: rgb(from currentColor r g b / .18);
+  background: var(--m-surface);
   position: relative;
+  box-shadow: none;
 }
 .btn-close::before, .btn-close::after {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 50%;
-  height: 2px;
+  width: 46%;
+  height: 1.5px;
   background: currentColor;
   translate: -50% -50%;
   rotate: 45deg;
 }
 .btn-close::after { rotate: -45deg; }
-.btn-close:hover { background: rgb(from currentColor r g b / .3); }
+.btn-close:hover { background: var(--m-border); }
+.btn-close:active { background: var(--m-border-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  button, .btn { transition: background var(--m-dur), color var(--m-dur), border-color var(--m-dur); }
+  button:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item)::before,
+  .btn:not(.btn-close, .btn-link, .tab, .menu-item, .seg-item, .list-item)::before { content: none; }
+}

@@ -2,12 +2,13 @@
   "name": "mates-css",
   "version": "0.5.0",
   "description": "A compact pure-CSS no JS library. Design tokens, blue primary with hover/active ramps, automatic dark mode, flex & grid utilities and CSS-only charts. No JS.",
-  "style": "dist/mates.min.css",
-  "main": "dist/mates.min.css",
-  "unpkg": "dist/mates.min.css",
-  "jsdelivr": "dist/mates.min.css",
+  "style": "mates.min.css",
+  "main": "mates.min.css",
+  "unpkg": "mates.min.css",
+  "jsdelivr": "mates.min.css",
   "files": [
-    "dist",
+    "mates.css",
+    "mates.min.css",
     "src",
     "demo.html"
   ],
@@ -43,14 +44,14 @@
   ],
   "exports": {
     ".": {
-      "style": "./dist/mates.min.css",
-      "default": "./dist/mates.min.css"
+      "style": "./mates.min.css",
+      "default": "./mates.min.css"
     },
-    "./css": "./dist/mates.css",
-    "./min": "./dist/mates.min.css",
-    "./mates.css": "./dist/mates.css",
-    "./mates.min.css": "./dist/mates.min.css",
-    "./style.css": "./dist/mates.css",
+    "./css": "./mates.css",
+    "./min": "./mates.min.css",
+    "./mates.css": "./mates.css",
+    "./mates.min.css": "./mates.min.css",
+    "./style.css": "./mates.css",
     "./package.json": "./package.json"
   },
   "devDependencies": {
@@ -58,6 +59,6 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "watch": "esbuild src/index.css --bundle --minify --outfile=dist/mates.min.css --watch"
+    "watch": "esbuild src/index.css --bundle --minify --outfile=mates.min.css --watch"
   }
 }

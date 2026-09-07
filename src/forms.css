@@ -1,4 +1,15 @@
+label:not(:has(input, select, textarea, button)),
 .label { display: block; font-weight: 700; font-size: .9rem; line-height: 1.4; margin: .8rem 0 .15rem; }
+label:has(> input[type="checkbox"]):not(.chip, .switch, .drop, .seg-item),
+label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item) {
+  display: flex;
+  align-items: center;
+  gap: .35em;
+  font-weight: 600;
+  font-size: .9rem;
+  margin: .25em 0;
+  cursor: pointer;
+}
 .hint { display: block; font-size: .78rem; color: var(--m-fg-3); margin-top: .25rem; }
 
 .m-error .input,
@@ -12,7 +23,7 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--m-danger) 18%, transparent);
 }
 .m-error .hint { color: var(--m-danger); }
-.m-error .label { color: var(--m-danger); }
+.m-error :is(label, .label) { color: var(--m-danger); }
 
 .m-valid .input,
 .m-valid input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
@@ -157,18 +168,20 @@ input[type="color"] { width: 2.8em; height: 2.2em; padding: .15em; cursor: point
   font-size: .88rem;
   white-space: nowrap;
 }
-.fgroup .btn { flex-shrink: 0; }
+.fgroup :is(button, .btn) { flex-shrink: 0; }
 
 .field { display: flex; flex-direction: column; gap: .2rem; margin: .5rem 0; }
-.field .label { margin: 0; }
+.field :is(label, .label) { margin: 0; }
 .field .hint { margin: 0; }
 
+fieldset,
 .fieldset {
   border: 1px solid var(--m-border);
   border-radius: var(--m-r);
   padding: 1rem 1.15rem;
   margin: .75rem 0;
 }
+fieldset > legend,
 .fieldset > legend {
   font-weight: 700;
   font-size: .9rem;
@@ -241,7 +254,6 @@ input[type="color"] { width: 2.8em; height: 2.2em; padding: .15em; cursor: point
   max-height: 16rem;
   overflow: auto;
 }
-.search:focus-within > .search-panel,
 .search.open > .search-panel { display: block; }
 
 .rate { display: inline-flex; flex-direction: row-reverse; gap: .12em; }

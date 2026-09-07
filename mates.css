@@ -1,5 +1,5 @@
 /*!
- * Mates CSS v0.1.0 — a compact pure-CSS UI kit.
+ * Mates CSS v0.4.0 — a compact pure-CSS UI kit.
  * No JS, no SCSS. MIT licensed.
  */
 
@@ -35,6 +35,15 @@
   --m-range-h: 6px;
   --m-input-w: 100%;
   --m-dur: .2s;
+  /* chart palette: c1–c4 alias the semantic colors, so rebranding
+     --m-primary etc. recolors charts automatically */
+  --m-c1: var(--m-primary);
+  --m-c2: var(--m-success);
+  --m-c3: var(--m-warning);
+  --m-c4: var(--m-danger);
+  --m-c5: #7c66dc;
+  --m-c6: #0ea5b7;
+  --m-chart-h: 12rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -60,6 +69,8 @@
     --m-shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.35);
     --m-elev: 0 2px 4px rgba(0,0,0,.45), 0 8px 20px rgba(0,0,0,.35);
     --m-elev-active: 0 1px 3px rgba(0,0,0,.5);
+    --m-c5: #9b8cff;
+    --m-c6: #2ed3e0;
   }
 }
 
@@ -85,6 +96,8 @@
   --m-shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.35);
   --m-elev: 0 2px 4px rgba(0,0,0,.45), 0 8px 20px rgba(0,0,0,.35);
   --m-elev-active: 0 1px 3px rgba(0,0,0,.5);
+  --m-c5: #9b8cff;
+  --m-c6: #2ed3e0;
 }
 
 /* reset */
@@ -417,11 +430,14 @@ input[type="range"] {
   height: 1.4em;
   background: transparent;
   cursor: pointer;
-  /* filled portion: set --m-range-progress (0-100) from JS on input; default 50% */
-  --m-range-progress: 50%;
+  /* filled portion: set --v (0-100 — same variable the charts use) from JS
+     on input; defaults to 50, the native midpoint. The old percent-based
+     --m-range-progress is still honored if set */
+  --v: 50;
+  --m-range-fill: var(--m-range-progress, calc(var(--v) * 1%));
   background: linear-gradient(to right,
-      var(--m-primary) var(--m-range-progress),
-      var(--m-border) var(--m-range-progress)) no-repeat center / 100% var(--m-range-h);
+      var(--m-primary) var(--m-range-fill),
+      var(--m-border) var(--m-range-fill)) no-repeat center / 100% var(--m-range-h);
 }
 input[type="range"]::-webkit-slider-runnable-track { height: var(--m-range-h); border-radius: var(--m-r-full); background: transparent; }
 input[type="range"]::-webkit-slider-thumb {
@@ -676,6 +692,188 @@ progress.progress {
 progress.progress::-webkit-progress-bar { background: var(--m-surface); }
 progress.progress::-webkit-progress-value { background: var(--m-primary); border-radius: var(--m-r-full); }
 progress.progress::-moz-progress-bar { background: var(--m-primary); border-radius: var(--m-r-full); }
+
+/* charts — data via inline custom properties: --v (0-100) for bars/ring,
+   --v1..--v6 (percent) for donut segments, --sv (share) for stacked segments */
+@property --v { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --sv { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v1 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v3 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v4 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v5 { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --v6 { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+/* series color helpers, consumed by bars/spark/legend via --m-c */
+.s1{--m-c:var(--m-c1)}
+.s2{--m-c:var(--m-c2)}
+.s3{--m-c:var(--m-c3)}
+.s4{--m-c:var(--m-c4)}
+.s5{--m-c:var(--m-c5)}
+.s6{--m-c:var(--m-c6)}
+
+/* vertical bars */
+.chart-bars {
+  display: flex;
+  align-items: stretch;
+  gap: .6rem;
+  height: var(--m-chart-h);
+}
+.bar {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: .3rem;
+  justify-items: center;
+}
+.bar > i {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  height: calc(var(--v) * 1%);
+  background: var(--m-c, var(--m-c1));
+  border-radius: var(--m-r-sm) var(--m-r-sm) 0 0;
+}
+.bar > i[data-v]::after {
+  content: attr(data-v);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% -3px;
+  font-size: .68rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--m-fg-2);
+}
+.bar > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .74rem;
+  color: var(--m-fg-3);
+}
+
+/* stacked bars: <i> holds <u> segments, each with a --sv share of any total */
+.bar.stacked > i {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  background: transparent;
+}
+.bar.stacked > i > u {
+  flex: var(--sv, 1) 1 0;
+  min-height: 0;
+  background: var(--m-c, var(--m-c1));
+}
+
+/* horizontal bars */
+.chart-hbars { display: flex; flex-direction: column; gap: .55rem; }
+.hbar {
+  display: grid;
+  grid-template-columns: minmax(3.5rem, 9rem) 1fr auto;
+  align-items: center;
+  gap: .65rem;
+}
+.hbar > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .84rem;
+  color: var(--m-fg-2);
+}
+.hbar > i {
+  position: relative;
+  display: block;
+  height: 1rem;
+  border-radius: var(--m-r-full);
+  background: var(--m-surface);
+}
+.hbar > i::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--v) * 1%);
+  border-radius: inherit;
+  background: var(--m-c, var(--m-c1));
+}
+.hbar > b {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--m-fg-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* donut / pie: segments --v1..--v6 (percent of circle); the remainder shows --m-border */
+.donut {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--m-donut-size, 10rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--m-c1) 0 calc(var(--v1) * 1%),
+    var(--m-c2) 0 calc((var(--v1) + var(--v2)) * 1%),
+    var(--m-c3) 0 calc((var(--v1) + var(--v2) + var(--v3)) * 1%),
+    var(--m-c4) 0 calc((var(--v1) + var(--v2) + var(--v3) + var(--v4)) * 1%),
+    var(--m-c5) 0 calc((var(--v1) + var(--v2) + var(--v3) + var(--v4) + var(--v5)) * 1%),
+    var(--m-c6) 0 calc((var(--v1) + var(--v2) + var(--v3) + var(--v4) + var(--v5) + var(--v6)) * 1%),
+    var(--m-border) 0
+  );
+}
+.donut::before, .ring::before {
+  content: "";
+  position: absolute;
+  inset: var(--m-donut-w, 1.4rem);
+  border-radius: 50%;
+  background: var(--m-bg);
+}
+.donut > *, .ring > * { position: relative; z-index: 1; }
+.donut > b, .ring > b { font-size: 1.2rem; }
+.donut.pie::before { content: none; }
+
+/* progress ring: single --v (0-100) */
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--m-donut-size, 10rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(var(--m-c, var(--m-c1)) calc(var(--v) * 1%), var(--m-border) 0);
+}
+
+/* sparkline */
+.spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: var(--m-spark-h, 3rem);
+}
+.spark > i {
+  flex: 1;
+  min-width: 0;
+  height: calc(var(--v) * 1%);
+  border-radius: 1px;
+  background: var(--m-c, var(--m-c1));
+}
+
+/* legend */
+.legend { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; font-size: .84rem; color: var(--m-fg-2); }
+.legend > span { display: inline-flex; align-items: center; gap: .4em; }
+.legend > span > i { width: .8em; height: .8em; border-radius: 3px; background: var(--m-c, var(--m-fg-3)); flex-shrink: 0; }
+
+/* animate value changes (registered props above); off for reduced motion */
+.bar, .bar.stacked > i > u, .hbar, .ring, .spark > i, .donut {
+  transition: --v .45s ease, --sv .45s ease, --v1 .45s ease, --v2 .45s ease, --v3 .45s ease, --v4 .45s ease, --v5 .45s ease, --v6 .45s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar, .bar.stacked > i > u, .hbar, .ring, .spark > i, .donut { transition: none; }
+}
 
 /* layout */
 .container { max-width: 72rem; margin-inline: auto; padding-inline: 1.25rem; }

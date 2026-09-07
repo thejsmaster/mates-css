@@ -1,7 +1,7 @@
 {
   "name": "mates-css",
-  "version": "0.3.0",
-  "description": "A compact pure-CSS UI kit. Design tokens, blue primary with hover/active ramps, automatic dark mode and flex & grid utilities. No JS.",
+  "version": "0.4.0",
+  "description": "A compact pure-CSS no JS library. Design tokens, blue primary with hover/active ramps, automatic dark mode, flex & grid utilities and CSS-only charts. No JS.",
   "style": "mates.css",
   "main": "mates.min.css",
   "files": [
@@ -16,6 +16,7 @@
     "buttons",
     "cards",
     "modals",
+    "charts",
     "dark-mode",
     "css-variables",
     "design-tokens",

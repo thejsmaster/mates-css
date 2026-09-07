@@ -19,7 +19,7 @@
   </div>
 
   <div class="demo">
-    <p class="overline">v0.1.0 · ~6kb gzipped</p>
+    <p class="overline">v0.4.0 · ~7kb gzipped</p>
     <h1 style="margin-top:.2em;">Mates CSS</h1>
     <p class="muted">Compact pure-CSS UI kit. Same design system as the full framework — blue primary, tokens, auto dark mode. No JS required (the theme toggle below is only for previewing).</p>
 
@@ -28,6 +28,7 @@
       <span class="nav-brand">Mates</span>
       <a href="#buttons" class="selected">Buttons</a>
       <a href="#forms">Forms</a>
+      <a href="#charts">Charts</a>
       <a href="#overlays">Overlays</a>
       <span class="nav-space"></span>
       <span class="avatar avatar-sm" data-tip="AV">AV</span>
@@ -167,6 +168,80 @@
     <div class="tabs tabs-line" style="margin-top:1rem;">
       <button class="tab selected">Underline</button>
       <button class="tab">Variant</button>
+    </div>
+
+    <h2 id="charts">Charts</h2>
+    <p class="subtle" style="font-size:.85rem;">Pure CSS charts — data lives in inline custom properties: <span class="mono">--v</span> (0–100) for bars, rings and sparklines, <span class="mono">--v1…--v6</span> for donut segments, <span class="mono">--sv</span> for stacked shares.</p>
+    <div class="m-grid m-grid-cols-2 m-gap" style="margin-top:1rem;">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Weekly sales</p>
+          <p class="card-sub">.chart-bars / .bar · value via --v</p>
+          <div class="chart-bars" role="img" aria-label="Sales by weekday: Mon 65, Tue 90, Wed 45, Thu 72, Fri 58">
+            <div class="bar" style="--v: 65"><i data-v="65"></i><span>Mon</span></div>
+            <div class="bar" style="--v: 90"><i data-v="90"></i><span>Tue</span></div>
+            <div class="bar s2" style="--v: 45"><i data-v="45"></i><span>Wed</span></div>
+            <div class="bar" style="--v: 72"><i data-v="72"></i><span>Thu</span></div>
+            <div class="bar s3" style="--v: 58"><i data-v="58"></i><span>Fri</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Traffic sources</p>
+          <p class="card-sub">.donut + .legend · segments via --v1…--v6</p>
+          <div class="m-flex m-i-center m-gap" style="margin-top:.5rem;">
+            <div class="donut" style="--v1: 42; --v2: 28; --v3: 18; --v4: 12" role="img" aria-label="Traffic: organic 42%, paid 28%, referral 18%, social 12%"><b>1,204</b></div>
+            <div class="legend m-flex-1">
+              <span><i class="s1"></i>Organic</span>
+              <span><i class="s2"></i>Paid</span>
+              <span><i class="s3"></i>Referral</span>
+              <span><i class="s4"></i>Social</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Revenue by quarter</p>
+          <p class="card-sub">.bar.stacked · shares via --sv, total via --v</p>
+          <div class="chart-bars" style="--m-chart-h: 10rem" role="img" aria-label="Stacked revenue by quarter">
+            <div class="bar stacked" style="--v: 100"><i><u style="--sv: 45"></u><u class="s2" style="--sv: 30"></u><u class="s3" style="--sv: 25"></u></i><span>Q1</span></div>
+            <div class="bar stacked" style="--v: 80"><i><u style="--sv: 40"></u><u class="s2" style="--sv: 25"></u><u class="s3" style="--sv: 15"></u></i><span>Q2</span></div>
+            <div class="bar stacked" style="--v: 92"><i><u style="--sv: 35"></u><u class="s2" style="--sv: 35"></u><u class="s3" style="--sv: 22"></u></i><span>Q3</span></div>
+            <div class="bar stacked" style="--v: 64"><i><u style="--sv: 30"></u><u class="s2" style="--sv: 20"></u><u class="s3" style="--sv: 14"></u></i><span>Q4</span></div>
+          </div>
+          <div class="legend" style="margin-top:.75rem;">
+            <span><i class="s1"></i>Direct</span>
+            <span><i class="s2"></i>Online</span>
+            <span><i class="s3"></i>Retail</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-title">Skill match</p>
+          <p class="card-sub">.chart-hbars / .hbar</p>
+          <div class="chart-hbars" role="img" aria-label="Skill match: design 80, frontend 65, backend 50, devops 35">
+            <div class="hbar" style="--v: 80"><span>Design</span><i></i><b>80</b></div>
+            <div class="hbar s2" style="--v: 65"><span>Frontend</span><i></i><b>65</b></div>
+            <div class="hbar" style="--v: 50"><span>Backend</span><i></i><b>50</b></div>
+            <div class="hbar s4" style="--v: 35"><span>DevOps</span><i></i><b>35</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem;">
+      <div class="card-body m-flex m-i-center m-gap-lg m-flex-wrap">
+        <div class="ring" style="--v: 72; --m-donut-size: 7rem" role="img" aria-label="72% complete"><b>72%</b></div>
+        <div class="ring s3" style="--v: 45; --m-donut-size: 7rem" role="img" aria-label="45 percent, warning color"><b>45%</b></div>
+        <div class="m-flex-1" style="min-width:12rem;">
+          <p class="overline" style="margin-bottom:.35rem;">Last 14 days</p>
+          <div class="spark" role="img" aria-label="Daily trend, rising">
+            <i style="--v:30"></i><i style="--v:55"></i><i style="--v:40"></i><i style="--v:65"></i><i style="--v:50"></i><i style="--v:80"></i><i style="--v:62"></i><i style="--v:45"></i><i style="--v:70"></i><i style="--v:90"></i><i style="--v:58"></i><i style="--v:74"></i><i style="--v:66"></i><i class="s2" style="--v:85"></i>
+          </div>
+        </div>
+      </div>
     </div>
 
     <h2>Alerts &amp; toasts</h2>
@@ -314,27 +389,22 @@
 
   <footer class="container center" style="padding-block:2rem;">
     <hr>
-    <small>Mates CSS — 19.8kb / 4.8kb gzipped. MIT.</small>
+    <small>Mates CSS — 37.9kb / 7.4kb gzipped. MIT.</small>
   </footer>
 
   <script>
-    const modes = ['light', 'dark', 'auto'];
-    let idx = 0;
     function cycleTheme() {
-      idx = (idx + 1) % modes.length;
-      const mode = modes[idx];
-      if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
-      else document.documentElement.setAttribute('data-theme', mode);
-      document.querySelector('.theme-toggle .btn').textContent = 'Theme: ' + mode;
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.querySelector('.theme-toggle button').textContent = 'Theme: ' + next;
     }
-    // demo-only: live range fill (WebKit needs --m-range-progress; Firefox is native)
-    document.querySelectorAll('input[type="range"]').forEach(r => {
-      const update = () => r.style.setProperty('--m-range-progress', (r.value / (r.max || 100) * 100) + '%');
-      update();
-      r.addEventListener('input', update);
+    // the range's filled track reads --v (0-100, same variable charts use)
+    document.querySelectorAll('input[type="range"]').forEach((r) => {
+      const sync = () => r.style.setProperty('--v', r.value);
+      r.addEventListener('input', sync);
+      sync();
     });
-    // demo-only: removable tags
-    document.querySelectorAll('.tag-x').forEach(x => x.addEventListener('click', e => e.target.closest('.tag').remove()));
   </script>
 </body>
 </html>

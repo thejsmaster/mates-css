@@ -11,20 +11,20 @@
   align-items: center;
   justify-content: space-between;
   gap: .75rem;
-  padding: .7em 1em;
+  padding: .8em 1.15em;
   color: var(--m-fg);
   border-bottom: 1px solid var(--m-border);
   background: transparent;
   text-align: left;
   width: 100%;
   font-weight: 600;
-  font-size: .92rem;
+  font-size: 1rem;
 }
 .list-item:last-child { border-bottom: 0; }
 .list-item:hover { background: var(--m-surface); text-decoration: none; }
 .list-item.selected { background: var(--m-primary-soft); color: var(--m-primary); }
 .list-item.disabled, .list-item[disabled] { opacity: .5; pointer-events: none; }
-.list-meta { font-size: .8rem; color: var(--m-fg-3); font-weight: 600; }
+.list-meta { font-size: 1rem; color: var(--m-fg-3); font-weight: 600; }
 
 .timeline { display: flex; flex-direction: column; padding-left: .15rem; }
 .tl-item {
@@ -53,27 +53,27 @@
   width: 1px;
   height: calc(100% + .55em);
   background: var(--m-border);
-  translate: -50% 0;
+  transform: translateX(-50%);
 }
 .tl-content { min-width: 0; }
 
 .stat { display: flex; flex-direction: column; gap: .15rem; }
-.stat-label { font-size: .78rem; color: var(--m-fg-3); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
-.stat-val { font-size: 1.7rem; font-weight: 700; font-family: var(--m-font-head); line-height: 1.2; font-variant-numeric: tabular-nums; }
-.stat-delta { font-size: .82rem; font-weight: 700; }
+.stat-label { font-size: .9375rem; color: var(--m-fg-3); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.stat-val { font-size: 1.85rem; font-weight: 700; font-family: var(--m-font-head); line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat-delta { font-size: .9375rem; font-weight: 700; }
 .stat-delta.up { color: var(--m-success); }
 .stat-delta.down { color: var(--m-danger); }
 
 dl,
 .dl { display: grid; grid-template-columns: max-content 1fr; gap: .35rem 1.25rem; }
-dl dt, .dl dt { color: var(--m-fg-3); font-size: .84rem; }
+dl dt, .dl dt { color: var(--m-fg-3); font-size: .9375rem; }
 dl dd, .dl dd { margin: 0; font-weight: 600; }
 
 code,
 .code {
   font-family: var(--m-mono);
-  font-size: .86em;
-  padding: .1em .4em;
+  font-size: 1em;
+  padding: .15em .45em;
   background: var(--m-surface);
   border: 1px solid var(--m-border);
   border-radius: 4px;
@@ -81,8 +81,8 @@ code,
 pre,
 .code-block {
   font-family: var(--m-mono);
-  font-size: .82rem;
-  padding: .9rem 1.1rem;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
   background: var(--m-surface);
   border: 1px solid var(--m-border);
   border-radius: var(--m-r-sm);

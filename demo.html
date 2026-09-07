@@ -11,6 +11,14 @@
     .demo { max-width: 56rem; margin: 0 auto; padding: 1rem 1.25rem 4rem; }
     .theme-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 999; }
     .row-demo { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: .75rem; }
+    .type-list > .overline { margin: 1.35rem 0 .35rem; }
+    .type-list > .overline:first-child { margin-top: 0; }
+    .type-list :is(h1, h2, h3, h4, h5, h6) { margin: 0; }
+    .type-list p { margin: 0; }
+    .util-map { width: 100%; margin: 0 0 1.5rem; }
+    .util-map th:first-child, .util-map td:first-child { width: 42%; white-space: nowrap; }
+    .util-map code { font-size: .8125rem; }
+    .util-map + h3, h2 + h3 { margin-top: 1.25rem; }
   </style>
 </head>
 <body>
@@ -32,6 +40,8 @@
       <a href="#overlays">Overlays</a>
       <a href="#navplus">Nav</a>
       <a href="#shell">Shell</a>
+      <a href="#type">Type</a>
+      <a href="#utilities">Utilities</a>
       <span class="nav-space"></span>
       <span class="badge"><span class="avatar avatar-sm">AV</span><i class="badge-dot"></i></span>
     </nav>
@@ -52,6 +62,9 @@
       <button disabled>Disabled</button>
       <a class="btn" href="#forms">As a link</a>
       <button class="btn-close" aria-label="Close"></button>
+      <button class="btn-icon" aria-label="Add">+</button>
+      <button class="btn-icon btn-ghost" aria-label="More">⋯</button>
+      <button class="btn-icon btn-primary" aria-label="Add">+</button>
     </div>
     <div class="row-demo">
       <button class="btn-sm btn-spin">Loading</button>
@@ -106,16 +119,15 @@
           <span class="hint">Looks good.</span>
         </div>
         <label>Checks &amp; radios</label>
-        <label><input type="checkbox" checked> Checked</label>
-        <label><input type="checkbox"> Unchecked</label>
-        <label><input type="radio" name="r" checked> Radio A</label>
+        <label class="choice"><input type="checkbox" checked> Checked</label>
+        <label class="choice"><input type="checkbox"> Unchecked</label>
+        <label class="choice"><input type="radio" name="r" checked> Radio A</label>
       </div>
       <div class="m-col c-6">
         <label for="ta">Textarea</label>
         <textarea id="ta" placeholder="Write something…"></textarea>
         <label>Switch</label>
         <label class="switch"><input type="checkbox" checked><i></i></label>
-        <label class="switch" style="margin-left:.75rem;"><input type="checkbox"><i></i></label>
         <label for="rg">Range</label>
         <input type="range" id="rg" value="60">
         <input type="range" value="35" style="--m-range-h: 12px; margin-top:.5rem;" aria-label="Thick track example">
@@ -325,28 +337,29 @@
       </div>
     </div>
 
-    <h2 id="navplus">Breadcrumbs, pager, steps, segmented</h2>
+    <h2 id="navplus">Breadcrumbs, steps, segmented</h2>
     <nav class="crumbs m-b-15">
       <a href="#">Home</a>
       <a href="#">Docs</a>
       <span class="current">Components</span>
-    </nav>
-    <nav class="pager m-b-15">
-      <a class="disabled">Prev</a>
-      <a>1</a>
-      <a class="selected">2</a>
-      <a>3</a>
-      <a>Next</a>
     </nav>
     <ol class="steps">
       <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
       <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
       <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
     </ol>
-    <div class="seg m-t-10">
-      <label class="seg-item"><input type="radio" name="seg" checked> Day</label>
+    <div class="seg m-t-10 m-b-15">
+      <label class="seg-item selected"><input type="radio" name="seg" checked> Day</label>
       <label class="seg-item"><input type="radio" name="seg"> Week</label>
       <label class="seg-item"><input type="radio" name="seg"> Month</label>
+    </div>
+    <div class="card" style="max-width:22rem;">
+      <nav class="bottom-nav" aria-label="Primary">
+        <a class="bnav-item selected" href="#navplus">Home</a>
+        <a class="bnav-item" href="#charts">Charts</a>
+        <a class="bnav-item" href="#forms">Inbox</a>
+        <a class="bnav-item" href="#shell">Me</a>
+      </nav>
     </div>
 
     <h2>Feedback extras</h2>
@@ -424,7 +437,7 @@
         </div>
       </div>
       <div class="row-demo">
-        <label class="chip"><input type="checkbox" checked> Design</label>
+        <label class="chip selected"><input type="checkbox" checked> Design</label>
         <label class="chip"><input type="checkbox"> Backend</label>
         <span class="chip selected">Always on</span>
         <span class="rate" aria-label="Rating">
@@ -442,7 +455,7 @@
       </label>
     </fieldset>
 
-    <h2 id="shell">Shell, board, split</h2>
+    <h2 id="shell">Shell, split</h2>
     <div class="shell m-b-15" style="min-height:14rem;border:1px solid var(--m-border);border-radius:var(--m-r);overflow:hidden">
       <header class="shell-top p-10"><span class="nav-brand">App shell</span></header>
       <aside class="shell-side">
@@ -454,53 +467,10 @@
       </aside>
       <main class="shell-main p-10"><p class="muted m-0">Toggle <span class="mono">.collapsed</span> on <span class="mono">.shell</span> to shrink the side.</p></main>
     </div>
-    <div class="board m-b-15">
-      <div class="board-col">
-        <div class="board-head">Todo <span class="tag">2</span></div>
-        <div class="card"><div class="card-body p-10"><p class="m-0">Write README</p></div></div>
-        <div class="card"><div class="card-body p-10"><p class="m-0">Ship 0.5</p></div></div>
-      </div>
-      <div class="board-col">
-        <div class="board-head">Doing <span class="tag tag-soft">1</span></div>
-        <div class="card"><div class="card-body p-10"><p class="m-0">Build components</p></div></div>
-      </div>
-      <div class="board-col">
-        <div class="board-head">Done</div>
-        <div class="card"><div class="card-body p-10"><p class="m-0">Charts</p></div></div>
-      </div>
-    </div>
     <div class="split m-b-15" style="--split:35%;min-height:8rem">
       <div class="split-a p-10 surface">Pane A · <span class="mono">--split</span></div>
       <div class="split-b p-10">Pane B</div>
     </div>
-    <div class="media m-t-15">
-      <span class="avatar media-img">M</span>
-      <div class="media-body">
-        <p class="card-title m-0">Media object</p>
-        <p class="card-sub">Avatar + body without custom CSS.</p>
-      </div>
-    </div>
-
-    <h2>More charts</h2>
-    <div class="m-grid m-grid-cols-2 m-gap">
-      <div class="card"><div class="card-body">
-        <p class="card-title">Meter + heatmap</p>
-        <div class="meter m-b-10"><i class="s1" style="--sv:45"></i><i class="s2" style="--sv:30"></i><i class="s3" style="--sv:15"></i></div>
-        <div class="heat" style="--cols:7">
-          <i style="--v:10"></i><i style="--v:40"></i><i style="--v:80"></i><i style="--v:20"></i><i style="--v:60"></i><i style="--v:90"></i><i style="--v:30"></i>
-          <i style="--v:50"></i><i style="--v:15"></i><i style="--v:70"></i><i style="--v:35"></i><i style="--v:55"></i><i style="--v:25"></i><i style="--v:85"></i>
-        </div>
-      </div></div>
-      <div class="card"><div class="card-body m-flex m-i-center m-gap">
-        <div class="gauge" style="--v:72;--m-donut-size:8rem"><b>72</b></div>
-        <div class="cmp m-flex-1">
-          <div class="cmp-row" style="--a:62;--b:38"><span>Us</span><i></i><span>Them</span></div>
-          <div class="cmp-row" style="--a:45;--b:55"><span>Q1</span><i></i><span>Q2</span></div>
-        </div>
-      </div></div>
-    </div>
-    <p class="m-t-15"><code>import "mates-css"</code> · <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span></p>
-    <pre>npm install mates-css</pre>
 
     <h2>Flex &amp; grid</h2>
     <div class="m-grid m-grid-cols-3 m-gap-sm" style="margin-bottom:1rem;">
@@ -593,19 +563,324 @@
       <span class="avatar">AL</span>
       <span class="avatar avatar-sm">SM</span>
       <span class="avatar avatar-lg">LG</span>
-      <kbd>Ctrl</kbd> <kbd>K</kbd>
-      <mark>marked</mark>
-      <blockquote style="margin:0;">Blockquote</blockquote>
+      <span class="avatars" aria-label="Members">
+        <span class="avatar avatar-sm">AL</span>
+        <span class="avatar avatar-sm">SM</span>
+        <span class="avatar avatar-sm">LG</span>
+      </span>
     </div>
     <div class="row g-sm" style="margin-top:1rem;">
       <div class="c-4"><div class="alert" style="margin:0">c-4</div></div>
       <div class="c-8"><div class="alert" style="margin:0">c-8</div></div>
     </div>
+
+    <h2 id="type">Typography</h2>
+    <div class="type-list">
+      <p class="overline">h1</p>
+      <h1>The quick brown fox</h1>
+      <p class="overline">h2</p>
+      <h2>The quick brown fox</h2>
+      <p class="overline">h3</p>
+      <h3>The quick brown fox</h3>
+      <p class="overline">h4</p>
+      <h4>The quick brown fox</h4>
+      <p class="overline">h5</p>
+      <h5>The quick brown fox</h5>
+      <p class="overline">h6</p>
+      <h6>The quick brown fox</h6>
+      <p class="overline">p</p>
+      <p>Body copy at 16px. Mates styles native tags first — this is a plain paragraph with a <a href="#type">link</a> inside.</p>
+      <p class="overline">small</p>
+      <p><small>Small print sits at body size with muted color.</small></p>
+      <p class="overline">a</p>
+      <p><a href="#buttons">Inline link to buttons</a></p>
+      <p class="overline">hr</p>
+      <hr>
+      <p class="overline">blockquote</p>
+      <blockquote>A pull quote. Native <span class="mono">blockquote</span> — no class.</blockquote>
+      <p class="overline">ul</p>
+      <ul>
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+      </ul>
+      <p class="overline">ol</p>
+      <ol>
+        <li>First step</li>
+        <li>Second step</li>
+        <li>Third step</li>
+      </ol>
+      <p class="overline">kbd</p>
+      <p><kbd>Ctrl</kbd> <kbd>K</kbd></p>
+      <p class="overline">.kbd-row</p>
+      <p><span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span></p>
+      <p class="overline">mark</p>
+      <p>Highlight <mark>this phrase</mark> in a sentence.</p>
+      <p class="overline">code</p>
+      <p><code>import "mates-css"</code></p>
+      <p class="overline">pre</p>
+      <pre>npm install mates-css</pre>
+      <p class="overline">dl</p>
+      <dl>
+        <dt>Plan</dt><dd>Pro</dd>
+        <dt>Seats</dt><dd>8</dd>
+      </dl>
+      <p class="overline">.overline</p>
+      <p class="overline" style="margin:0;">Section label</p>
+      <p class="overline">.muted</p>
+      <p class="muted">Secondary body color.</p>
+      <p class="overline">.subtle</p>
+      <p class="subtle">Tertiary / hint color.</p>
+      <p class="overline">.mono</p>
+      <p class="mono">0123456789 --m-fs</p>
+      <p class="overline">.text-sm</p>
+      <p class="text-sm">Small utility text.</p>
+      <p class="overline">.text-lg</p>
+      <p class="text-lg">Large utility text.</p>
+      <p class="overline">.fw-500</p>
+      <p class="fw-500">Medium weight.</p>
+      <p class="overline">.fw-700</p>
+      <p class="fw-700">Bold weight.</p>
+      <p class="overline">.tabular</p>
+      <p class="tabular">$1,240.00 &nbsp; $98.50 &nbsp; $12,004.00</p>
+      <p class="overline">.truncate</p>
+      <p class="truncate" style="max-width:14rem;">This line is clipped with an ellipsis when it overflows the box.</p>
+      <p class="overline">.clamp-2</p>
+      <p class="clamp-2" style="max-width:22rem;">Two-line clamp. Extra words wrap once, then the rest is cut off so the block never grows past two lines of copy in the demo.</p>
+      <p class="overline">.clamp-3</p>
+      <p class="clamp-3" style="max-width:22rem;">Three-line clamp. This paragraph is long enough to wrap past three lines so you can see the clamp take effect on the last visible line with an ellipsis at the end of the block.</p>
+      <p class="overline">.center</p>
+      <p class="center">Centered line.</p>
+      <p class="overline">.prose</p>
+      <article class="prose">
+        <h3>Reading width</h3>
+        <p>Use <span class="mono">.prose</span> on an article for a comfortable measure. Headings and paragraphs inside pick up a bit more vertical rhythm.</p>
+      </article>
+    </div>
+
+    <h2 id="utilities">Utility map</h2>
+    <p class="subtle" style="font-size:.85rem;">Reusable layout and spacing classes — not components. Class on the left, CSS on the right.</p>
+
+    <h3>Display &amp; flex</h3>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-flex</code></td><td><code>display: flex</code></td></tr>
+          <tr><td><code>.m-inline-flex</code></td><td><code>display: inline-flex</code></td></tr>
+          <tr><td><code>.m-flex-row</code></td><td><code>flex-direction: row</code></td></tr>
+          <tr><td><code>.m-flex-col</code></td><td><code>flex-direction: column</code></td></tr>
+          <tr><td><code>.m-flex-wrap</code></td><td><code>flex-wrap: wrap</code></td></tr>
+          <tr><td><code>.m-flex-nowrap</code></td><td><code>flex-wrap: nowrap</code></td></tr>
+          <tr><td><code>.m-flex-1</code></td><td><code>flex: 1 1 0%; min-width: 0</code></td></tr>
+          <tr><td><code>.m-flex-auto</code></td><td><code>flex: 1 1 auto</code></td></tr>
+          <tr><td><code>.m-flex-none</code></td><td><code>flex: none</code></td></tr>
+          <tr><td><code>.m-grow</code></td><td><code>flex-grow: 1</code></td></tr>
+          <tr><td><code>.m-shrink-0</code></td><td><code>flex-shrink: 0</code></td></tr>
+          <tr><td><code>.m-basis-0</code></td><td><code>flex-basis: 0</code></td></tr>
+          <tr><td><code>.m-order-first</code></td><td><code>order: -1</code></td></tr>
+          <tr><td><code>.m-order-last</code></td><td><code>order: 99</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Align &amp; justify</h3>
+    <p class="hint">Short aliases: <span class="mono">.m-i-*</span> = <span class="mono">.m-items-*</span>, <span class="mono">.m-j-*</span> = <span class="mono">.m-justify-*</span>.</p>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-items-start</code> / <code>.m-i-start</code></td><td><code>align-items: flex-start</code></td></tr>
+          <tr><td><code>.m-items-center</code> / <code>.m-i-center</code></td><td><code>align-items: center</code></td></tr>
+          <tr><td><code>.m-items-end</code> / <code>.m-i-end</code></td><td><code>align-items: flex-end</code></td></tr>
+          <tr><td><code>.m-items-stretch</code> / <code>.m-i-stretch</code></td><td><code>align-items: stretch</code></td></tr>
+          <tr><td><code>.m-items-baseline</code> / <code>.m-i-baseline</code></td><td><code>align-items: baseline</code></td></tr>
+          <tr><td><code>.m-self-start</code></td><td><code>align-self: flex-start</code></td></tr>
+          <tr><td><code>.m-self-center</code></td><td><code>align-self: center</code></td></tr>
+          <tr><td><code>.m-self-end</code></td><td><code>align-self: flex-end</code></td></tr>
+          <tr><td><code>.m-justify-start</code> / <code>.m-j-start</code></td><td><code>justify-content: flex-start</code></td></tr>
+          <tr><td><code>.m-justify-center</code> / <code>.m-j-center</code></td><td><code>justify-content: center</code></td></tr>
+          <tr><td><code>.m-justify-end</code> / <code>.m-j-end</code></td><td><code>justify-content: flex-end</code></td></tr>
+          <tr><td><code>.m-justify-between</code> / <code>.m-j-between</code></td><td><code>justify-content: space-between</code></td></tr>
+          <tr><td><code>.m-justify-around</code> / <code>.m-j-around</code></td><td><code>justify-content: space-around</code></td></tr>
+          <tr><td><code>.m-justify-evenly</code> / <code>.m-j-evenly</code></td><td><code>justify-content: space-evenly</code></td></tr>
+          <tr><td><code>.m-j-center-v</code></td><td><code>justify-content: center</code></td></tr>
+          <tr><td><code>.m-content-start</code></td><td><code>align-content: flex-start</code></td></tr>
+          <tr><td><code>.m-content-center</code></td><td><code>align-content: center</code></td></tr>
+          <tr><td><code>.m-content-between</code></td><td><code>align-content: space-between</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Grid</h3>
+    <p class="hint"><span class="mono">.m-grid-cols-2|3|4</span> collapse to one column under 640px.</p>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-grid</code></td><td><code>display: grid</code></td></tr>
+          <tr><td><code>.m-inline-grid</code></td><td><code>display: inline-grid</code></td></tr>
+          <tr><td><code>.m-grid-cols-2</code></td><td><code>grid-template-columns: repeat(2, minmax(0, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-cols-3</code></td><td><code>grid-template-columns: repeat(3, minmax(0, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-cols-4</code></td><td><code>grid-template-columns: repeat(4, minmax(0, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-cols-auto</code></td><td><code>grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-cols-auto-sm</code></td><td><code>repeat(auto-fit, minmax(11rem, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-cols-auto-lg</code></td><td><code>repeat(auto-fit, minmax(22rem, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-rows-2</code></td><td><code>grid-template-rows: repeat(2, minmax(0, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-rows-3</code></td><td><code>grid-template-rows: repeat(3, minmax(0, 1fr))</code></td></tr>
+          <tr><td><code>.m-grid-flow-dense</code></td><td><code>grid-auto-flow: row dense</code></td></tr>
+          <tr><td><code>.m-col-span-2</code></td><td><code>grid-column: span 2</code></td></tr>
+          <tr><td><code>.m-col-span-3</code></td><td><code>grid-column: span 3</code></td></tr>
+          <tr><td><code>.m-col-span-full</code></td><td><code>grid-column: 1 / -1</code></td></tr>
+          <tr><td><code>.m-row-span-2</code></td><td><code>grid-row: span 2</code></td></tr>
+          <tr><td><code>.m-grid-auto</code></td><td><code>display: grid; columns auto-fit 16rem; gap: var(--m-gap, 1rem)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Row / column stacks</h3>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-row</code></td><td><code>display: flex; flex-wrap: wrap; align-items: center; gap: var(--m-gap, 1rem)</code></td></tr>
+          <tr><td><code>.m-col</code></td><td><code>display: flex; flex-direction: column; gap: var(--m-gap, 1rem)</code></td></tr>
+          <tr><td><code>.m-row-nowrap</code></td><td><code>flex-wrap: nowrap</code></td></tr>
+          <tr><td><code>.m-col-auto</code></td><td>on a child of <code>.m-row</code>: <code>flex: 0 0 auto; width: auto</code></td></tr>
+          <tr><td><code>.c-1</code> … <code>.c-12</code></td><td><code>flex: 0 0</code> / <code>max-width</code> 8.333% … 100%</td></tr>
+          <tr><td><code>.m-g-0</code></td><td><code>--m-gap: 0</code></td></tr>
+          <tr><td><code>.m-g-xs</code></td><td><code>--m-gap: .4rem</code></td></tr>
+          <tr><td><code>.m-g-sm</code></td><td><code>--m-gap: .65rem</code></td></tr>
+          <tr><td><code>.m-g-lg</code></td><td><code>--m-gap: 1.75rem</code></td></tr>
+          <tr><td><code>.container</code></td><td><code>max-width: 72rem; margin-inline: auto; padding-inline: 1.25rem</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Gap</h3>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-gap-0</code></td><td><code>gap: 0</code></td></tr>
+          <tr><td><code>.m-gap-xs</code></td><td><code>gap: .4rem</code></td></tr>
+          <tr><td><code>.m-gap-sm</code></td><td><code>gap: .65rem</code></td></tr>
+          <tr><td><code>.m-gap</code></td><td><code>gap: 1rem</code></td></tr>
+          <tr><td><code>.m-gap-lg</code></td><td><code>gap: 1.75rem</code></td></tr>
+          <tr><td><code>.m-gap-xl</code></td><td><code>gap: 2.5rem</code></td></tr>
+          <tr><td><code>.m-gap-5</code> <code>.m-gap-10</code> <code>.m-gap-15</code> <code>.m-gap-20</code> <code>.m-gap-30</code> <code>.m-gap-40</code></td><td><code>gap: 5px</code> … <code>40px</code></td></tr>
+          <tr><td><code>.m-gap-x-*</code></td><td><code>column-gap</code> (same named + px scale)</td></tr>
+          <tr><td><code>.m-gap-y-*</code></td><td><code>row-gap</code> (same named + px scale)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Margin</h3>
+    <p class="hint">Scale: <span class="mono">0</span> = 0, <span class="mono">5</span> = 5px, <span class="mono">10</span> = 10px, <span class="mono">15</span> = 15px, <span class="mono">20</span> = 20px, <span class="mono">30</span> = 30px, <span class="mono">40</span> = 40px. Sides: <span class="mono">t</span> top, <span class="mono">b</span> bottom, <span class="mono">l</span> left, <span class="mono">r</span> right, <span class="mono">x</span> left+right, <span class="mono">y</span> top+bottom.</p>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-0</code> … <code>.m-40</code></td><td><code>margin: 0</code> … <code>margin: 40px</code></td></tr>
+          <tr><td><code>.m-t-0</code> … <code>.m-t-40</code></td><td><code>margin-top</code></td></tr>
+          <tr><td><code>.m-b-0</code> … <code>.m-b-40</code></td><td><code>margin-bottom</code></td></tr>
+          <tr><td><code>.m-l-0</code> … <code>.m-l-40</code></td><td><code>margin-left</code></td></tr>
+          <tr><td><code>.m-r-0</code> … <code>.m-r-40</code></td><td><code>margin-right</code></td></tr>
+          <tr><td><code>.m-x-0</code> … <code>.m-x-20</code></td><td><code>margin-left</code> + <code>margin-right</code></td></tr>
+          <tr><td><code>.m-x-auto</code></td><td><code>margin-left: auto; margin-right: auto</code></td></tr>
+          <tr><td><code>.m-y-0</code> … <code>.m-y-20</code></td><td><code>margin-top</code> + <code>margin-bottom</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Padding</h3>
+    <p class="hint">Same numeric scale and side letters as margin.</p>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.p-0</code> … <code>.p-40</code></td><td><code>padding: 0</code> … <code>padding: 40px</code></td></tr>
+          <tr><td><code>.p-t-*</code></td><td><code>padding-top</code></td></tr>
+          <tr><td><code>.p-b-*</code></td><td><code>padding-bottom</code></td></tr>
+          <tr><td><code>.p-l-*</code></td><td><code>padding-left</code></td></tr>
+          <tr><td><code>.p-r-*</code></td><td><code>padding-right</code></td></tr>
+          <tr><td><code>.p-x-*</code></td><td><code>padding-left</code> + <code>padding-right</code></td></tr>
+          <tr><td><code>.p-y-*</code></td><td><code>padding-top</code> + <code>padding-bottom</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Width</h3>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.m-w-auto</code></td><td><code>width: auto</code></td></tr>
+          <tr><td><code>.m-w-xs</code></td><td><code>width: 8rem</code></td></tr>
+          <tr><td><code>.m-w-sm</code></td><td><code>width: 12rem</code></td></tr>
+          <tr><td><code>.m-w-md</code></td><td><code>width: 18rem</code></td></tr>
+          <tr><td><code>.m-w-lg</code></td><td><code>width: 26rem</code></td></tr>
+          <tr><td><code>.m-w-full</code></td><td><code>width: 100%</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Surface, type, position</h3>
+    <div class="table-wrap">
+      <table class="striped util-map">
+        <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+        <tbody>
+          <tr><td><code>.surface</code></td><td><code>background: var(--m-surface)</code></td></tr>
+          <tr><td><code>.elev-1</code></td><td><code>box-shadow: var(--m-shadow)</code></td></tr>
+          <tr><td><code>.elev-2</code></td><td><code>box-shadow: var(--m-elev)</code></td></tr>
+          <tr><td><code>.elev-3</code></td><td><code>box-shadow: 0 8px 28px rgba(16,24,40,.18)</code></td></tr>
+          <tr><td><code>.border</code></td><td><code>border: 1px solid var(--m-border)</code></td></tr>
+          <tr><td><code>.radius-sm</code></td><td><code>border-radius: var(--m-r-sm)</code></td></tr>
+          <tr><td><code>.radius</code></td><td><code>border-radius: var(--m-r)</code></td></tr>
+          <tr><td><code>.radius-full</code></td><td><code>border-radius: var(--m-r-full)</code></td></tr>
+          <tr><td><code>.center</code></td><td><code>text-align: center</code></td></tr>
+          <tr><td><code>.muted</code></td><td><code>color: var(--m-fg-2)</code></td></tr>
+          <tr><td><code>.subtle</code></td><td><code>color: var(--m-fg-3)</code></td></tr>
+          <tr><td><code>.mono</code></td><td><code>font-family: var(--m-mono)</code></td></tr>
+          <tr><td><code>.overline</code></td><td>uppercase, tracked, <code>color: var(--m-fg-3)</code></td></tr>
+          <tr><td><code>.text-sm</code></td><td><code>font-size: 1rem</code></td></tr>
+          <tr><td><code>.text-lg</code></td><td><code>font-size: 1.25rem</code></td></tr>
+          <tr><td><code>.fw-500</code></td><td><code>font-weight: 500</code></td></tr>
+          <tr><td><code>.fw-700</code></td><td><code>font-weight: 700</code></td></tr>
+          <tr><td><code>.tabular</code></td><td><code>font-variant-numeric: tabular-nums</code></td></tr>
+          <tr><td><code>.truncate</code></td><td><code>overflow: hidden; text-overflow: ellipsis; white-space: nowrap</code></td></tr>
+          <tr><td><code>.clamp-2</code></td><td>2-line clamp</td></tr>
+          <tr><td><code>.clamp-3</code></td><td>3-line clamp</td></tr>
+          <tr><td><code>.hidden</code></td><td><code>display: none !important</code></td></tr>
+          <tr><td><code>.rel</code></td><td><code>position: relative</code></td></tr>
+          <tr><td><code>.abs</code></td><td><code>position: absolute</code></td></tr>
+          <tr><td><code>.fixed</code></td><td><code>position: fixed</code></td></tr>
+          <tr><td><code>.inset-0</code></td><td><code>inset: 0</code></td></tr>
+          <tr><td><code>.z-10</code> <code>.z-20</code> <code>.z-50</code></td><td><code>z-index: 10</code> / <code>20</code> / <code>50</code></td></tr>
+          <tr><td><code>.sticky-t</code></td><td><code>position: sticky; top: 0</code></td></tr>
+          <tr><td><code>.sticky-b</code></td><td><code>position: sticky; bottom: 0</code></td></tr>
+          <tr><td><code>.aspect</code></td><td><code>aspect-ratio: 16 / 9</code></td></tr>
+          <tr><td><code>.aspect-1x1</code></td><td><code>aspect-ratio: 1</code></td></tr>
+          <tr><td><code>.aspect-4x3</code></td><td><code>aspect-ratio: 4 / 3</code></td></tr>
+          <tr><td><code>.aspect-16x9</code></td><td><code>aspect-ratio: 16 / 9</code></td></tr>
+          <tr><td><code>.scroll-y</code></td><td><code>overflow-y: auto</code></td></tr>
+          <tr><td><code>.no-scrollbar</code></td><td>hides scrollbars</td></tr>
+          <tr><td><code>.overscroll-none</code></td><td><code>overscroll-behavior: none</code></td></tr>
+          <tr><td><code>.divider</code></td><td>horizontal rule with optional label</td></tr>
+          <tr><td><code>.sr-only</code></td><td>visually hidden, available to AT</td></tr>
+          <tr><td><code>.skip-link</code></td><td>off-screen until focused</td></tr>
+          <tr><td><code>.is-disabled</code></td><td><code>opacity: .5; pointer-events: none</code></td></tr>
+          <tr><td><code>.is-loading</code></td><td><code>opacity: .7; pointer-events: none</code></td></tr>
+          <tr><td><code>.print-only</code></td><td>hidden on screen, shown in print</td></tr>
+          <tr><td><code>.no-print</code></td><td>hidden in print</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <footer class="container center" style="padding-block:2rem;">
     <hr>
-    <small>Mates CSS — 64.1kb / 11.1kb gzipped. MIT.</small>
+    <small>Mates CSS — 64.2kb / 11.0kb gzipped. MIT.</small>
   </footer>
 
   <script>
@@ -658,6 +933,22 @@
     if (search) {
       search.querySelector('input').addEventListener('focus', () => search.classList.add('open'));
     }
+    document.querySelectorAll('.chip > input[type="checkbox"]').forEach((c) => {
+      const chip = c.closest('.chip');
+      const sync = () => chip.classList.toggle('selected', c.checked);
+      c.addEventListener('change', sync);
+      sync();
+    });
+    document.querySelectorAll('.seg-item input').forEach((r) => {
+      r.addEventListener('change', () => {
+        const seg = r.closest('.seg');
+        if (!seg) return;
+        seg.querySelectorAll('.seg-item').forEach((item) => {
+          const input = item.querySelector('input');
+          item.classList.toggle('selected', !!(input && input.checked));
+        });
+      });
+    });
     document.addEventListener('click', (e) => {
       document.querySelectorAll('.menu.open, .pop.open, .search.open').forEach((el) => {
         if (!el.contains(e.target)) el.classList.remove('open');

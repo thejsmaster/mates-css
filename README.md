@@ -1,6 +1,6 @@
 # Mates CSS
 
-A compact pure-CSS UI kit — **64.1kb raw (11.1kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
+A compact pure-CSS UI kit — **64.2kb raw (11.0kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
 
 Styled via **native tags** when possible (`button`, `label`, `input`, `table`…). **Classes** are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`). Overlay open state is the `.open` class — your app toggles it.
 
@@ -63,13 +63,17 @@ Everything is a `--m-*` CSS variable. Override on `:root` to rebrand:
   --m-primary: #0172ad;
   --m-primary-h: #016091;   /* hover */
   --m-primary-a: #014e75;   /* active */
+  --m-primary-soft: rgba(1,114,173,.12);
+  --m-primary-soft-2: rgba(1,114,173,.22);
+  --m-primary-soft-3: rgba(1,114,173,.30);
   --m-on-primary: #ffffff;  /* text on primary fills */
-  --m-r: 8px;               /* reshape everything */
+  --m-r: 9px;               /* reshape everything */
   --m-font: "Inter", sans-serif;
+  --m-fs: 16px;
 }
 ```
 
-Semantic on-colors (`--m-on-primary`, `--m-on-success`, `--m-on-warning`, `--m-on-danger`) flip per theme so fills stay readable.
+Override type size with `--m-fs` (default **16px**, set on `:root` so `rem` scales with it).
 
 Stacking, low to high: `--m-z-sticky` (20) → `--m-z-menu` (40, also popover and search) → `--m-z-drawer` (90, also sheet) → `--m-z-modal` (100) → `--m-z-toast` (110) → `--m-z-tooltip` (120) → `--m-z-skip` (200).
 
@@ -93,15 +97,16 @@ Stacking, low to high: `--m-z-sticky` (20) → `--m-z-menu` (40, also popover an
 | [Popover](#popover) | `.pop` + `.open` |
 | [Accordion](#accordion) | bare `<details>` |
 | [Nav](#nav) | `.nav` |
-| [Breadcrumbs, pager, steps](#breadcrumbs-pager-steps) | `.crumbs` / `.pager` / `.steps` |
+| [Breadcrumbs, steps](#breadcrumbs-steps) | `.crumbs` / `.steps` |
 | [Sidenav](#sidenav) | `.sidenav` |
+| [Bottom nav](#bottom-nav) | `.bottom-nav` |
 | [Avatar, status, badge](#avatar) | `.avatar` / `.status` / `.badge` |
 | [Progress](#progress) | bare `<progress>` |
 | [Lists & timeline](#lists--timeline) | `.list` / `.timeline` |
 | [Stats & definition list](#stats--definition-list) | `.stat` / bare `<dl>` |
 | [Code & prose](#code--prose) | bare `<code>` / `<pre>` / `.prose` |
-| [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark`, `.meter`, `.heat`, `.gauge` |
-| [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.board`, `.split`, `.media`, `.aspect` |
+| [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark` |
+| [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.split`, `.aspect` |
 | [Layout utilities](#layout-flex--grid) | `.m-flex`, `.m-grid`, `.m-row`, … |
 
 ---
@@ -140,6 +145,7 @@ Use `.btn` / `.input` / `.check` / `.label` / `.table` / `.acc` / `.progress` wh
 | `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` | solid fills |
 | `.btn-outline` `.btn-soft` `.btn-ghost` `.btn-link` | quiet styles |
 | `.btn-sm` `.btn-lg` `.btn-block` | size / full width |
+| `.btn-icon` | square icon-only control |
 | `.btn-elevated` | faint rest shadow (not a 3D bevel) |
 | `.btn-spin` | loading spinner (`::after`) |
 | `.btn-close` | icon-only close control |
@@ -154,6 +160,7 @@ Use `.btn` / `.input` / `.check` / `.label` / `.table` / `.acc` / `.progress` wh
 <button class="btn-sm btn-spin">Loading</button>
 <button class="btn-elevated btn-primary">Elevated</button>
 <button class="btn-close" aria-label="Close"></button>
+<button class="btn-icon" aria-label="Add">+</button>
 
 <div class="btn-group">
   <button class="btn-primary">Left</button>
@@ -216,11 +223,11 @@ Inputs default to `width: var(--m-input-w)` (`100%`). Override globally (`:root 
 
 ### Checkbox / radio
 
-Bare `input[type=checkbox|radio]` are styled. Use `.check` on custom elements if needed.
+Bare `input[type=checkbox|radio]` are styled. Wrap the control + caption in `<label class="choice">` so they sit in a row. (Newer browsers can infer the row with `:has()`; `.choice` is the compatible API.)
 
 ```html
-<label><input type="checkbox" checked> Checked</label>
-<label><input type="radio" name="r" checked> Radio A</label>
+<label class="choice"><input type="checkbox" checked> Checked</label>
+<label class="choice"><input type="radio" name="r" checked> Radio A</label>
 ```
 
 ### Switch
@@ -442,7 +449,7 @@ Bare `<details>` + `<summary>`. Use `.acc` only on a non-`details` host.
 
 ## Avatar
 
-**.avatar** — optional `.avatar-sm` / `.avatar-lg`.
+**.avatar** — optional `.avatar-sm` / `.avatar-lg`. Stack with `.avatars`.
 
 **Status:** `.status` + `.status-dot` with `.online` / `.away` / `.busy` / `.offline` on the status or the dot.
 
@@ -450,6 +457,10 @@ Bare `<details>` + `<summary>`. Use `.acc` only on a non-`details` host.
 
 ```html
 <span class="avatar">AL</span>
+<span class="avatars">
+  <span class="avatar avatar-sm">AL</span>
+  <span class="avatar avatar-sm">SM</span>
+</span>
 <span class="status online"><i class="status-dot"></i> Online</span>
 <span class="badge">
   <button class="btn-sm">Inbox</button>
@@ -565,26 +576,6 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 <div class="legend legend-v">…</div>
 ```
 
-### Meter, heatmap, gauge, comparison
-
-```html
-<div class="meter">
-  <i class="s1" style="--sv:45"></i>
-  <i class="s2" style="--sv:30"></i>
-  <i class="s3" style="--sv:15"></i>
-</div>
-
-<div class="heat" style="--cols:7">
-  <i style="--v:10"></i><i style="--v:80"></i>
-</div>
-
-<div class="gauge" style="--v:72"><b>72</b></div>
-
-<div class="cmp-row" style="--a:62;--b:38"><span>Us</span><i></i><span>Them</span></div>
-```
-
-`--sv` is segment share on `.meter > i`. `--v` is 0–100 intensity on `.heat > i`. `--a` / `--b` are the two sides of a comparison bar.
-
 ---
 
 ## Form extras
@@ -643,10 +634,10 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ### Chips
 
-**Required:** `.chip`. Use a checkbox inside, or toggle `.selected` from JS.
+**Required:** `.chip`. Toggle `.selected` from JS (or start with it on the markup). Nested `<input type="checkbox">` also lights the chip on browsers that support `:has()`. Sibling pattern `input:checked + .chip` needs no JS.
 
 ```html
-<label class="chip"><input type="checkbox" checked> Design</label>
+<label class="chip selected"><input type="checkbox" checked> Design</label>
 <button class="chip selected">Filter</button>
 ```
 
@@ -666,11 +657,11 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ### Segmented control
 
-**Required:** `.seg` parent, `.seg-item` children. Active via `.selected` or a checked radio inside.
+**Required:** `.seg` parent, `.seg-item` children. Active via `.selected`. Newer browsers also match a checked radio with `:has(:checked)`.
 
 ```html
 <div class="seg">
-  <label class="seg-item"><input type="radio" name="p" checked> Day</label>
+  <label class="seg-item selected"><input type="radio" name="p" checked> Day</label>
   <label class="seg-item"><input type="radio" name="p"> Week</label>
 </div>
 ```
@@ -751,20 +742,13 @@ Add `.open` on `.drawer` or `.sheet`. Optional `.drawer-r` docks the drawer to t
 
 ---
 
-## Breadcrumbs, pager, steps
+## Breadcrumbs, steps
 
 ```html
 <nav class="crumbs">
   <a href="#">Home</a>
   <a href="#">Docs</a>
   <span class="current">Here</span>
-</nav>
-
-<nav class="pager">
-  <a class="disabled">Prev</a>
-  <a class="selected">1</a>
-  <a>2</a>
-  <a>Next</a>
 </nav>
 
 <ol class="steps">
@@ -786,6 +770,19 @@ Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user move
 <nav class="sidenav">
   <a class="sidenav-item selected" href="#">Home</a>
   <a class="sidenav-item" href="#">Docs</a>
+</nav>
+```
+
+---
+
+## Bottom nav
+
+**Required:** `.bottom-nav` + `.bnav-item`. Active: `.selected`. Pin with `.fixed` on the bar.
+
+```html
+<nav class="bottom-nav" aria-label="Primary">
+  <a class="bnav-item selected" href="#">Home</a>
+  <a class="bnav-item" href="#">Inbox</a>
 </nav>
 ```
 
@@ -848,8 +845,6 @@ Banner: `.banner` (optional `.banner-warn` / `.banner-danger`). Toast stack: `.t
 | `.collapsed` | on `.shell` to shrink the side (`--m-side`) |
 | `.sticky-t` / `.sticky-b` | sticky top/bottom |
 | `.split` + `.split-a` / `.split-b` | split panes; width via `--split` |
-| `.board` + `.board-col` + `.board-head` | kanban columns |
-| `.media` + `.media-img` + `.media-body` | media object |
 | `.aspect` + `.aspect-1x1/4x3/16x9` | aspect boxes |
 
 ```html
@@ -932,21 +927,38 @@ Directional: `.m-gap-x-*` / `.m-gap-y-*` (same scales)
 
 `m-*` / `p-*` with `0|5|10|15|20|30|40` and sides `t|b|l|r|x|y`, e.g. `.m-b-10`, `.p-x-5`, `.m-x-auto`.
 
+Full class → CSS tables: [docs.html#utilities](docs.html#utilities) and [demo.html#utilities](demo.html#utilities).
+
 ---
 
 ## Accessibility
 
-- Focus rings are keyboard-only (`:focus-visible`) — no ring on mouse click
+- Focus rings are keyboard-only (`:focus-visible`) on browsers that support it. Safari 15 falls back to a ring on `:focus` (including click).
 - Custom checkboxes / radios / switches are real inputs
 - Contrast-checked: white on `#0172ad` is 5.2:1; dark-mode fills 6–11:1
+
+## Browsers
+
+Floor is about **five years back**: **Safari 15**, **Chrome 94**, **Firefox 92** (late 2021).
+
+| Feature | How we handle old engines |
+|---|---|
+| `:has()` | Optional enhancement. Use `.choice` on checkbox/radio labels, `.selected` on chips/seg items |
+| `color-mix()` | Replaced with tokens (`--m-primary-soft-2`, `--m-alert-*-bg`, …) |
+| `translate` / `rotate` properties | `transform: …` |
+| `:focus-visible` | `@supports` — Safari 15 uses `:focus` |
+| `100dvh` | `100vh` then `100dvh` |
+| `@property` (chart easing) | Ignored if missing; `--v` still applies, values jump instead of easing |
+
+When you rebrand `--m-primary`, also set `--m-primary-soft`, `--m-primary-soft-2`, and `--m-primary-soft-3`.
 
 ## Size
 
 | | |
 |---|---|
-| Raw | 64.1kb |
-| Minified | 52.5kb |
-| **Min + gzip** | **11.1kb** |
+| Raw | 64.2kb |
+| Minified | 52.7kb |
+| **Min + gzip** | **11.0kb** |
 
 ## Source
 
@@ -957,10 +969,14 @@ npm run build   # mates.css + mates.min.css
 npm run watch
 ```
 
+## Docs
+
+Open [`docs.html`](docs.html) — one-page catalog: install snippets, live component on the left, markup on the right. Playground: [mates-js.dev/playground](https://mates-js.dev/playground).
+
 ## Demo
 
 Open `demo.html` — every component, light and dark.
 
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 Sean Freeman

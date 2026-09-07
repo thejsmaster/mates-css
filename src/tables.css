@@ -1,11 +1,11 @@
 .table-wrap { overflow-x: auto; }
 table,
-.table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.table { width: 100%; border-collapse: collapse; font-size: 1rem; }
 table th, table td,
-.table th, .table td { padding: .55em .8em; text-align: left; border-bottom: 1px solid var(--m-border); }
+.table th, .table td { padding: .6em .9em; text-align: left; border-bottom: 1px solid var(--m-border); }
 table thead th,
 .table thead th {
-  font-size: .74rem;
+  font-size: .9375rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .05em;
@@ -19,10 +19,10 @@ table tbody tr:hover,
 table tr.selected,
 .table tr.selected { background: var(--m-primary-soft); }
 table.striped tbody tr:nth-child(even),
-.table.striped tbody tr:nth-child(even) { background: color-mix(in srgb, var(--m-surface) 55%, transparent); }
+.table.striped tbody tr:nth-child(even) { background: var(--m-surface); }
 table.bordered th, table.bordered td,
 .table.bordered th, .table.bordered td { border: 1px solid var(--m-border); }
 table caption,
-.table caption { caption-side: bottom; padding: .5em 0; font-size: .8rem; color: var(--m-fg-3); text-align: left; }
+.table caption { caption-side: bottom; padding: .55em 0; font-size: 1rem; color: var(--m-fg-3); text-align: left; }
 table.sticky thead th,
 .table.sticky thead th { position: sticky; top: 0; z-index: 1; }

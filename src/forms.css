@@ -1,16 +1,25 @@
-label:not(:has(input, select, textarea, button)),
-.label { display: block; font-weight: 700; font-size: .9rem; line-height: 1.4; margin: .8rem 0 .15rem; }
-label:has(> input[type="checkbox"]):not(.chip, .switch, .drop, .seg-item),
-label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item) {
+label,
+.label { display: block; font-weight: 700; font-size: 1rem; line-height: 1.4; margin: .85rem 0 .2rem; }
+.choice {
   display: flex;
   align-items: center;
-  gap: .35em;
+  gap: .4em;
   font-weight: 600;
-  font-size: .9rem;
-  margin: .25em 0;
+  font-size: 1rem;
+  margin: .3em 0;
   cursor: pointer;
 }
-.hint { display: block; font-size: .78rem; color: var(--m-fg-3); margin-top: .25rem; }
+label:has(> input[type="checkbox"]):not(.chip, .switch, .drop, .seg-item, .choice),
+label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item, .choice) {
+  display: flex;
+  align-items: center;
+  gap: .4em;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: .3em 0;
+  cursor: pointer;
+}
+.hint { display: block; font-size: 1rem; color: var(--m-fg-3); margin-top: .3rem; }
 
 .m-error .input,
 .m-error input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
@@ -18,9 +27,8 @@ label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item) {
 .m-error textarea {
   border-color: var(--m-danger);
 }
-.m-error .input:focus-visible,
-.m-error input:focus-visible, .m-error select:focus-visible, .m-error textarea:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--m-danger) 18%, transparent);
+.m-error input:focus, .m-error select:focus, .m-error textarea:focus, .m-error .input:focus {
+  box-shadow: 0 0 0 3px var(--m-danger-ring);
 }
 .m-error .hint { color: var(--m-danger); }
 .m-error :is(label, .label) { color: var(--m-danger); }
@@ -37,16 +45,18 @@ select,
 textarea),
 .input {
   width: var(--m-input-w);
-  padding: .58em .85em;
+  padding: .5em .95em;
   background: var(--m-bg);
   border: 1px solid var(--m-border-2);
   border-radius: var(--m-r-sm);
   color: var(--m-fg);
+  font-size: 1rem;
+  line-height: 1.5;
   transition: border-color var(--m-dur), box-shadow var(--m-dur);
 }
 ::placeholder { color: var(--m-fg-3); }
-:where(input, select, textarea):focus, .input:focus { border-color: var(--m-primary); }
-:where(input, select, textarea):focus-visible {
+:where(input, select, textarea):focus, .input:focus {
+  border-color: var(--m-primary);
   outline: none;
   box-shadow: 0 0 0 3px var(--m-primary-soft);
 }
@@ -57,8 +67,9 @@ input:disabled, select:disabled, textarea:disabled, .input:disabled {
 }
 .input-success, input.input-success, select.input-success, textarea.input-success { border-color: var(--m-success); }
 .input-error, input.input-error, select.input-error, textarea.input-error { border-color: var(--m-danger); }
-textarea { min-height: 6rem; resize: vertical; }
+textarea { min-height: 7.5rem; resize: vertical; }
 select {
+  -webkit-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23667189' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -76,9 +87,10 @@ input[type="search"] {
 input[type="checkbox"],
 input[type="radio"],
 .check {
+  -webkit-appearance: none;
   appearance: none;
-  width: 1.1em;
-  height: 1.1em;
+  width: 1.25em;
+  height: 1.25em;
   margin: 0 .45em 0 0;
   flex-shrink: 0;
   vertical-align: -.18em;
@@ -105,7 +117,7 @@ input[type="radio"]:checked {
 }
 input[type="checkbox"]:disabled, input[type="radio"]:disabled, .check:disabled { opacity: .4; cursor: not-allowed; }
 
-.switch { position: relative; display: inline-block; width: 2.6em; height: 1.45em; flex-shrink: 0; }
+.switch { position: relative; display: inline-block; width: 2.85em; height: 1.6em; flex-shrink: 0; }
 .switch input { opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; position: absolute; z-index: 1; }
 .switch i { position: absolute; inset: 0; border-radius: var(--m-r-full); background: var(--m-border-2); transition: background var(--m-dur); pointer-events: none; }
 .switch i::after {
@@ -113,19 +125,20 @@ input[type="checkbox"]:disabled, input[type="radio"]:disabled, .check:disabled {
   position: absolute;
   left: 3px;
   top: 50%;
-  translate: 0 -50%;
-  width: 1.05em;
-  height: 1.05em;
+  transform: translateY(-50%);
+  width: 1.15em;
+  height: 1.15em;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,.25);
   transition: left var(--m-dur);
 }
 .switch input:checked + i { background: var(--m-primary); }
-.switch input:checked + i::after { left: calc(100% - 1.05em - 3px); }
-.switch input:focus-visible + i { outline: 2px solid var(--m-primary); outline-offset: 2px; }
+.switch input:checked + i::after { left: calc(100% - 1.15em - 3px); }
+.switch input:focus + i { outline: 2px solid var(--m-primary); outline-offset: 2px; }
 
 input[type="range"] {
+  -webkit-appearance: none;
   appearance: none;
   width: 100%;
   height: 1.4em;
@@ -139,10 +152,11 @@ input[type="range"] {
 }
 input[type="range"]::-webkit-slider-runnable-track { height: var(--m-range-h); border-radius: var(--m-r-full); background: transparent; }
 input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
-  width: 1em;
-  height: 1em;
-  margin-top: calc(var(--m-range-h) / 2 - .5em);
+  width: 1.15em;
+  height: 1.15em;
+  margin-top: calc(var(--m-range-h) / 2 - .575em);
   border-radius: 50%;
   background: var(--m-primary);
   border: 2px solid var(--m-bg);
@@ -150,8 +164,8 @@ input[type="range"]::-webkit-slider-thumb {
 }
 input[type="range"]::-moz-range-track { height: var(--m-range-h); border-radius: var(--m-r-full); background: var(--m-border); }
 input[type="range"]::-moz-range-progress { height: var(--m-range-h); border-radius: var(--m-r-full); background: var(--m-primary); }
-input[type="range"]::-moz-range-thumb { width: 1em; height: 1em; border-radius: 50%; background: var(--m-primary); border: 2px solid var(--m-bg); }
-input[type="color"] { width: 2.8em; height: 2.2em; padding: .15em; cursor: pointer; }
+input[type="range"]::-moz-range-thumb { -moz-appearance: none; appearance: none; width: 1.15em; height: 1.15em; border-radius: 50%; background: var(--m-primary); border: 2px solid var(--m-bg); }
+input[type="color"] { width: 3em; height: 2.5em; padding: .2em; cursor: pointer; }
 
 .fgroup { display: flex; margin: .5rem 0; }
 .fgroup > * { border-radius: 0; }
@@ -161,16 +175,16 @@ input[type="color"] { width: 2.8em; height: 2.2em; padding: .15em; cursor: point
 .fgroup-label {
   display: inline-flex;
   align-items: center;
-  padding: 0 .8em;
+  padding: 0 .95em;
   background: var(--m-surface);
   border: 1px solid var(--m-border-2);
   color: var(--m-fg-2);
-  font-size: .88rem;
+  font-size: 1rem;
   white-space: nowrap;
 }
 .fgroup :is(button, .btn) { flex-shrink: 0; }
 
-.field { display: flex; flex-direction: column; gap: .2rem; margin: .5rem 0; }
+.field { display: flex; flex-direction: column; gap: .3rem; margin: .65rem 0; }
 .field :is(label, .label) { margin: 0; }
 .field .hint { margin: 0; }
 
@@ -178,13 +192,13 @@ fieldset,
 .fieldset {
   border: 1px solid var(--m-border);
   border-radius: var(--m-r);
-  padding: 1rem 1.15rem;
+  padding: 1.15rem 1.35rem;
   margin: .75rem 0;
 }
 fieldset > legend,
 .fieldset > legend {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 1rem;
   padding: 0 .4em;
 }
 
@@ -214,17 +228,17 @@ fieldset > legend,
 .input-ico {
   display: inline-flex;
   align-items: center;
-  padding: 0 .7em;
+  padding: 0 .85em;
   color: var(--m-fg-3);
   flex-shrink: 0;
-  font-size: .85rem;
+  font-size: .9375rem;
 }
 
 .drop {
   display: grid;
   place-items: center;
   gap: .2rem;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1.25rem;
   border: 1.5px dashed var(--m-border-2);
   border-radius: var(--m-r);
   background: var(--m-surface);
@@ -233,7 +247,7 @@ fieldset > legend,
   color: var(--m-fg-2);
   font-weight: 600;
 }
-.drop:hover, .drop.active, .drop:has(:focus-visible) {
+.drop:hover, .drop.active, .drop:focus-within {
   border-color: var(--m-primary);
   background: var(--m-primary-soft);
   color: var(--m-primary);
@@ -249,7 +263,7 @@ fieldset > legend,
   border: 1px solid var(--m-border);
   border-radius: var(--m-r-sm);
   box-shadow: var(--m-shadow);
-  padding: .35rem;
+  padding: .4rem;
   z-index: var(--m-z-menu);
   max-height: 16rem;
   overflow: auto;
@@ -258,9 +272,10 @@ fieldset > legend,
 
 .rate { display: inline-flex; flex-direction: row-reverse; gap: .12em; }
 .rate input {
+  -webkit-appearance: none;
   appearance: none;
-  width: 1.35em;
-  height: 1.35em;
+  width: 1.5em;
+  height: 1.5em;
   margin: 0;
   cursor: pointer;
   border: 0;
@@ -281,18 +296,24 @@ fieldset > legend,
   display: inline-flex;
   align-items: center;
   gap: .4em;
-  padding: .28em .85em;
+  padding: .4em 1em;
   border-radius: var(--m-r-full);
   border: 1px solid var(--m-border-2);
   background: var(--m-bg);
-  font-size: .84rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   color: var(--m-fg-2);
 }
 .chip > input { margin: 0; }
 .chip:hover { border-color: var(--m-fg-3); color: var(--m-fg); }
-.chip.selected, .chip:has(:checked) {
+.chip.selected,
+input:checked + .chip {
+  background: var(--m-primary-soft);
+  border-color: var(--m-primary);
+  color: var(--m-primary);
+}
+.chip:has(:checked) {
   background: var(--m-primary-soft);
   border-color: var(--m-primary);
   color: var(--m-primary);
@@ -304,24 +325,28 @@ fieldset > legend,
   background: var(--m-surface);
   border-radius: var(--m-r-sm);
   gap: .15rem;
-  width: fit-content;
   max-width: 100%;
 }
 .seg-item {
   position: relative;
-  padding: .4em .95em;
+  padding: .45em 1.05em;
   border: 0;
   border-radius: calc(var(--m-r-sm) - 1px);
   background: transparent;
   color: var(--m-fg-3);
   font-weight: 600;
-  font-size: .85rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 .seg-item:hover { color: var(--m-fg); background: transparent; }
-.seg-item.selected, .seg-item:has(:checked) {
+.seg-item.selected {
   background: var(--m-bg);
   color: var(--m-fg);
   box-shadow: 0 1px 3px rgba(0,0,0,.12);
 }
-.seg-item input { appearance: none; width: 0; height: 0; margin: 0; position: absolute; }
+.seg-item:has(:checked) {
+  background: var(--m-bg);
+  color: var(--m-fg);
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+.seg-item input { -webkit-appearance: none; appearance: none; width: 0; height: 0; margin: 0; position: absolute; }

@@ -10,7 +10,10 @@
     "mates.css",
     "mates.min.css",
     "src",
-    "demo.html"
+    "demo.html",
+    "docs.html",
+    "llms.txt",
+    "LICENSE"
   ],
   "keywords": [
     "css",
@@ -38,7 +41,12 @@
     "url": "https://github.com/thejsmaster/mates-css/issues"
   },
   "license": "MIT",
-  "author": "your-name",
+  "browserslist": [
+    "chrome >= 94",
+    "firefox >= 92",
+    "safari >= 15"
+  ],
+  "author": "Sean Freeman",
   "sideEffects": [
     "*.css"
   ],

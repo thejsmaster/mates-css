@@ -1,17 +1,17 @@
-.tabs { display: flex; gap: .25rem; padding: .25rem; background: var(--m-surface); border-radius: var(--m-r-sm); width: fit-content; max-width: 100%; }
+.tabs { display: inline-flex; gap: .3rem; padding: .3rem; background: var(--m-surface); border-radius: var(--m-r-sm); max-width: 100%; }
 .tab {
-  padding: .5em 1.1em;
+  padding: .55em 1.2em;
   border: 0;
   border-radius: calc(var(--m-r-sm) - 1px);
   background: transparent;
   color: var(--m-fg-3);
   font-weight: 600;
-  font-size: .88rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: color var(--m-dur), background var(--m-dur);
 }
 .tab:hover { color: var(--m-fg); }
 .tab.selected { background: var(--m-bg); color: var(--m-fg); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
-.tabs-line { background: none; padding: 0; border-radius: 0; border-bottom: 2px solid var(--m-border); width: auto; }
+.tabs-line { display: flex; background: none; padding: 0; border-radius: 0; border-bottom: 2px solid var(--m-border); width: auto; }
 .tabs-line .tab { border-radius: 0; margin-bottom: -2px; border-bottom: 2px solid transparent; }
 .tabs-line .tab.selected { background: transparent; box-shadow: none; color: var(--m-primary); border-bottom-color: var(--m-primary); }

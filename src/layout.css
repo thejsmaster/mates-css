@@ -17,5 +17,5 @@
 
 .m-g-0{--m-gap:0}.m-g-xs{--m-gap:.4rem}.m-g-sm{--m-gap:.65rem}.m-g-lg{--m-gap:1.75rem}
 .center{text-align:center}
-.divider{display:flex;align-items:center;gap:1rem;margin:1.5em 0;color:var(--m-fg-3);font-size:.8rem}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.5em 0;color:var(--m-fg-3);font-size:1rem}
 .divider::before,.divider::after{content:"";flex:1;border-top:1px solid var(--m-border)}

@@ -1,0 +1,89 @@
+# Mates CSS
+
+> Compact pure-CSS UI kit. No JavaScript runtime, no Sass. Style HTML with native tags and class variants. Overlay open state is the `.open` class.
+
+Version: 0.5.0. License: MIT. Install: `npm install mates-css` then `import "mates-css"`. CDN: `https://unpkg.com/mates-css@0.5.0/mates.min.css`
+
+Human docs (live examples + markup): docs.html
+Source: https://github.com/thejsmaster/mates-css
+Playground: https://mates-js.dev/playground
+
+## How it works
+
+- Native tags are styled with no class: `button`, `label`, `input`, `select`, `textarea`, `table`, `fieldset`, `legend`, `details`, `progress`, `code`, `pre`, `dl`.
+- Classes are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`).
+- Dark mode: `prefers-color-scheme`, or `data-theme="dark"|"light"` on `<html>`.
+- Tokens are `--m-*` on `:root` (e.g. `--m-primary`, `--m-r`, `--m-fs`).
+
+## Open and other states
+
+Your app toggles classes. Nothing auto-opens on focus.
+
+| Class | Where | Meaning |
+|---|---|---|
+| `.open` | `.modal` `.menu` `.pop` `.drawer` `.sheet` `.search` | show overlay / panel |
+| `.selected` | `.tab` `.sidenav-item` `.list-item` `.chip` `.seg-item` `nav a` `tr` `.bnav-item` | current / chosen |
+| `.collapsed` | `.shell` | shrink sidebar (`--m-side`) |
+| `.active` | `.drop` | drag-over |
+| `.done` `.current` | `.step` | wizard progress |
+| `.current` | breadcrumb | last crumb |
+| `.disabled` | list/sidenav items | not clickable |
+| native `disabled` | buttons/inputs | disabled control |
+| native `[open]` | `<details>` | accordion expanded |
+
+JS pattern: `el.classList.add("open")` / `.remove("open")` / `.toggle("open")`.
+
+## Components (required class or tag)
+
+- Button: bare `<button>` or `.btn`. Variants: `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` `.btn-outline` `.btn-soft` `.btn-ghost` `.btn-link`. Sizes: `.btn-sm` `.btn-lg` `.btn-block`. Icon-only: `.btn-icon`. Also `.btn-elevated` `.btn-spin` `.btn-close`. Group: `.btn-group`.
+- Tag: `.tag` plus `.tag-primary` `.tag-success` `.tag-warning` `.tag-danger` `.tag-soft` `.tag-soft-success` `.tag-soft-danger` `.tag-rounded`. Removable child `.tag-x`.
+- Input: bare `<input>`. Optional `.input` `.input-success` `.input-error`. Wrapper `.m-error` `.m-valid`. Width `.m-w-xs` … `.m-w-full`. Hint `.hint`.
+- Select, textarea: native tags.
+- Checkbox / radio: native `input[type=checkbox|radio]` inside `<label class="choice">`.
+- Chip: `.chip` + `.selected` (or `:has(:checked)` on newer browsers; or `input:checked + .chip`).
+- Segmented: `.seg` > `.seg-item` + `.selected`.
+- Switch: `<label class="switch"><input type="checkbox"><i></i></label>`.
+- Range: native range; fill via `--v` 0–100.
+- Field: `.field` wraps label + control + `.hint`.
+- Fieldset: native `<fieldset>` + `<legend>`.
+- Form group: `.fgroup` + `.fgroup-label`.
+- Input wrap: `.input-wrap` + `.input-ico`.
+- Search: `.search` + `.search-panel`; add `.open` to show results.
+- Rating: `.rate` with radios in reverse order 5→1.
+- Dropzone: `<label class="drop">`; `.active` on dragover.
+- Card: `.card` `.card-body` `.card-title` `.card-sub` `.card-bar` `.card-img` `.card-hover`.
+- Table: bare `<table>`; `.table-wrap` `.striped` `.bordered` `.sticky`; row `.selected`.
+- Tabs: `.tabs` > `.tab.selected`; underline `.tabs-line`.
+- Alert: `.alert` `.alert-primary` `.alert-success` `.alert-warning` `.alert-danger`.
+- Toast: `.toast` `.toast-title` `.toast-primary` `.toast-success` `.toast-danger`. Stack `.toasts` `.toasts-tl|tr|bl`.
+- Banner: `.banner` `.banner-warn` `.banner-danger`.
+- Skeleton: `.skel` `.skel-text` `.skel-avatar` `.skel-card`.
+- Spinner: `.spin` `.spin-lg` `.spin-block`.
+- Empty: `.empty` `.empty-title` `.empty-actions`.
+- Tooltip: `.tooltip` + `data-tip`. Direction `.tooltip-b` `.tooltip-r` `.tooltip-l`.
+- Modal: `.modal` `.modal-overlay` `.modal-box` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` + `.open`.
+- Menu: `.menu` `.menu-panel` `.menu-item` `.menu-sep` `.menu-danger` `.menu-r` + `.open`.
+- Popover: `.pop` `.pop-panel` `.pop-t` `.pop-l` `.pop-r` + `.open`.
+- Drawer: `.drawer` `.drawer-overlay` `.drawer-panel` `.drawer-r` + `.open`.
+- Sheet: `.sheet` `.sheet-overlay` `.sheet-panel` `.sheet-handle` + `.open`.
+- Accordion: native `<details>` `<summary>`.
+- Nav: `.nav` `.nav-brand` `.nav-space` + `.selected` on `<a>`.
+- Breadcrumbs: `.crumbs` + `.current`.
+- Steps: `.steps` `.step` `.step-dot` `.step-label` + `.done` `.current`.
+- Sidenav: `.sidenav` `.sidenav-item` + `.selected`.
+- Bottom nav: `.bottom-nav` `.bnav-item` + `.selected`; pin with `.fixed`.
+- Avatar: `.avatar` `.avatar-sm` `.avatar-lg`. Stack `.avatars`.
+- Status: `.status` `.status-dot` + `.online` `.away` `.busy` `.offline`.
+- Badge: `.badge` `.badge-dot` `.badge-n` with `data-n`.
+- Progress: native `<progress>`.
+- List: `.list` `.list-item` `.list-meta`.
+- Timeline: `.timeline` `.tl-item` `.tl-dot` `.tl-content`.
+- Stat: `.stat` `.stat-label` `.stat-val` `.stat-delta.up|.down`.
+- Charts: `.chart-bars` `.bar` `--v`; stacked `.bar.stacked` `--sv` on `<u>`; `.chart-hbars` `.hbar`; `.donut` `--v1`…`--v6` optional `.pie`; `.ring` `--v`; `.spark` child `<i>`; colors `.s1`–`.s6`; `.legend`.
+- Shell: `.shell` `.shell-top` `.shell-side` `.shell-main` + `.collapsed`.
+- Split: `.split` `.split-a` `.split-b` `--split`.
+- Layout: `.m-flex` `.m-grid` `.m-row` `.m-col` `.c-1`–`.c-12` `.m-gap*` `.m-i-*` `.m-j-*`. Truncate `.truncate` `.clamp-2` `.clamp-3`. Class → CSS map: `docs.html#utilities`.
+
+## Charts data
+
+Inline custom properties, 0–100 unless noted: `--v` bars/ring/spark; `--v1`–`--v6` donut percents; `--sv` stacked share.

@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mates CSS — Pure CSS UI kit, no JavaScript</title>
+  <meta name="description" content="Mates CSS is a pure CSS library with no JavaScript. Style HTML with native tags and class variants. Install mates-css and import it in React, Vue, Angular, Solid, Lit, or a CDN.">
+  <meta name="keywords" content="mates-css, CSS UI kit, no JavaScript CSS, CSS components, CSS buttons, CSS modal, CSS forms, CSS charts, dark mode CSS">
+  <meta name="author" content="Sean Freeman">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mates-js.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mates CSS — Pure CSS UI kit, no JavaScript">
+  <meta property="og:description" content="Style HTML with classes. No JS runtime. npm install mates-css or drop in a CDN link.">
+  <meta property="og:url" content="https://mates-js.dev/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mates CSS">
+  <meta name="twitter:description" content="A pure CSS library with no JavaScript. Install mates-css and import it into your app.">
+  <link rel="stylesheet" href="mates.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700&amp;display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "Mates CSS",
+        "description": "A compact pure-CSS UI kit with no JavaScript. Native HTML tags are styled by default; classes add variants. Overlay open state is the .open class.",
+        "license": "https://opensource.org/license/mit",
+        "codeRepository": "https://github.com/thejsmaster/mates-css",
+        "programmingLanguage": "CSS",
+        "runtimePlatform": "Browser",
+        "version": "0.5.0",
+        "author": { "@type": "Person", "name": "Sean Freeman" }
+      },
+      {
+        "@type": "TechArticle",
+        "headline": "Mates CSS component catalog",
+        "description": "Live examples and markup for every Mates CSS component, including open, selected, collapsed, and disabled states.",
+        "proficiencyLevel": "Beginner"
+      }
+    ]
+  }
+  </script>
+  <style>
+    .docs-top {
+      position: sticky;
+      top: 0;
+      z-index: var(--m-z-sticky);
+      background: var(--m-bg);
+    }
+    .docs-top .nav { margin: 0 auto; max-width: 86rem; padding-inline: 1.15rem; }
+    .docs-hero { max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.25rem 1.5rem; }
+    .docs-hero h1 { margin-top: .25em; font-size: 2.5rem; }
+    .docs-install { max-width: 52rem; margin: 0 auto; padding: 0 1.25rem 2.5rem; }
+    .docs-shell {
+      display: grid;
+      grid-template-columns: 13.5rem minmax(0, 1fr);
+      gap: 1.5rem;
+      max-width: 86rem;
+      margin: 0 auto;
+      padding: 0 1.15rem 4rem;
+      align-items: start;
+    }
+    .docs-toc {
+      position: sticky;
+      top: 4.25rem;
+      max-height: calc(100dvh - 5rem);
+      overflow: auto;
+      padding: .35rem 0 2rem;
+    }
+    .docs-toc a {
+      display: block;
+      padding: .28em .65em;
+      border-radius: var(--m-r-sm);
+      color: var(--m-fg-2);
+      font-size: .9375rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .docs-toc a:hover { background: var(--m-surface); color: var(--m-fg); text-decoration: none; }
+    .docs-toc a.active { background: var(--m-primary-soft); color: var(--m-primary); }
+    .docs-toc .overline { margin: .9rem 0 .25rem .65em; }
+    .docs-toc .overline:first-child { margin-top: 0; }
+    .docs-sec { padding: 1.75rem 0 2rem; border-top: 1px solid var(--m-border); scroll-margin-top: 4.5rem; }
+    .docs-sec > h2 { margin-top: 0; }
+    .docs-lead { color: var(--m-fg-2); max-width: 46rem; margin: 0 0 1.15rem; }
+    .docs-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin: 0 0 1rem;
+      align-items: stretch;
+    }
+    .docs-live, .docs-code {
+      border: 1px solid var(--m-border);
+      border-radius: var(--m-r);
+      min-width: 0;
+    }
+    .docs-live {
+      padding: 1.15rem 1.25rem;
+      background: var(--m-bg);
+      overflow: auto;
+    }
+    .docs-live > :first-child { margin-top: 0; }
+    .docs-live > :last-child { margin-bottom: 0; }
+    .docs-code {
+      margin: 0;
+      padding: 1rem 1.15rem;
+      background: var(--m-surface);
+      overflow: auto;
+      max-height: 22rem;
+      font-family: var(--m-mono);
+      font-size: .8125rem;
+      line-height: 1.5;
+      color: var(--m-fg);
+    }
+    .docs-code code,
+    .docs-code code.hljs {
+      padding: 0;
+      background: none;
+      border: 0;
+      font-size: inherit;
+      color: inherit;
+    }
+    .docs-code .hljs-comment,
+    .docs-code .hljs-quote { color: var(--m-fg-3); font-style: italic; }
+    .docs-code .hljs-tag { color: var(--m-fg-2); }
+    .docs-code .hljs-name,
+    .docs-code .hljs-selector-tag,
+    .docs-code .hljs-keyword,
+    .docs-code .hljs-built_in { color: var(--m-primary); }
+    .docs-code .hljs-attr,
+    .docs-code .hljs-attribute,
+    .docs-code .hljs-selector-attr,
+    .docs-code .hljs-variable,
+    .docs-code .hljs-params { color: var(--m-warning); }
+    .docs-code .hljs-string,
+    .docs-code .hljs-title,
+    .docs-code .hljs-section { color: var(--m-success); }
+    .docs-code .hljs-number,
+    .docs-code .hljs-literal,
+    .docs-code .hljs-type { color: var(--m-danger); }
+    .docs-code .hljs-selector-class,
+    .docs-code .hljs-selector-id,
+    .docs-code .hljs-property { color: var(--m-c5); }
+    .docs-code .hljs-punctuation,
+    .docs-code .hljs-operator { color: var(--m-fg-2); }
+    .docs-fw-panel[hidden] { display: none; }
+    .docs-npm {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .85rem 1.05rem;
+      background: var(--m-surface);
+      border: 1px solid var(--m-border);
+      border-radius: var(--m-r);
+      margin: 1.15rem 0 1rem;
+      font-family: var(--m-mono);
+      font-size: .9375rem;
+    }
+    .docs-npm code { background: none; border: 0; padding: 0; }
+    .docs-note {
+      border: 1px solid var(--m-border);
+      border-left: 3px solid var(--m-primary);
+      border-radius: var(--m-r-sm);
+      background: var(--m-primary-soft);
+      padding: .85rem 1.05rem;
+      margin: 0 0 1.15rem;
+    }
+    .docs-note p { margin: .4em 0; }
+    .docs-note p:first-child { margin-top: 0; }
+    .docs-note p:last-child { margin-bottom: 0; }
+    .docs-k { font-family: var(--m-mono); font-size: .9em; }
+    .docs-live .chart-bars { height: 9rem; }
+    .docs-util { width: 100%; margin: 0 0 1.5rem; }
+    .docs-util th:first-child, .docs-util td:first-child { width: 42%; white-space: nowrap; }
+    .docs-util code { font-size: .8125rem; }
+    .docs-sec > h3 { margin: 1.5rem 0 .65rem; font-size: 1.15rem; }
+    @media (max-width: 960px) {
+      .docs-shell { grid-template-columns: 1fr; }
+      .docs-toc { display: none; }
+      .docs-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#catalog">Skip to component catalog</a>
+
+  <header class="docs-top">
+    <nav class="nav" aria-label="Docs">
+      <a class="nav-brand" href="#">Mates CSS</a>
+      <a href="#install">Install</a>
+      <a href="#catalog" class="selected">Components</a>
+      <span class="nav-space"></span>
+      <div class="menu" id="docs-play">
+        <button type="button" aria-haspopup="menu" data-toggle="docs-play">Playground</button>
+        <div class="menu-panel" role="menu">
+          <a class="menu-item" href="https://mates-js.dev/playground" role="menuitem">Open playground</a>
+        </div>
+      </div>
+      <a href="https://github.com/thejsmaster/mates-css">GitHub</a>
+      <button type="button" class="btn-sm" id="theme-btn" aria-label="Toggle color theme">Theme: light</button>
+    </nav>
+  </header>
+
+  <header class="docs-hero">
+    <p class="overline">v0.5.0 · ~11.0kb gzipped · MIT</p>
+    <h1>Mates CSS</h1>
+    <p>A pure CSS library with no JavaScript. Style your HTML using the classes defined in this kit. Install <span class="mono">mates-css</span> and import it into your app component or root module in a frontend or fullstack application — or use the live CDN links.</p>
+    <p class="muted">Native tags (<span class="mono">button</span>, <span class="mono">input</span>, <span class="mono">table</span>…) are styled with no class. Classes are variants (<span class="mono">.btn-primary</span>) or the same look on a non-native host (<span class="mono">&lt;a class="btn"&gt;</span>). Overlays stay closed until your app adds <span class="mono">.open</span>.</p>
+  </header>
+
+  <section class="docs-install" id="install" aria-labelledby="install-title">
+    <h2 id="install-title">Install</h2>
+    <p class="docs-lead">Add the stylesheet once at the root of the app. After that, markup is enough — Mates CSS has no runtime.</p>
+    <div class="docs-npm" role="region" aria-label="npm install">
+      <code>npm install mates-css</code>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Framework import examples">
+      <button type="button" class="tab selected" role="tab" aria-selected="true" data-fw="react">React</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="vue">Vue</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="mates">Mates</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="angular">Angular</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="solid">Solid</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="lit">Lit</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="js">Plain JS</button>
+    </div>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="react"><code>// src/main.tsx — root module
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "mates-css";
+import App from "./App";
+
+createRoot(document.getElementById("root")).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="vue" hidden><code>// src/main.js — root module
+import { createApp } from "vue";
+import "mates-css";
+import App from "./App.vue";
+
+createApp(App).mount("#app");</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="mates" hidden><code>// app entry — Mates JS
+import "mates-css";
+import { App } from "./app.js";
+
+App.mount("#root");</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="angular" hidden><code>// src/main.ts — root module
+import { bootstrapApplication } from "@angular/platform-browser";
+import { App } from "./app/app";
+import "mates-css";
+
+bootstrapApplication(App);</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="solid" hidden><code>// src/index.jsx — root module
+import { render } from "solid-js/web";
+import "mates-css";
+import App from "./App";
+
+render(() =&gt; &lt;App /&gt;, document.getElementById("root"));</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="lit" hidden><code>// index.js — import once at the document root (not inside a shadow root)
+import "mates-css";
+import "./app.js";
+
+// app.js
+import { LitElement, html } from "lit";
+
+class AppShell extends LitElement {
+  createRenderRoot() { return this; } // light DOM so Mates classes apply
+  render() {
+    return html`&lt;button class="btn-primary"&gt;Save&lt;/button&gt;`;
+  }
+}
+customElements.define("app-shell", AppShell);</code></pre>
+    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="js" hidden><code>&lt;!-- index.html — CDN, no bundler --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/mates.min.css"&gt;
+
+&lt;button class="btn-primary"&gt;Hello&lt;/button&gt;</code></pre>
+    <p class="hint">CDN (jsDelivr): <span class="mono">https://cdn.jsdelivr.net/npm/mates-css@0.5.0/mates.min.css</span>. Unminified: import <span class="mono">mates-css/css</span> or <span class="mono">mates.css</span>.</p>
+  </section>
+
+  <div class="docs-shell" id="catalog">
+    <nav class="docs-toc sidenav" aria-label="Component list">
+      <p class="overline">Start</p>
+      <a href="#states">States</a>
+      <a href="#tokens">Tokens</a>
+      <p class="overline">Actions</p>
+      <a href="#button">Button</a>
+      <a href="#tag">Tag</a>
+      <p class="overline">Forms</p>
+      <a href="#input">Input</a>
+      <a href="#select">Select</a>
+      <a href="#textarea">Textarea</a>
+      <a href="#checkbox">Checkbox</a>
+      <a href="#radio">Radio</a>
+      <a href="#switch">Switch</a>
+      <a href="#range">Range</a>
+      <a href="#field">Field</a>
+      <a href="#fieldset">Fieldset</a>
+      <a href="#fgroup">Form group</a>
+      <a href="#input-wrap">Input wrap</a>
+      <a href="#search">Search</a>
+      <a href="#chip">Chip</a>
+      <a href="#rating">Rating</a>
+      <a href="#segmented">Segmented</a>
+      <a href="#dropzone">Dropzone</a>
+      <p class="overline">Surfaces</p>
+      <a href="#card">Card</a>
+      <a href="#table">Table</a>
+      <a href="#tabs">Tabs</a>
+      <p class="overline">Feedback</p>
+      <a href="#alert">Alert</a>
+      <a href="#toast">Toast</a>
+      <a href="#banner">Banner</a>
+      <a href="#skeleton">Skeleton</a>
+      <a href="#spinner">Spinner</a>
+      <a href="#empty">Empty</a>
+      <p class="overline">Overlays</p>
+      <a href="#tooltip">Tooltip</a>
+      <a href="#modal">Modal</a>
+      <a href="#menu">Menu</a>
+      <a href="#popover">Popover</a>
+      <a href="#drawer">Drawer</a>
+      <a href="#sheet">Sheet</a>
+      <a href="#accordion">Accordion</a>
+      <p class="overline">Nav</p>
+      <a href="#nav">Nav</a>
+      <a href="#breadcrumbs">Breadcrumbs</a>
+      <a href="#steps">Steps</a>
+      <a href="#sidenav">Sidenav</a>
+      <a href="#bottom-nav">Bottom nav</a>
+      <p class="overline">Indicators</p>
+      <a href="#avatar">Avatar</a>
+      <a href="#status">Status</a>
+      <a href="#badge">Badge</a>
+      <a href="#progress">Progress</a>
+      <p class="overline">Content</p>
+      <a href="#list">List</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#stat">Stat</a>
+      <a href="#dl">Definition list</a>
+      <a href="#code">Code</a>
+      <p class="overline">Charts</p>
+      <a href="#bars">Bar chart</a>
+      <a href="#stacked">Stacked bars</a>
+      <a href="#hbars">Horizontal bars</a>
+      <a href="#donut">Donut</a>
+      <a href="#ring">Ring</a>
+      <a href="#spark">Sparkline</a>
+      <p class="overline">Layout</p>
+      <a href="#shell">Shell</a>
+      <a href="#split">Split</a>
+      <a href="#layout">Flex &amp; grid</a>
+      <a href="#utilities">Utility map</a>
+    </nav>
+
+    <main>
+      <section class="docs-sec" id="states" aria-labelledby="states-title">
+        <h2 id="states-title">States</h2>
+        <p class="docs-lead">Mates CSS does not open overlays on focus or with a hidden checkbox. Your app toggles classes. This is the full state vocabulary.</p>
+        <div class="docs-note">
+          <p><strong>Open overlays</strong> — add <span class="docs-k">.open</span> on the root: <span class="docs-k">.modal</span>, <span class="docs-k">.menu</span>, <span class="docs-k">.pop</span>, <span class="docs-k">.drawer</span>, <span class="docs-k">.sheet</span>, <span class="docs-k">.search</span>.</p>
+          <p><strong>Selected</strong> — <span class="docs-k">.selected</span> on <span class="docs-k">.tab</span>, <span class="docs-k">.sidenav-item</span>, <span class="docs-k">.list-item</span>, <span class="docs-k">.chip</span>, <span class="docs-k">.seg-item</span>, <span class="docs-k">.nav a</span>, <span class="docs-k">tr</span>.</p>
+          <p><strong>Collapsed</strong> — <span class="docs-k">.collapsed</span> on <span class="docs-k">.shell</span> shrinks the sidebar.</p>
+          <p><strong>Active</strong> — <span class="docs-k">.active</span> on <span class="docs-k">.drop</span> while dragging files.</p>
+          <p><strong>Done / current</strong> — <span class="docs-k">.done</span> and <span class="docs-k">.current</span> on <span class="docs-k">.step</span>; <span class="docs-k">.current</span> on a breadcrumb.</p>
+          <p><strong>Disabled</strong> — native <span class="docs-k">disabled</span> on controls, or <span class="docs-k">.disabled</span> / <span class="docs-k">.is-disabled</span> on items.</p>
+        </div>
+        <div class="docs-row">
+          <div class="docs-live">
+            <pre class="m-0" style="background:none;border:0;padding:0;max-height:none;"><code>el.classList.add("open");
+el.classList.remove("open");
+el.classList.toggle("open");</code></pre>
+          </div>
+          <pre class="docs-code"><code>document.getElementById("m1").classList.add("open");
+document.getElementById("m1").classList.remove("open");
+
+// menu / popover / search — same .open class
+menu.classList.toggle("open");</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="tokens" aria-labelledby="tokens-title">
+        <h2 id="tokens-title">Tokens</h2>
+        <p class="docs-lead">Everything is a <span class="mono">--m-*</span> CSS variable on <span class="mono">:root</span>. Dark mode follows <span class="mono">prefers-color-scheme</span>. Force a theme with <span class="mono">data-theme="dark"</span> or <span class="mono">"light"</span> on <span class="mono">&lt;html&gt;</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <p class="card-title m-0">Primary</p>
+            <p class="muted">Override tokens once; buttons, focus rings, and charts follow.</p>
+            <button class="btn-primary m-t-10">Uses --m-primary</button>
+          </div>
+          <pre class="docs-code"><code>:root {
+  --m-primary: #0172ad;
+  --m-primary-h: #016091;
+  --m-primary-a: #014e75;
+  --m-on-primary: #ffffff;
+  --m-r: 9px;
+  --m-fs: 16px;
+  --m-font: "Inter", sans-serif;
+}
+
+html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="button" aria-labelledby="button-title">
+        <h2 id="button-title">Button</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;button&gt;</span> and submit/reset inputs are styled with no class. Put <span class="mono">.btn</span> on a link. Variants stack on the same element: <span class="mono">.btn-primary</span>, <span class="mono">.btn-dark</span>, <span class="mono">.btn-light</span>, <span class="mono">.btn-success</span>, <span class="mono">.btn-warning</span>, <span class="mono">.btn-danger</span>, <span class="mono">.btn-outline</span>, <span class="mono">.btn-soft</span>, <span class="mono">.btn-ghost</span>, <span class="mono">.btn-link</span>. Sizes: <span class="mono">.btn-sm</span> <span class="mono">.btn-lg</span> <span class="mono">.btn-block</span>. Square icon control: <span class="mono">.btn-icon</span>. <span class="mono">.btn-elevated</span> adds a rest shadow. <span class="mono">.btn-spin</span> shows a spinner. <span class="mono">.btn-close</span> is the icon-only close control. Wrap siblings in <span class="mono">.btn-group</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-flex-wrap m-gap-sm m-i-center">
+            <button>Default</button>
+            <button class="btn-primary">Primary</button>
+            <button class="btn-soft">Soft</button>
+            <button class="btn-outline">Outline</button>
+            <button class="btn-ghost">Ghost</button>
+            <button class="btn-link">Link</button>
+            <button disabled>Disabled</button>
+            <a class="btn" href="#button">As a link</a>
+          </div>
+          <pre class="docs-code"><code>&lt;button&gt;Default&lt;/button&gt;
+&lt;button class="btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn-soft"&gt;Soft&lt;/button&gt;
+&lt;button class="btn-outline"&gt;Outline&lt;/button&gt;
+&lt;button class="btn-ghost"&gt;Ghost&lt;/button&gt;
+&lt;button class="btn-link"&gt;Link&lt;/button&gt;
+&lt;button disabled&gt;Disabled&lt;/button&gt;
+&lt;a class="btn" href="#"&gt;As a link&lt;/a&gt;</code></pre>
+        </div>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-flex-wrap m-gap-sm m-i-center">
+            <button class="btn-sm btn-spin">Loading</button>
+            <button class="btn-sm">Small</button>
+            <button class="btn-lg">Large</button>
+            <button class="btn-elevated btn-primary">Elevated</button>
+            <button class="btn-close" aria-label="Close"></button>
+            <button type="button" class="btn-icon" aria-label="Add">+</button>
+            <button type="button" class="btn-icon btn-ghost" aria-label="More">⋯</button>
+            <div class="btn-group">
+              <button class="btn-primary">Left</button>
+              <button class="btn-primary">Middle</button>
+              <button class="btn-primary">Right</button>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;button class="btn-sm btn-spin"&gt;Loading&lt;/button&gt;
+&lt;button class="btn-lg"&gt;Large&lt;/button&gt;
+&lt;button class="btn-elevated btn-primary"&gt;Elevated&lt;/button&gt;
+&lt;button class="btn-close" aria-label="Close"&gt;&lt;/button&gt;
+&lt;button class="btn-icon" aria-label="Add"&gt;+&lt;/button&gt;
+&lt;div class="btn-group"&gt;
+  &lt;button class="btn-primary"&gt;Left&lt;/button&gt;
+  &lt;button class="btn-primary"&gt;Middle&lt;/button&gt;
+  &lt;button class="btn-primary"&gt;Right&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="tag" aria-labelledby="tag-title">
+        <h2 id="tag-title">Tag</h2>
+        <p class="docs-lead">Required: <span class="mono">.tag</span>. Optional: <span class="mono">.tag-primary</span> <span class="mono">.tag-success</span> <span class="mono">.tag-warning</span> <span class="mono">.tag-danger</span> <span class="mono">.tag-soft</span> <span class="mono">.tag-soft-success</span> <span class="mono">.tag-soft-danger</span> <span class="mono">.tag-rounded</span>. Removable: child <span class="mono">.tag-x</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-flex-wrap m-gap-sm m-i-center">
+            <span class="tag">Default</span>
+            <span class="tag tag-primary">Primary</span>
+            <span class="tag tag-success">Success</span>
+            <span class="tag tag-soft-success">active</span>
+            <span class="tag tag-rounded">Rounded</span>
+            <span class="tag tag-primary">Removable <span class="tag-x"></span></span>
+          </div>
+          <pre class="docs-code"><code>&lt;span class="tag"&gt;Default&lt;/span&gt;
+&lt;span class="tag tag-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="tag tag-soft-success"&gt;active&lt;/span&gt;
+&lt;span class="tag tag-primary"&gt;Removable &lt;span class="tag-x"&gt;&lt;/span&gt;&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="input" aria-labelledby="input-title">
+        <h2 id="input-title">Input</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;input&gt;</span> is styled. Use <span class="mono">.input</span> on a custom host. Width defaults to <span class="mono">--m-input-w</span> (100%). State classes on the control: <span class="mono">.input-success</span> <span class="mono">.input-error</span>. Wrap the field in <span class="mono">.m-error</span> or <span class="mono">.m-valid</span> to tint label, input, and hint together. Width helpers: <span class="mono">.m-w-auto</span> <span class="mono">.m-w-xs</span> <span class="mono">.m-w-sm</span> <span class="mono">.m-w-md</span> <span class="mono">.m-w-lg</span> <span class="mono">.m-w-full</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label for="d-email">Email</label>
+            <input id="d-email" type="email" placeholder="you@example.com">
+            <span class="hint">We'll never share it.</span>
+            <input class="input-success m-t-10" type="text" value="Looks good" aria-label="Success input">
+            <div class="m-error">
+              <label for="d-user">Username</label>
+              <input id="d-user" type="text" value="ada!!">
+              <span class="hint">Only letters and numbers.</span>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input id="email" type="email" placeholder="you@example.com"&gt;
+&lt;span class="hint"&gt;We'll never share it.&lt;/span&gt;
+
+&lt;input class="input-success" type="text" value="Looks good"&gt;
+
+&lt;div class="m-error"&gt;
+  &lt;label for="user"&gt;Username&lt;/label&gt;
+  &lt;input id="user" type="text"&gt;
+  &lt;span class="hint"&gt;Only letters and numbers.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="select" aria-labelledby="select-title">
+        <h2 id="select-title">Select</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;select&gt;</span> uses the same field chrome as text inputs.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label for="d-sel">Plan</label>
+            <select id="d-sel"><option>Choose one…</option><option>Free</option><option>Pro</option></select>
+          </div>
+          <pre class="docs-code"><code>&lt;label for="plan"&gt;Plan&lt;/label&gt;
+&lt;select id="plan"&gt;
+  &lt;option&gt;Choose one…&lt;/option&gt;
+  &lt;option&gt;Pro&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="textarea" aria-labelledby="textarea-title">
+        <h2 id="textarea-title">Textarea</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;textarea&gt;</span> is styled. Pair with a <span class="mono">&lt;label&gt;</span> and optional <span class="mono">.hint</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label for="d-ta">Notes</label>
+            <textarea id="d-ta" placeholder="Write something…"></textarea>
+          </div>
+          <pre class="docs-code"><code>&lt;label for="notes"&gt;Notes&lt;/label&gt;
+&lt;textarea id="notes" placeholder="Write something…"&gt;&lt;/textarea&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="checkbox" aria-labelledby="checkbox-title">
+        <h2 id="checkbox-title">Checkbox</h2>
+        <p class="docs-lead">Bare <span class="mono">input[type=checkbox]</span> is styled. Wrap with <span class="mono">&lt;label class="choice"&gt;</span> so the caption sits in a row (required on Safari 15 / Chrome 94; newer browsers also infer this with <span class="mono">:has()</span>). Use <span class="mono">.check</span> only on a non-native host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label class="choice"><input type="checkbox" checked> Checked</label>
+            <label class="choice"><input type="checkbox"> Unchecked</label>
+          </div>
+          <pre class="docs-code"><code>&lt;label class="choice"&gt;&lt;input type="checkbox" checked&gt; Checked&lt;/label&gt;
+&lt;label class="choice"&gt;&lt;input type="checkbox"&gt; Unchecked&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="radio" aria-labelledby="radio-title">
+        <h2 id="radio-title">Radio</h2>
+        <p class="docs-lead">Bare <span class="mono">input[type=radio]</span>. Group with the same <span class="mono">name</span>. Wrap each option in <span class="mono">&lt;label class="choice"&gt;</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label class="choice"><input type="radio" name="d-r" checked> Radio A</label>
+            <label class="choice"><input type="radio" name="d-r"> Radio B</label>
+          </div>
+          <pre class="docs-code"><code>&lt;label class="choice"&gt;&lt;input type="radio" name="r" checked&gt; Radio A&lt;/label&gt;
+&lt;label class="choice"&gt;&lt;input type="radio" name="r"&gt; Radio B&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="switch" aria-labelledby="switch-title">
+        <h2 id="switch-title">Switch</h2>
+        <p class="docs-lead">Required: <span class="mono">.switch</span> on a <span class="mono">&lt;label&gt;</span> wrapping a real checkbox and an empty <span class="mono">&lt;i&gt;</span>. Checked state is the native input — no extra class.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-gap m-i-center">
+            <label class="switch"><input type="checkbox" checked><i></i></label>
+            <label class="switch"><input type="checkbox"><i></i></label>
+          </div>
+          <pre class="docs-code"><code>&lt;label class="switch"&gt;
+  &lt;input type="checkbox" checked&gt;&lt;i&gt;&lt;/i&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="range" aria-labelledby="range-title">
+        <h2 id="range-title">Range</h2>
+        <p class="docs-lead">Bare <span class="mono">input[type=range]</span>. The filled track reads <span class="mono">--v</span> (0–100, default 50). Sync it from your input handler if you want a live fill. Track thickness: <span class="mono">--m-range-h</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label for="d-rg">Volume</label>
+            <input type="range" id="d-rg" min="0" max="100" value="60">
+          </div>
+          <pre class="docs-code"><code>&lt;input type="range" min="0" max="100" value="50"
+  oninput="this.style.setProperty('--v', this.value)"&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="field" aria-labelledby="field-title">
+        <h2 id="field-title">Field</h2>
+        <p class="docs-lead">Required: <span class="mono">.field</span> wrapping label + control + <span class="mono">.hint</span> as a vertical stack with even gaps.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="field">
+              <label for="d-nm">Name</label>
+              <input id="d-nm" type="text">
+              <span class="hint">Public.</span>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="field"&gt;
+  &lt;label for="nm"&gt;Name&lt;/label&gt;
+  &lt;input id="nm" type="text"&gt;
+  &lt;span class="hint"&gt;Public.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="fieldset" aria-labelledby="fieldset-title">
+        <h2 id="fieldset-title">Fieldset</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;fieldset&gt;</span> + native <span class="mono">&lt;legend&gt;</span>. Use <span class="mono">.fieldset</span> on a non-native host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <fieldset>
+              <legend>Profile</legend>
+              <div class="field">
+                <label for="d-fn">Name</label>
+                <input id="d-fn" type="text" placeholder="Ada">
+              </div>
+            </fieldset>
+          </div>
+          <pre class="docs-code"><code>&lt;fieldset&gt;
+  &lt;legend&gt;Profile&lt;/legend&gt;
+  &lt;label for="fn"&gt;Name&lt;/label&gt;
+  &lt;input id="fn" type="text"&gt;
+&lt;/fieldset&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="fgroup" aria-labelledby="fgroup-title">
+        <h2 id="fgroup-title">Form group</h2>
+        <p class="docs-lead">Required: <span class="mono">.fgroup</span> on the flex row. Prefix/suffix text uses <span class="mono">.fgroup-label</span>. Nest the input and button as siblings.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="fgroup">
+              <span class="fgroup-label">https://</span>
+              <input type="text" value="example.com" aria-label="Host">
+              <button class="btn-primary" type="button">Go</button>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="fgroup"&gt;
+  &lt;span class="fgroup-label"&gt;https://&lt;/span&gt;
+  &lt;input type="text" value="example.com"&gt;
+  &lt;button class="btn-primary"&gt;Go&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="input-wrap" aria-labelledby="input-wrap-title">
+        <h2 id="input-wrap-title">Input wrap</h2>
+        <p class="docs-lead">Required: <span class="mono">.input-wrap</span>. Put <span class="mono">.input-ico</span> on leading or trailing slots.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="input-wrap">
+              <span class="input-ico">@</span>
+              <input type="text" placeholder="username" aria-label="Username">
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="input-wrap"&gt;
+  &lt;span class="input-ico"&gt;@&lt;/span&gt;
+  &lt;input type="text"&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="search" aria-labelledby="search-title">
+        <h2 id="search-title">Search</h2>
+        <p class="docs-lead">Required: <span class="mono">.search</span> wrapping the field. Add <span class="mono">.open</span> on <span class="mono">.search</span> to show <span class="mono">.search-panel</span>. The library does not open it on focus — your handler should.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="search" id="d-search">
+              <input type="search" placeholder="Search commands…" aria-label="Search">
+              <div class="search-panel">
+                <a class="menu-item" href="#button">Open buttons</a>
+                <a class="menu-item" href="#modal">Open modal</a>
+              </div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="search" id="search"&gt;
+  &lt;input type="search" placeholder="Search…"
+    onfocus="this.parentElement.classList.add('open')"&gt;
+  &lt;div class="search-panel"&gt;
+    &lt;a class="menu-item" href="#"&gt;Result&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="chip" aria-labelledby="chip-title">
+        <h2 id="chip-title">Chip</h2>
+        <p class="docs-lead">Required: <span class="mono">.chip</span>. Selected via <span class="mono">.selected</span> (works everywhere). Nested checkboxes also light up with <span class="mono">:has(:checked)</span> on newer browsers. Sibling markup <span class="mono">input:checked + .chip</span> works without JS.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-flex-wrap m-gap-sm">
+            <label class="chip selected"><input type="checkbox" checked> Design</label>
+            <label class="chip"><input type="checkbox"> Backend</label>
+            <span class="chip selected">Always on</span>
+          </div>
+          <pre class="docs-code"><code>&lt;label class="chip selected"&gt;&lt;input type="checkbox" checked&gt; Design&lt;/label&gt;
+&lt;button class="chip selected"&gt;Filter&lt;/button&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="rating" aria-labelledby="rating-title">
+        <h2 id="rating-title">Rating</h2>
+        <p class="docs-lead">Required: <span class="mono">.rate</span> with radios in <strong>reverse</strong> order (5 → 1) so sibling selectors fill the stars.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <span class="rate" aria-label="Rating">
+              <input type="radio" name="d-stars" value="5" aria-label="5">
+              <input type="radio" name="d-stars" value="4" aria-label="4">
+              <input type="radio" name="d-stars" value="3" checked aria-label="3">
+              <input type="radio" name="d-stars" value="2" aria-label="2">
+              <input type="radio" name="d-stars" value="1" aria-label="1">
+            </span>
+          </div>
+          <pre class="docs-code"><code>&lt;span class="rate"&gt;
+  &lt;input type="radio" name="stars" value="5"&gt;
+  &lt;input type="radio" name="stars" value="4"&gt;
+  &lt;input type="radio" name="stars" value="3" checked&gt;
+  &lt;input type="radio" name="stars" value="2"&gt;
+  &lt;input type="radio" name="stars" value="1"&gt;
+&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="segmented" aria-labelledby="segmented-title">
+        <h2 id="segmented-title">Segmented</h2>
+        <p class="docs-lead">Required: <span class="mono">.seg</span> parent, <span class="mono">.seg-item</span> children. Active via <span class="mono">.selected</span> (toggle it from your radio handler on older browsers). Newer browsers also match a checked radio with <span class="mono">:has(:checked)</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="seg">
+              <label class="seg-item selected"><input type="radio" name="d-seg" checked> Day</label>
+              <label class="seg-item"><input type="radio" name="d-seg"> Week</label>
+              <label class="seg-item"><input type="radio" name="d-seg"> Month</label>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="seg"&gt;
+  &lt;label class="seg-item selected"&gt;&lt;input type="radio" name="p" checked&gt; Day&lt;/label&gt;
+  &lt;label class="seg-item"&gt;&lt;input type="radio" name="p"&gt; Week&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="dropzone" aria-labelledby="dropzone-title">
+        <h2 id="dropzone-title">Dropzone</h2>
+        <p class="docs-lead">Required: <span class="mono">.drop</span> on a <span class="mono">&lt;label&gt;</span>. Add <span class="mono">.active</span> from JS on <span class="mono">dragover</span>; remove it on leave/drop.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <label class="drop" id="d-drop">
+              <input type="file" hidden>
+              <span>Drop files here</span>
+              <span class="hint">or click to browse</span>
+            </label>
+          </div>
+          <pre class="docs-code"><code>&lt;label class="drop"&gt;
+  &lt;input type="file" hidden&gt;
+  &lt;span&gt;Drop files&lt;/span&gt;
+  &lt;span class="hint"&gt;or click to browse&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="card" aria-labelledby="card-title">
+        <h2 id="card-title">Card</h2>
+        <p class="docs-lead"><span class="mono">.card</span> is the shell. Inside: <span class="mono">.card-body</span>, <span class="mono">.card-title</span>, <span class="mono">.card-sub</span>, footer <span class="mono">.card-bar</span>, full-bleed <span class="mono">.card-img</span>. Optional <span class="mono">.card-hover</span> lifts the shadow.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="card card-hover">
+              <div class="card-body">
+                <p class="card-title">Card title</p>
+                <p class="card-sub">With subtitle</p>
+              </div>
+              <div class="card-bar">
+                <button class="btn-primary btn-sm" type="button">Action</button>
+                <button class="btn-sm" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="card card-hover"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;p class="card-title"&gt;Card title&lt;/p&gt;
+    &lt;p class="card-sub"&gt;With subtitle&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card-bar"&gt;
+    &lt;button class="btn-primary btn-sm"&gt;Action&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="table" aria-labelledby="table-title">
+        <h2 id="table-title">Table</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;table&gt;</span> is styled. Wrap in <span class="mono">.table-wrap</span> for horizontal scroll. On the table: <span class="mono">.striped</span> <span class="mono">.bordered</span> <span class="mono">.sticky</span>. Selected row: <span class="mono">.selected</span> on <span class="mono">&lt;tr&gt;</span>. Use <span class="mono">.table</span> on a non-table host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="table-wrap">
+              <table class="striped">
+                <thead><tr><th>Plan</th><th>Price</th></tr></thead>
+                <tbody>
+                  <tr><td>Free</td><td>$0</td></tr>
+                  <tr class="selected"><td>Pro</td><td>$20</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="table-wrap"&gt;
+  &lt;table class="striped"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Plan&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr class="selected"&gt;&lt;td&gt;Pro&lt;/td&gt;&lt;td&gt;$20&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="tabs" aria-labelledby="tabs-title">
+        <h2 id="tabs-title">Tabs</h2>
+        <p class="docs-lead">Parent <span class="mono">.tabs</span>, each control <span class="mono">.tab</span>. Active: <span class="mono">.selected</span>. Underline style: add <span class="mono">.tabs-line</span> on the parent. Tabs are visual — switch panels in your app.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="tabs" data-docs-tabs>
+              <button type="button" class="tab selected">Overview</button>
+              <button type="button" class="tab">Analytics</button>
+              <button type="button" class="tab">Settings</button>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="tabs"&gt;
+  &lt;button class="tab selected"&gt;Overview&lt;/button&gt;
+  &lt;button class="tab"&gt;Analytics&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="tabs tabs-line"&gt;…&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="alert" aria-labelledby="alert-title">
+        <h2 id="alert-title">Alert</h2>
+        <p class="docs-lead">Required: <span class="mono">.alert</span>. Optional: <span class="mono">.alert-primary</span> <span class="mono">.alert-success</span> <span class="mono">.alert-warning</span> <span class="mono">.alert-danger</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="alert">Neutral alert.</div>
+            <div class="alert alert-success"><strong>Done.</strong> Changes saved.</div>
+            <div class="alert alert-danger"><strong>Error.</strong> Please retry.</div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="alert"&gt;Neutral alert.&lt;/div&gt;
+&lt;div class="alert alert-success"&gt;&lt;strong&gt;Done.&lt;/strong&gt; Saved.&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="toast" aria-labelledby="toast-title">
+        <h2 id="toast-title">Toast</h2>
+        <p class="docs-lead">Required: <span class="mono">.toast</span>. Optional: <span class="mono">.toast-primary</span> <span class="mono">.toast-success</span> <span class="mono">.toast-danger</span>. Title: <span class="mono">.toast-title</span>. Stack in a corner with <span class="mono">.toasts</span> plus <span class="mono">.toasts-tl</span> <span class="mono">.toasts-tr</span> <span class="mono">.toasts-bl</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="toast" style="max-width:16rem"><p class="toast-title">Toast</p><p>Neutral dark toast.</p></div>
+            <div class="toast toast-success" style="max-width:16rem"><p class="toast-title">Success</p><p>Saved.</p></div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="toast"&gt;
+  &lt;p class="toast-title"&gt;Toast&lt;/p&gt;
+  &lt;p&gt;Neutral dark toast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="toasts toasts-tr"&gt;…&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="banner" aria-labelledby="banner-title">
+        <h2 id="banner-title">Banner</h2>
+        <p class="docs-lead">Required: <span class="mono">.banner</span>. Optional: <span class="mono">.banner-warn</span> <span class="mono">.banner-danger</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <div class="banner">Scheduled maintenance tonight</div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="banner"&gt;Scheduled maintenance tonight&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="skeleton" aria-labelledby="skeleton-title">
+        <h2 id="skeleton-title">Skeleton</h2>
+        <p class="docs-lead"><span class="mono">.skel</span> plus a shape: <span class="mono">.skel-text</span> <span class="mono">.skel-avatar</span> <span class="mono">.skel-card</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-i-center m-gap-sm">
+            <div class="skel skel-avatar"></div>
+            <div class="m-flex-1">
+              <div class="skel skel-text m-b-5"></div>
+              <div class="skel skel-text" style="width:60%"></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="skel skel-avatar"&gt;&lt;/div&gt;
+&lt;div class="skel skel-text"&gt;&lt;/div&gt;
+&lt;div class="skel skel-card"&gt;&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="spinner" aria-labelledby="spinner-title">
+        <h2 id="spinner-title">Spinner</h2>
+        <p class="docs-lead"><span class="mono">.spin</span> on an <span class="mono">&lt;i&gt;</span>. Large: <span class="mono">.spin-lg</span>. Center a block with <span class="mono">.spin-block</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-i-center m-gap">
+            <i class="spin"></i>
+            <i class="spin spin-lg"></i>
+          </div>
+          <pre class="docs-code"><code>&lt;i class="spin"&gt;&lt;/i&gt;
+&lt;div class="spin-block"&gt;&lt;i class="spin spin-lg"&gt;&lt;/i&gt;&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="empty" aria-labelledby="empty-title">
+        <h2 id="empty-title">Empty</h2>
+        <p class="docs-lead"><span class="mono">.empty</span> with <span class="mono">.empty-title</span> and optional <span class="mono">.empty-actions</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="empty p-10">
+              <p class="empty-title">No projects</p>
+              <p class="muted m-0">Create one to get started.</p>
+              <div class="empty-actions"><button class="btn-primary btn-sm" type="button">New</button></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="empty"&gt;
+  &lt;p class="empty-title"&gt;No projects&lt;/p&gt;
+  &lt;p class="muted"&gt;Create one to get started.&lt;/p&gt;
+  &lt;div class="empty-actions"&gt;&lt;button class="btn-primary"&gt;New&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="tooltip" aria-labelledby="tooltip-title">
+        <h2 id="tooltip-title">Tooltip</h2>
+        <p class="docs-lead">Required: <span class="mono">.tooltip</span> on the trigger plus <span class="mono">data-tip="…"</span>. Direction on the same element: default top, <span class="mono">.tooltip-b</span> bottom, <span class="mono">.tooltip-r</span> right, <span class="mono">.tooltip-l</span> left. Shown on hover and keyboard focus.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-gap m-i-center" style="padding-block:2rem;">
+            <button type="button" class="tooltip" data-tip="Top tooltip">Top</button>
+            <button type="button" class="tooltip tooltip-b" data-tip="Bottom">Bottom</button>
+            <button type="button" class="tooltip tooltip-r" data-tip="Right">Right</button>
+          </div>
+          <pre class="docs-code"><code>&lt;button class="tooltip" data-tip="Top tooltip"&gt;Top&lt;/button&gt;
+&lt;button class="tooltip tooltip-b" data-tip="Bottom"&gt;Bottom&lt;/button&gt;
+&lt;button class="tooltip tooltip-r" data-tip="Right"&gt;Right&lt;/button&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="modal" aria-labelledby="modal-title">
+        <h2 id="modal-title">Modal</h2>
+        <p class="docs-lead">Structure: <span class="mono">.modal</span> &gt; <span class="mono">.modal-overlay</span> + <span class="mono">.modal-box</span> with <span class="mono">.modal-head</span> <span class="mono">.modal-title</span> <span class="mono">.modal-body</span> <span class="mono">.modal-foot</span>. <strong>Open state:</strong> add <span class="mono">.open</span> on <span class="mono">.modal</span>. Remove it to hide. Mates CSS does not trap focus or lock scroll — do that in your app if you need it.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <button type="button" class="btn-primary" data-open="d-modal">Open modal</button>
+            <div id="d-modal" class="modal">
+              <div class="modal-overlay" data-close="d-modal"></div>
+              <div class="modal-box">
+                <div class="modal-head">
+                  <p class="modal-title">Modal title</p>
+                  <button type="button" class="btn-close" data-close="d-modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"><p>Add <span class="mono">.open</span> on <span class="mono">.modal</span>.</p></div>
+                <div class="modal-foot">
+                  <button type="button" data-close="d-modal">Close</button>
+                  <button type="button" class="btn-primary" data-close="d-modal">Got it</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;button onclick="document.getElementById('m1').classList.add('open')"&gt;Open&lt;/button&gt;
+&lt;div id="m1" class="modal"&gt;
+  &lt;div class="modal-overlay" onclick="this.parentElement.classList.remove('open')"&gt;&lt;/div&gt;
+  &lt;div class="modal-box"&gt;
+    &lt;div class="modal-head"&gt;
+      &lt;p class="modal-title"&gt;Modal title&lt;/p&gt;
+      &lt;button class="btn-close" aria-label="Close"
+        onclick="this.closest('.modal').classList.remove('open')"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal-body"&gt;…&lt;/div&gt;
+    &lt;div class="modal-foot"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="menu" aria-labelledby="menu-title">
+        <h2 id="menu-title">Menu</h2>
+        <p class="docs-lead">Required: <span class="mono">.menu</span> wrapping a trigger button and <span class="mono">.menu-panel</span>. Items: <span class="mono">.menu-item</span>. Optional <span class="mono">.menu-r</span>, <span class="mono">.menu-sep</span>, <span class="mono">.menu-danger</span>. <strong>Open state:</strong> <span class="mono">.open</span> on <span class="mono">.menu</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="menu" id="d-menu">
+              <button type="button" aria-haspopup="menu" data-toggle="d-menu">Actions</button>
+              <div class="menu-panel" role="menu">
+                <a class="menu-item" href="#menu" role="menuitem">Edit</a>
+                <a class="menu-item" href="#menu" role="menuitem">Duplicate</a>
+                <hr class="menu-sep">
+                <button type="button" class="menu-item menu-danger" role="menuitem">Delete</button>
+              </div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="menu" id="actions"&gt;
+  &lt;button aria-haspopup="menu"
+    onclick="this.parentElement.classList.toggle('open')"&gt;Actions&lt;/button&gt;
+  &lt;div class="menu-panel" role="menu"&gt;
+    &lt;a class="menu-item" href="#" role="menuitem"&gt;Edit&lt;/a&gt;
+    &lt;hr class="menu-sep"&gt;
+    &lt;button class="menu-item menu-danger" role="menuitem"&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="popover" aria-labelledby="popover-title">
+        <h2 id="popover-title">Popover</h2>
+        <p class="docs-lead">Required: <span class="mono">.pop</span> wrapping trigger + <span class="mono">.pop-panel</span>. <strong>Open state:</strong> <span class="mono">.open</span> on <span class="mono">.pop</span>. Direction: <span class="mono">.pop-t</span> <span class="mono">.pop-l</span> <span class="mono">.pop-r</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="pop" id="d-pop">
+              <button type="button" data-toggle="d-pop">Popover</button>
+              <div class="pop-panel"><p class="m-0">Add <span class="mono">.open</span> on <span class="mono">.pop</span>.</p></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="pop" id="more"&gt;
+  &lt;button onclick="this.parentElement.classList.toggle('open')"&gt;More&lt;/button&gt;
+  &lt;div class="pop-panel"&gt;Extra content&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="drawer" aria-labelledby="drawer-title">
+        <h2 id="drawer-title">Drawer</h2>
+        <p class="docs-lead"><span class="mono">.drawer</span> &gt; <span class="mono">.drawer-overlay</span> + <span class="mono">.drawer-panel</span>. <strong>Open state:</strong> <span class="mono">.open</span> on <span class="mono">.drawer</span>. Dock right with <span class="mono">.drawer-r</span>. Width token: <span class="mono">--m-drawer-w</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <button type="button" data-open="d-drawer">Open drawer</button>
+            <div id="d-drawer" class="drawer">
+              <div class="drawer-overlay" data-close="d-drawer"></div>
+              <aside class="drawer-panel">
+                <p class="card-title">Drawer</p>
+                <p class="muted">Toggle <span class="mono">.open</span> on <span class="mono">.drawer</span>.</p>
+                <button type="button" class="btn-sm" data-close="d-drawer">Close</button>
+              </aside>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;button onclick="document.getElementById('d1').classList.add('open')"&gt;Open&lt;/button&gt;
+&lt;div id="d1" class="drawer"&gt;
+  &lt;div class="drawer-overlay" onclick="this.parentElement.classList.remove('open')"&gt;&lt;/div&gt;
+  &lt;aside class="drawer-panel"&gt;…&lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="sheet" aria-labelledby="sheet-title">
+        <h2 id="sheet-title">Sheet</h2>
+        <p class="docs-lead">Bottom sheet: <span class="mono">.sheet</span> &gt; <span class="mono">.sheet-overlay</span> + <span class="mono">.sheet-panel</span>. Optional <span class="mono">.sheet-handle</span>. <strong>Open state:</strong> <span class="mono">.open</span> on <span class="mono">.sheet</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <button type="button" data-open="d-sheet">Open sheet</button>
+            <div id="d-sheet" class="sheet">
+              <div class="sheet-overlay" data-close="d-sheet"></div>
+              <div class="sheet-panel">
+                <div class="sheet-handle"></div>
+                <p class="card-title">Bottom sheet</p>
+                <p class="muted">Toggle <span class="mono">.open</span> on <span class="mono">.sheet</span>.</p>
+                <button type="button" class="btn-primary btn-sm" data-close="d-sheet">Done</button>
+              </div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div id="s1" class="sheet"&gt;
+  &lt;div class="sheet-overlay" onclick="this.parentElement.classList.remove('open')"&gt;&lt;/div&gt;
+  &lt;div class="sheet-panel"&gt;
+    &lt;div class="sheet-handle"&gt;&lt;/div&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="accordion" aria-labelledby="accordion-title">
+        <h2 id="accordion-title">Accordion</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;details&gt;</span> + <span class="mono">&lt;summary&gt;</span>. Open state is native — no <span class="mono">.open</span> class. Use <span class="mono">.acc</span> only on a non-<span class="mono">details</span> host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <details>
+              <summary>Accordion item one</summary>
+              <p>Expand with native details — no JS.</p>
+            </details>
+            <details>
+              <summary>Accordion item two</summary>
+              <p>Another panel.</p>
+            </details>
+          </div>
+          <pre class="docs-code"><code>&lt;details&gt;
+  &lt;summary&gt;Accordion item one&lt;/summary&gt;
+  &lt;p&gt;Expand/collapse with native details — no JS.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="nav" aria-labelledby="nav-title">
+        <h2 id="nav-title">Nav</h2>
+        <p class="docs-lead"><span class="mono">.nav</span> bar. Brand: <span class="mono">.nav-brand</span>. Active link: <span class="mono">.selected</span>. <span class="mono">.nav-space</span> pushes trailing items right.</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <nav class="nav">
+              <span class="nav-brand">Mates</span>
+              <a href="#nav" class="selected">Home</a>
+              <a href="#button">Docs</a>
+              <span class="nav-space"></span>
+              <span class="avatar avatar-sm">AV</span>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="nav"&gt;
+  &lt;span class="nav-brand"&gt;Mates&lt;/span&gt;
+  &lt;a href="#" class="selected"&gt;Home&lt;/a&gt;
+  &lt;span class="nav-space"&gt;&lt;/span&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="breadcrumbs" aria-labelledby="breadcrumbs-title">
+        <h2 id="breadcrumbs-title">Breadcrumbs</h2>
+        <p class="docs-lead"><span class="mono">.crumbs</span> with links. Mark the last crumb <span class="mono">.current</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <nav class="crumbs">
+              <a href="#">Home</a>
+              <a href="#catalog">Docs</a>
+              <span class="current">Button</span>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="crumbs"&gt;
+  &lt;a href="#"&gt;Home&lt;/a&gt;
+  &lt;span class="current"&gt;Here&lt;/span&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="steps" aria-labelledby="steps-title">
+        <h2 id="steps-title">Steps</h2>
+        <p class="docs-lead"><span class="mono">.steps</span> list of <span class="mono">.step</span>. States: <span class="mono">.done</span>, <span class="mono">.current</span>. Each step: <span class="mono">.step-dot</span> + <span class="mono">.step-label</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <ol class="steps">
+              <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
+              <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
+              <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
+            </ol>
+          </div>
+          <pre class="docs-code"><code>&lt;ol class="steps"&gt;
+  &lt;li class="step done"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Account&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="step current"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Plan&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="step"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Pay&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="sidenav" aria-labelledby="sidenav-title">
+        <h2 id="sidenav-title">Sidenav</h2>
+        <p class="docs-lead">Required: <span class="mono">.sidenav</span> + <span class="mono">.sidenav-item</span>. Active: <span class="mono">.selected</span>. Disabled: <span class="mono">.disabled</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <nav class="sidenav">
+              <a class="sidenav-item selected" href="#sidenav">Home</a>
+              <a class="sidenav-item" href="#button">Buttons</a>
+              <a class="sidenav-item disabled" href="#sidenav">Admin</a>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="sidenav"&gt;
+  &lt;a class="sidenav-item selected" href="#"&gt;Home&lt;/a&gt;
+  &lt;a class="sidenav-item" href="#"&gt;Docs&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="bottom-nav" aria-labelledby="bottom-nav-title">
+        <h2 id="bottom-nav-title">Bottom nav</h2>
+        <p class="docs-lead">Mobile tab bar: <span class="mono">.bottom-nav</span> of <span class="mono">.bnav-item</span>. Active: <span class="mono">.selected</span>. Pin to the viewport with <span class="mono">.fixed</span> on the bar.</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <nav class="bottom-nav" aria-label="Primary">
+              <a class="bnav-item selected" href="#bottom-nav">Home</a>
+              <a class="bnav-item" href="#search">Search</a>
+              <a class="bnav-item" href="#list">Inbox</a>
+              <a class="bnav-item" href="#avatar">Me</a>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="bottom-nav" aria-label="Primary"&gt;
+  &lt;a class="bnav-item selected" href="#"&gt;Home&lt;/a&gt;
+  &lt;a class="bnav-item" href="#"&gt;Inbox&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="avatar" aria-labelledby="avatar-title">
+        <h2 id="avatar-title">Avatar</h2>
+        <p class="docs-lead"><span class="mono">.avatar</span>. Sizes: <span class="mono">.avatar-sm</span> <span class="mono">.avatar-lg</span>. Stack with <span class="mono">.avatars</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-i-center m-gap">
+            <span class="avatar avatar-sm">SM</span>
+            <span class="avatar">AL</span>
+            <span class="avatar avatar-lg">LG</span>
+            <span class="avatars" aria-label="Members">
+              <span class="avatar avatar-sm">AL</span>
+              <span class="avatar avatar-sm">SM</span>
+              <span class="avatar avatar-sm">LG</span>
+            </span>
+          </div>
+          <pre class="docs-code"><code>&lt;span class="avatar"&gt;AL&lt;/span&gt;
+&lt;span class="avatars"&gt;
+  &lt;span class="avatar avatar-sm"&gt;AL&lt;/span&gt;
+  &lt;span class="avatar avatar-sm"&gt;SM&lt;/span&gt;
+&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="status" aria-labelledby="status-title">
+        <h2 id="status-title">Status</h2>
+        <p class="docs-lead"><span class="mono">.status</span> + <span class="mono">.status-dot</span>. Presence: <span class="mono">.online</span> <span class="mono">.away</span> <span class="mono">.busy</span> <span class="mono">.offline</span> on the status or the dot.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <p class="status online"><i class="status-dot"></i> Online</p>
+            <p class="status away"><i class="status-dot"></i> Away</p>
+            <p class="status"><i class="status-dot busy"></i> Busy</p>
+          </div>
+          <pre class="docs-code"><code>&lt;span class="status online"&gt;&lt;i class="status-dot"&gt;&lt;/i&gt; Online&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="badge" aria-labelledby="badge-title">
+        <h2 id="badge-title">Badge</h2>
+        <p class="docs-lead">Wrap a control in <span class="mono">.badge</span>. Child <span class="mono">.badge-dot</span> or <span class="mono">.badge-n</span> with <span class="mono">data-n="8"</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <span class="badge"><button type="button" class="btn-sm">Inbox</button><i class="badge-n" data-n="8"></i></span>
+          </div>
+          <pre class="docs-code"><code>&lt;span class="badge"&gt;
+  &lt;button class="btn-sm"&gt;Inbox&lt;/button&gt;
+  &lt;i class="badge-n" data-n="8"&gt;&lt;/i&gt;
+&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="progress" aria-labelledby="progress-title">
+        <h2 id="progress-title">Progress</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;progress&gt;</span>. Use <span class="mono">.progress</span> on a non-native host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <progress value="65" max="100"></progress>
+          </div>
+          <pre class="docs-code"><code>&lt;progress value="65" max="100"&gt;&lt;/progress&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="list" aria-labelledby="list-title">
+        <h2 id="list-title">List</h2>
+        <p class="docs-lead"><span class="mono">.list</span> of <span class="mono">.list-item</span>. Meta: <span class="mono">.list-meta</span>. States: <span class="mono">.selected</span> <span class="mono">.disabled</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="list">
+              <a class="list-item selected" href="#list">Inbox <span class="list-meta">12</span></a>
+              <a class="list-item" href="#list">Sent <span class="list-meta">3</span></a>
+              <a class="list-item disabled" href="#list">Archive</a>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="list"&gt;
+  &lt;a class="list-item selected" href="#"&gt;Inbox &lt;span class="list-meta"&gt;12&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="timeline" aria-labelledby="timeline-title">
+        <h2 id="timeline-title">Timeline</h2>
+        <p class="docs-lead"><span class="mono">.timeline</span> of <span class="mono">.tl-item</span> with <span class="mono">.tl-dot</span> and <span class="mono">.tl-content</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="timeline">
+              <div class="tl-item"><i class="tl-dot"></i><div class="tl-content"><b>Shipped 0.5</b><p class="muted m-0">Overlays and shell.</p></div></div>
+              <div class="tl-item"><i class="tl-dot"></i><div class="tl-content"><b>Charts</b><p class="muted m-0">Bars, donut, spark.</p></div></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="timeline"&gt;
+  &lt;div class="tl-item"&gt;
+    &lt;i class="tl-dot"&gt;&lt;/i&gt;
+    &lt;div class="tl-content"&gt;Shipped v0.5&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="stat" aria-labelledby="stat-title">
+        <h2 id="stat-title">Stat</h2>
+        <p class="docs-lead"><span class="mono">.stat</span> with <span class="mono">.stat-label</span>, <span class="mono">.stat-val</span>, optional <span class="mono">.stat-delta.up</span> / <span class="mono">.down</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="stat"><span class="stat-label">Revenue</span><span class="stat-val">$24k</span><span class="stat-delta up">+12%</span></div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="stat"&gt;
+  &lt;span class="stat-label"&gt;Revenue&lt;/span&gt;
+  &lt;span class="stat-val"&gt;$24k&lt;/span&gt;
+  &lt;span class="stat-delta up"&gt;+12%&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="dl" aria-labelledby="dl-title">
+        <h2 id="dl-title">Definition list</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;dl&gt;</span> / <span class="mono">&lt;dt&gt;</span> / <span class="mono">&lt;dd&gt;</span>. Use <span class="mono">.dl</span> on a custom host.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <dl><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd></dl>
+          </div>
+          <pre class="docs-code"><code>&lt;dl&gt;
+  &lt;dt&gt;Plan&lt;/dt&gt;&lt;dd&gt;Pro&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="code" aria-labelledby="code-title">
+        <h2 id="code-title">Code</h2>
+        <p class="docs-lead">Bare <span class="mono">&lt;code&gt;</span> and <span class="mono">&lt;pre&gt;</span>. Keyboard: <span class="mono">&lt;kbd&gt;</span> and <span class="mono">.kbd-row</span>. Reading width: <span class="mono">.prose</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <p><code>import "mates-css"</code></p>
+            <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span>
+          </div>
+          <pre class="docs-code"><code>&lt;code&gt;import "mates-css"&lt;/code&gt;
+&lt;span class="kbd-row"&gt;&lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;K&lt;/kbd&gt;&lt;/span&gt;
+&lt;article class="prose"&gt;…&lt;/article&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="bars" aria-labelledby="bars-title">
+        <h2 id="bars-title">Bar chart</h2>
+        <p class="docs-lead">Pure CSS — no SVG. Required: <span class="mono">.chart-bars</span> &gt; <span class="mono">.bar</span>. Set <span class="mono">--v</span> (0–100) on each bar. Fill is <span class="mono">&lt;i&gt;</span>; optional <span class="mono">data-v</span> shows a value. Label is <span class="mono">&lt;span&gt;</span>. Series color: <span class="mono">.s1</span>–<span class="mono">.s6</span>. Height: <span class="mono">--m-chart-h</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="chart-bars" role="img" aria-label="Sales: Mon 65, Tue 90, Wed 45">
+              <div class="bar" style="--v: 65"><i data-v="65"></i><span>Mon</span></div>
+              <div class="bar" style="--v: 90"><i data-v="90"></i><span>Tue</span></div>
+              <div class="bar s2" style="--v: 45"><i data-v="45"></i><span>Wed</span></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="chart-bars" role="img" aria-label="Sales by day"&gt;
+  &lt;div class="bar" style="--v: 65"&gt;&lt;i data-v="65"&gt;&lt;/i&gt;&lt;span&gt;Mon&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="bar s2" style="--v: 90"&gt;&lt;i data-v="90"&gt;&lt;/i&gt;&lt;span&gt;Tue&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="stacked" aria-labelledby="stacked-title">
+        <h2 id="stacked-title">Stacked bars</h2>
+        <p class="docs-lead"><span class="mono">.bar.stacked</span> with <span class="mono">--v</span> for total height. Inside <span class="mono">&lt;i&gt;</span>, each <span class="mono">&lt;u style="--sv: …"&gt;</span> is a share of the stack.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="chart-bars" role="img" aria-label="Stacked Q1">
+              <div class="bar stacked" style="--v: 100"><i><u style="--sv: 45"></u><u class="s2" style="--sv: 30"></u><u class="s3" style="--sv: 25"></u></i><span>Q1</span></div>
+              <div class="bar stacked" style="--v: 80"><i><u style="--sv: 40"></u><u class="s2" style="--sv: 25"></u><u class="s3" style="--sv: 15"></u></i><span>Q2</span></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="bar stacked" style="--v: 100"&gt;
+  &lt;i&gt;
+    &lt;u style="--sv: 45"&gt;&lt;/u&gt;
+    &lt;u class="s2" style="--sv: 30"&gt;&lt;/u&gt;
+  &lt;/i&gt;
+  &lt;span&gt;Q1&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="hbars" aria-labelledby="hbars-title">
+        <h2 id="hbars-title">Horizontal bars</h2>
+        <p class="docs-lead">Required: <span class="mono">.chart-hbars</span> &gt; <span class="mono">.hbar</span>. Structure: label <span class="mono">&lt;span&gt;</span>, track <span class="mono">&lt;i&gt;</span>, value <span class="mono">&lt;b&gt;</span>. Set <span class="mono">--v</span> on <span class="mono">.hbar</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="chart-hbars" role="img" aria-label="Skills">
+              <div class="hbar" style="--v: 80"><span>Design</span><i></i><b>80</b></div>
+              <div class="hbar s2" style="--v: 65"><span>Frontend</span><i></i><b>65</b></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="chart-hbars"&gt;
+  &lt;div class="hbar" style="--v: 80"&gt;&lt;span&gt;Design&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;80&lt;/b&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="donut" aria-labelledby="donut-title">
+        <h2 id="donut-title">Donut</h2>
+        <p class="docs-lead"><span class="mono">.donut</span> with segment percents <span class="mono">--v1</span>…<span class="mono">--v6</span>. Center label in <span class="mono">&lt;b&gt;</span>. Solid pie: add <span class="mono">.pie</span>. Legend: <span class="mono">.legend</span> with <span class="mono">&lt;span&gt;&lt;i class="s1"&gt;&lt;/i&gt;Label&lt;/span&gt;</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-i-center m-gap">
+            <div class="donut" style="--v1: 42; --v2: 28; --v3: 18; --v4: 12; --m-donut-size: 8rem" role="img" aria-label="Traffic mix"><b>1,204</b></div>
+            <div class="legend legend-v">
+              <span><i class="s1"></i>Organic</span>
+              <span><i class="s2"></i>Paid</span>
+              <span><i class="s3"></i>Referral</span>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="donut" style="--v1: 42; --v2: 28; --v3: 18; --v4: 12"&gt;
+  &lt;b&gt;1,204&lt;/b&gt;
+&lt;/div&gt;
+&lt;div class="legend"&gt;
+  &lt;span&gt;&lt;i class="s1"&gt;&lt;/i&gt;Organic&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="ring" aria-labelledby="ring-title">
+        <h2 id="ring-title">Ring</h2>
+        <p class="docs-lead"><span class="mono">.ring</span> + <span class="mono">--v</span> (0–100). Optional center text in <span class="mono">&lt;b&gt;</span>. Color with <span class="mono">.s1</span>–<span class="mono">.s6</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live m-flex m-gap">
+            <div class="ring" style="--v: 72; --m-donut-size: 7rem" role="img" aria-label="72 percent"><b>72%</b></div>
+            <div class="ring s3" style="--v: 45; --m-donut-size: 7rem" role="img" aria-label="45 percent"><b>45%</b></div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="ring" style="--v: 72"&gt;&lt;b&gt;72%&lt;/b&gt;&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="spark" aria-labelledby="spark-title">
+        <h2 id="spark-title">Sparkline</h2>
+        <p class="docs-lead"><span class="mono">.spark</span> with a child <span class="mono">&lt;i style="--v:…"&gt;</span> per point. Height: <span class="mono">--m-spark-h</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="spark" role="img" aria-label="Rising trend">
+              <i style="--v:30"></i><i style="--v:55"></i><i style="--v:40"></i><i style="--v:80"></i><i style="--v:62"></i><i class="s2" style="--v:90"></i>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="spark"&gt;
+  &lt;i style="--v:30"&gt;&lt;/i&gt;&lt;i style="--v:55"&gt;&lt;/i&gt;&lt;i style="--v:80"&gt;&lt;/i&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="shell" aria-labelledby="shell-title">
+        <h2 id="shell-title">Shell</h2>
+        <p class="docs-lead">App grid: <span class="mono">.shell</span> with <span class="mono">.shell-top</span>, <span class="mono">.shell-side</span>, <span class="mono">.shell-main</span>. Collapse the side with <span class="mono">.collapsed</span> on <span class="mono">.shell</span> (width token <span class="mono">--m-side</span>).</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <div class="shell" style="min-height:11rem;border:1px solid var(--m-border);border-radius:var(--m-r);overflow:hidden">
+              <header class="shell-top p-10"><span class="nav-brand">App shell</span></header>
+              <aside class="shell-side">
+                <nav class="sidenav">
+                  <a class="sidenav-item selected" href="#shell">Home</a>
+                  <a class="sidenav-item" href="#bars">Charts</a>
+                </nav>
+              </aside>
+              <main class="shell-main p-10"><p class="muted m-0">Add <span class="mono">.collapsed</span> on <span class="mono">.shell</span>.</p></main>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="shell"&gt;
+  &lt;header class="shell-top"&gt;…&lt;/header&gt;
+  &lt;aside class="shell-side"&gt;…&lt;/aside&gt;
+  &lt;main class="shell-main"&gt;…&lt;/main&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="split" aria-labelledby="split-title">
+        <h2 id="split-title">Split</h2>
+        <p class="docs-lead"><span class="mono">.split</span> with panes <span class="mono">.split-a</span> and <span class="mono">.split-b</span>. Left width: <span class="mono">--split</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <div class="split" style="--split: 35%; min-height: 8rem">
+              <div class="split-a p-10">A</div>
+              <div class="split-b p-10">B</div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="split" style="--split: 35%"&gt;
+  &lt;div class="split-a"&gt;A&lt;/div&gt;
+  &lt;div class="split-b"&gt;B&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="layout" aria-labelledby="layout-title">
+        <h2 id="layout-title">Flex &amp; grid</h2>
+        <p class="docs-lead">Utilities are prefixed <span class="mono">m-</span>. Flex: <span class="mono">.m-flex</span> <span class="mono">.m-flex-col</span> <span class="mono">.m-flex-wrap</span> <span class="mono">.m-flex-1</span> plus <span class="mono">.m-i-center</span> / <span class="mono">.m-j-between</span>. Grid: <span class="mono">.m-grid</span> <span class="mono">.m-grid-cols-2|3|4</span> (collapses to one column under 640px). Directional stacks: <span class="mono">.m-row</span> / <span class="mono">.m-col</span> with <span class="mono">.c-1</span>–<span class="mono">.c-12</span>. Spacing: <span class="mono">.m-b-10</span>, <span class="mono">.p-x-5</span>. Truncate: <span class="mono">.truncate</span> <span class="mono">.clamp-2</span> <span class="mono">.clamp-3</span>. Aspect boxes: <span class="mono">.aspect</span> <span class="mono">.aspect-1x1</span> <span class="mono">.aspect-4x3</span> <span class="mono">.aspect-16x9</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="m-grid m-grid-cols-3 m-gap-sm">
+              <div class="alert m-0">col</div>
+              <div class="alert alert-primary m-0">col</div>
+              <div class="alert m-0">col</div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="m-flex m-i-center m-j-between m-gap-sm"&gt;…&lt;/div&gt;
+&lt;div class="m-grid m-grid-cols-3 m-gap"&gt;…&lt;/div&gt;
+&lt;div class="m-row"&gt;
+  &lt;div class="c-4"&gt;⅓&lt;/div&gt;
+  &lt;div class="c-8"&gt;⅔&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="utilities" aria-labelledby="utilities-title">
+        <h2 id="utilities-title">Utility map</h2>
+        <p class="docs-lead">Reusable layout, spacing, and type classes — not components. Left is the class; right is the CSS it sets.</p>
+
+        <h3>Display &amp; flex</h3>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-flex</code></td><td><code>display: flex</code></td></tr>
+              <tr><td><code>.m-inline-flex</code></td><td><code>display: inline-flex</code></td></tr>
+              <tr><td><code>.m-flex-row</code></td><td><code>flex-direction: row</code></td></tr>
+              <tr><td><code>.m-flex-col</code></td><td><code>flex-direction: column</code></td></tr>
+              <tr><td><code>.m-flex-wrap</code></td><td><code>flex-wrap: wrap</code></td></tr>
+              <tr><td><code>.m-flex-nowrap</code></td><td><code>flex-wrap: nowrap</code></td></tr>
+              <tr><td><code>.m-flex-1</code></td><td><code>flex: 1 1 0%; min-width: 0</code></td></tr>
+              <tr><td><code>.m-flex-auto</code></td><td><code>flex: 1 1 auto</code></td></tr>
+              <tr><td><code>.m-flex-none</code></td><td><code>flex: none</code></td></tr>
+              <tr><td><code>.m-grow</code></td><td><code>flex-grow: 1</code></td></tr>
+              <tr><td><code>.m-shrink-0</code></td><td><code>flex-shrink: 0</code></td></tr>
+              <tr><td><code>.m-basis-0</code></td><td><code>flex-basis: 0</code></td></tr>
+              <tr><td><code>.m-order-first</code></td><td><code>order: -1</code></td></tr>
+              <tr><td><code>.m-order-last</code></td><td><code>order: 99</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Align &amp; justify</h3>
+        <p class="hint">Short aliases: <span class="mono">.m-i-*</span> = <span class="mono">.m-items-*</span>, <span class="mono">.m-j-*</span> = <span class="mono">.m-justify-*</span>.</p>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-items-start</code> / <code>.m-i-start</code></td><td><code>align-items: flex-start</code></td></tr>
+              <tr><td><code>.m-items-center</code> / <code>.m-i-center</code></td><td><code>align-items: center</code></td></tr>
+              <tr><td><code>.m-items-end</code> / <code>.m-i-end</code></td><td><code>align-items: flex-end</code></td></tr>
+              <tr><td><code>.m-items-stretch</code> / <code>.m-i-stretch</code></td><td><code>align-items: stretch</code></td></tr>
+              <tr><td><code>.m-items-baseline</code> / <code>.m-i-baseline</code></td><td><code>align-items: baseline</code></td></tr>
+              <tr><td><code>.m-self-start</code></td><td><code>align-self: flex-start</code></td></tr>
+              <tr><td><code>.m-self-center</code></td><td><code>align-self: center</code></td></tr>
+              <tr><td><code>.m-self-end</code></td><td><code>align-self: flex-end</code></td></tr>
+              <tr><td><code>.m-justify-start</code> / <code>.m-j-start</code></td><td><code>justify-content: flex-start</code></td></tr>
+              <tr><td><code>.m-justify-center</code> / <code>.m-j-center</code></td><td><code>justify-content: center</code></td></tr>
+              <tr><td><code>.m-justify-end</code> / <code>.m-j-end</code></td><td><code>justify-content: flex-end</code></td></tr>
+              <tr><td><code>.m-justify-between</code> / <code>.m-j-between</code></td><td><code>justify-content: space-between</code></td></tr>
+              <tr><td><code>.m-justify-around</code> / <code>.m-j-around</code></td><td><code>justify-content: space-around</code></td></tr>
+              <tr><td><code>.m-justify-evenly</code> / <code>.m-j-evenly</code></td><td><code>justify-content: space-evenly</code></td></tr>
+              <tr><td><code>.m-j-center-v</code></td><td><code>justify-content: center</code></td></tr>
+              <tr><td><code>.m-content-start</code></td><td><code>align-content: flex-start</code></td></tr>
+              <tr><td><code>.m-content-center</code></td><td><code>align-content: center</code></td></tr>
+              <tr><td><code>.m-content-between</code></td><td><code>align-content: space-between</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Grid</h3>
+        <p class="hint"><span class="mono">.m-grid-cols-2|3|4</span> collapse to one column under 640px.</p>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-grid</code></td><td><code>display: grid</code></td></tr>
+              <tr><td><code>.m-inline-grid</code></td><td><code>display: inline-grid</code></td></tr>
+              <tr><td><code>.m-grid-cols-2</code></td><td><code>grid-template-columns: repeat(2, minmax(0, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-cols-3</code></td><td><code>grid-template-columns: repeat(3, minmax(0, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-cols-4</code></td><td><code>grid-template-columns: repeat(4, minmax(0, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-cols-auto</code></td><td><code>grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-cols-auto-sm</code></td><td><code>repeat(auto-fit, minmax(11rem, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-cols-auto-lg</code></td><td><code>repeat(auto-fit, minmax(22rem, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-rows-2</code></td><td><code>grid-template-rows: repeat(2, minmax(0, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-rows-3</code></td><td><code>grid-template-rows: repeat(3, minmax(0, 1fr))</code></td></tr>
+              <tr><td><code>.m-grid-flow-dense</code></td><td><code>grid-auto-flow: row dense</code></td></tr>
+              <tr><td><code>.m-col-span-2</code></td><td><code>grid-column: span 2</code></td></tr>
+              <tr><td><code>.m-col-span-3</code></td><td><code>grid-column: span 3</code></td></tr>
+              <tr><td><code>.m-col-span-full</code></td><td><code>grid-column: 1 / -1</code></td></tr>
+              <tr><td><code>.m-row-span-2</code></td><td><code>grid-row: span 2</code></td></tr>
+              <tr><td><code>.m-grid-auto</code></td><td><code>display: grid; columns auto-fit 16rem; gap: var(--m-gap, 1rem)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Row / column stacks</h3>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-row</code></td><td><code>display: flex; flex-wrap: wrap; align-items: center; gap: var(--m-gap, 1rem)</code> — children share space</td></tr>
+              <tr><td><code>.m-col</code></td><td><code>display: flex; flex-direction: column; gap: var(--m-gap, 1rem)</code></td></tr>
+              <tr><td><code>.m-row-nowrap</code></td><td><code>flex-wrap: nowrap</code></td></tr>
+              <tr><td><code>.m-col-auto</code></td><td>on a child of <code>.m-row</code>: <code>flex: 0 0 auto; width: auto</code></td></tr>
+              <tr><td><code>.c-1</code> … <code>.c-12</code></td><td><code>flex-basis</code> / <code>max-width</code> 8.333% … 100% (12-col)</td></tr>
+              <tr><td><code>.m-g-0</code></td><td><code>--m-gap: 0</code></td></tr>
+              <tr><td><code>.m-g-xs</code></td><td><code>--m-gap: .4rem</code></td></tr>
+              <tr><td><code>.m-g-sm</code></td><td><code>--m-gap: .65rem</code></td></tr>
+              <tr><td><code>.m-g-lg</code></td><td><code>--m-gap: 1.75rem</code></td></tr>
+              <tr><td><code>.container</code></td><td><code>max-width: 72rem; margin-inline: auto; padding-inline: 1.25rem</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Gap</h3>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-gap-0</code></td><td><code>gap: 0</code></td></tr>
+              <tr><td><code>.m-gap-xs</code></td><td><code>gap: .4rem</code></td></tr>
+              <tr><td><code>.m-gap-sm</code></td><td><code>gap: .65rem</code></td></tr>
+              <tr><td><code>.m-gap</code></td><td><code>gap: 1rem</code></td></tr>
+              <tr><td><code>.m-gap-lg</code></td><td><code>gap: 1.75rem</code></td></tr>
+              <tr><td><code>.m-gap-xl</code></td><td><code>gap: 2.5rem</code></td></tr>
+              <tr><td><code>.m-gap-5</code> <code>.m-gap-10</code> <code>.m-gap-15</code> <code>.m-gap-20</code> <code>.m-gap-30</code> <code>.m-gap-40</code></td><td><code>gap: 5px</code> … <code>40px</code></td></tr>
+              <tr><td><code>.m-gap-x-*</code></td><td><code>column-gap</code> (same named + px scale)</td></tr>
+              <tr><td><code>.m-gap-y-*</code></td><td><code>row-gap</code> (same named + px scale)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Margin</h3>
+        <p class="hint">Scale: <span class="mono">0</span> = 0, <span class="mono">5</span> = 5px, <span class="mono">10</span> = 10px, <span class="mono">15</span> = 15px, <span class="mono">20</span> = 20px, <span class="mono">30</span> = 30px, <span class="mono">40</span> = 40px. Sides: <span class="mono">t</span> top, <span class="mono">b</span> bottom, <span class="mono">l</span> left, <span class="mono">r</span> right, <span class="mono">x</span> left+right, <span class="mono">y</span> top+bottom.</p>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-0</code> … <code>.m-40</code></td><td><code>margin: 0</code> … <code>margin: 40px</code></td></tr>
+              <tr><td><code>.m-t-0</code> … <code>.m-t-40</code></td><td><code>margin-top</code></td></tr>
+              <tr><td><code>.m-b-0</code> … <code>.m-b-40</code></td><td><code>margin-bottom</code></td></tr>
+              <tr><td><code>.m-l-0</code> … <code>.m-l-40</code></td><td><code>margin-left</code></td></tr>
+              <tr><td><code>.m-r-0</code> … <code>.m-r-40</code></td><td><code>margin-right</code></td></tr>
+              <tr><td><code>.m-x-0</code> … <code>.m-x-20</code></td><td><code>margin-left</code> + <code>margin-right</code></td></tr>
+              <tr><td><code>.m-x-auto</code></td><td><code>margin-left: auto; margin-right: auto</code></td></tr>
+              <tr><td><code>.m-y-0</code> … <code>.m-y-20</code></td><td><code>margin-top</code> + <code>margin-bottom</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Padding</h3>
+        <p class="hint">Same numeric scale and side letters as margin.</p>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.p-0</code> … <code>.p-40</code></td><td><code>padding: 0</code> … <code>padding: 40px</code></td></tr>
+              <tr><td><code>.p-t-*</code></td><td><code>padding-top</code></td></tr>
+              <tr><td><code>.p-b-*</code></td><td><code>padding-bottom</code></td></tr>
+              <tr><td><code>.p-l-*</code></td><td><code>padding-left</code></td></tr>
+              <tr><td><code>.p-r-*</code></td><td><code>padding-right</code></td></tr>
+              <tr><td><code>.p-x-*</code></td><td><code>padding-left</code> + <code>padding-right</code></td></tr>
+              <tr><td><code>.p-y-*</code></td><td><code>padding-top</code> + <code>padding-bottom</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Width</h3>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.m-w-auto</code></td><td><code>width: auto</code> (also sets <code>--m-input-w</code>)</td></tr>
+              <tr><td><code>.m-w-xs</code></td><td><code>width: 8rem</code></td></tr>
+              <tr><td><code>.m-w-sm</code></td><td><code>width: 12rem</code></td></tr>
+              <tr><td><code>.m-w-md</code></td><td><code>width: 18rem</code></td></tr>
+              <tr><td><code>.m-w-lg</code></td><td><code>width: 26rem</code></td></tr>
+              <tr><td><code>.m-w-full</code></td><td><code>width: 100%</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Surface, type, position</h3>
+        <div class="table-wrap">
+          <table class="striped docs-util">
+            <thead><tr><th>Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.surface</code></td><td><code>background: var(--m-surface)</code></td></tr>
+              <tr><td><code>.elev-1</code></td><td><code>box-shadow: var(--m-shadow)</code></td></tr>
+              <tr><td><code>.elev-2</code></td><td><code>box-shadow: var(--m-elev)</code></td></tr>
+              <tr><td><code>.elev-3</code></td><td>large elevation shadow</td></tr>
+              <tr><td><code>.border</code></td><td><code>border: 1px solid var(--m-border)</code></td></tr>
+              <tr><td><code>.radius-sm</code></td><td><code>border-radius: var(--m-r-sm)</code></td></tr>
+              <tr><td><code>.radius</code></td><td><code>border-radius: var(--m-r)</code></td></tr>
+              <tr><td><code>.radius-full</code></td><td><code>border-radius: var(--m-r-full)</code></td></tr>
+              <tr><td><code>.center</code></td><td><code>text-align: center</code></td></tr>
+              <tr><td><code>.muted</code></td><td><code>color: var(--m-fg-2)</code></td></tr>
+              <tr><td><code>.subtle</code></td><td><code>color: var(--m-fg-3)</code></td></tr>
+              <tr><td><code>.mono</code></td><td><code>font-family: var(--m-mono)</code></td></tr>
+              <tr><td><code>.overline</code></td><td>uppercase, tracked, <code>color: var(--m-fg-3)</code></td></tr>
+              <tr><td><code>.text-sm</code></td><td><code>font-size: 1rem</code></td></tr>
+              <tr><td><code>.text-lg</code></td><td><code>font-size: 1.25rem</code></td></tr>
+              <tr><td><code>.fw-500</code></td><td><code>font-weight: 500</code></td></tr>
+              <tr><td><code>.fw-700</code></td><td><code>font-weight: 700</code></td></tr>
+              <tr><td><code>.tabular</code></td><td><code>font-variant-numeric: tabular-nums</code></td></tr>
+              <tr><td><code>.truncate</code></td><td><code>overflow: hidden; text-overflow: ellipsis; white-space: nowrap</code></td></tr>
+              <tr><td><code>.clamp-2</code></td><td>2-line clamp</td></tr>
+              <tr><td><code>.clamp-3</code></td><td>3-line clamp</td></tr>
+              <tr><td><code>.hidden</code></td><td><code>display: none !important</code></td></tr>
+              <tr><td><code>.rel</code></td><td><code>position: relative</code></td></tr>
+              <tr><td><code>.abs</code></td><td><code>position: absolute</code></td></tr>
+              <tr><td><code>.fixed</code></td><td><code>position: fixed</code></td></tr>
+              <tr><td><code>.inset-0</code></td><td><code>inset: 0</code></td></tr>
+              <tr><td><code>.z-10</code> <code>.z-20</code> <code>.z-50</code></td><td><code>z-index: 10</code> / <code>20</code> / <code>50</code></td></tr>
+              <tr><td><code>.sticky-t</code></td><td><code>position: sticky; top: 0</code></td></tr>
+              <tr><td><code>.sticky-b</code></td><td><code>position: sticky; bottom: 0</code></td></tr>
+              <tr><td><code>.aspect</code></td><td><code>aspect-ratio: 16 / 9</code></td></tr>
+              <tr><td><code>.aspect-1x1</code></td><td><code>aspect-ratio: 1</code></td></tr>
+              <tr><td><code>.aspect-4x3</code></td><td><code>aspect-ratio: 4 / 3</code></td></tr>
+              <tr><td><code>.aspect-16x9</code></td><td><code>aspect-ratio: 16 / 9</code></td></tr>
+              <tr><td><code>.scroll-y</code></td><td><code>overflow-y: auto</code></td></tr>
+              <tr><td><code>.no-scrollbar</code></td><td>hides scrollbars</td></tr>
+              <tr><td><code>.overscroll-none</code></td><td><code>overscroll-behavior: none</code></td></tr>
+              <tr><td><code>.divider</code></td><td>horizontal rule with optional label</td></tr>
+              <tr><td><code>.sr-only</code></td><td>visually hidden, available to AT</td></tr>
+              <tr><td><code>.skip-link</code></td><td>off-screen until focused</td></tr>
+              <tr><td><code>.is-disabled</code></td><td><code>opacity: .5; pointer-events: none</code></td></tr>
+              <tr><td><code>.is-loading</code></td><td><code>opacity: .7; pointer-events: none</code></td></tr>
+              <tr><td><code>.print-only</code></td><td>hidden on screen, shown in print</td></tr>
+              <tr><td><code>.no-print</code></td><td>hidden in print</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="container center" style="padding-block:2rem;">
+    <hr>
+    <small>Mates CSS v0.5.0 — 64.2kb / 11.0kb gzipped. MIT. <a href="https://github.com/thejsmaster/mates-css">Source</a></small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/languages/typescript.min.js"></script>
+  <script>
+    const byId = (id) => document.getElementById(id);
+
+    (function highlightDocs() {
+      if (typeof hljs === "undefined") return;
+      const fwLang = {
+        react: "typescript",
+        vue: "javascript",
+        mates: "javascript",
+        angular: "typescript",
+        solid: "javascript",
+        lit: "javascript",
+        js: "xml"
+      };
+      document.querySelectorAll("pre.docs-code").forEach((pre) => {
+        const code = pre.querySelector("code") || pre;
+        if (code.dataset.highlighted) return;
+        const fw = pre.getAttribute("data-fw-panel");
+        const text = (code.textContent || "").trim();
+        let lang = fwLang[fw];
+        if (!lang) {
+          if (text.startsWith(":root") || text.startsWith("--") || /^\.[a-z]/.test(text)) lang = "css";
+          else if (/^(document|el\.|\/\/)/.test(text) || text.indexOf("classList") !== -1) lang = "javascript";
+          else if (text.startsWith("npm ")) lang = "bash";
+          else lang = "xml";
+        }
+        code.classList.add("language-" + lang);
+      });
+      hljs.configure({ ignoreUnescapedHTML: true });
+      hljs.highlightAll();
+    })();
+
+    document.querySelectorAll("[data-fw]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-fw]").forEach((t) => {
+          t.classList.toggle("selected", t === tab);
+          t.setAttribute("aria-selected", t === tab ? "true" : "false");
+        });
+        const id = tab.getAttribute("data-fw");
+        document.querySelectorAll("[data-fw-panel]").forEach((p) => {
+          p.hidden = p.getAttribute("data-fw-panel") !== id;
+        });
+      });
+    });
+
+    const themeBtn = byId("theme-btn");
+    themeBtn.addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      themeBtn.textContent = "Theme: " + next;
+    });
+
+    document.querySelectorAll('input[type="range"]').forEach((r) => {
+      const sync = () => r.style.setProperty("--v", r.value);
+      r.addEventListener("input", sync);
+      sync();
+    });
+
+    const drop = byId("d-drop");
+    if (drop) {
+      drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("active"); });
+      drop.addEventListener("dragleave", () => drop.classList.remove("active"));
+      drop.addEventListener("drop", (e) => { e.preventDefault(); drop.classList.remove("active"); });
+    }
+
+    document.querySelectorAll("[data-open]").forEach((el) => {
+      el.addEventListener("click", () => {
+        document.querySelectorAll(".menu.open, .pop.open, .search.open").forEach((m) => m.classList.remove("open"));
+        byId(el.getAttribute("data-open")).classList.add("open");
+      });
+    });
+    document.querySelectorAll("[data-close]").forEach((el) => {
+      el.addEventListener("click", () => byId(el.getAttribute("data-close")).classList.remove("open"));
+    });
+    document.querySelectorAll("[data-toggle]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const t = byId(el.getAttribute("data-toggle"));
+        const willOpen = !t.classList.contains("open");
+        document.querySelectorAll(".menu.open, .pop.open").forEach((m) => m.classList.remove("open"));
+        if (willOpen) t.classList.add("open");
+      });
+    });
+    document.querySelectorAll(".menu-item").forEach((el) => {
+      el.addEventListener("click", () => {
+        const menu = el.closest(".menu");
+        if (menu) menu.classList.remove("open");
+      });
+    });
+    const search = byId("d-search");
+    if (search) {
+      search.querySelector("input").addEventListener("focus", () => search.classList.add("open"));
+    }
+    document.addEventListener("click", (e) => {
+      document.querySelectorAll(".menu.open, .pop.open, .search.open").forEach((el) => {
+        if (!el.contains(e.target)) el.classList.remove("open");
+      });
+    });
+
+    document.querySelectorAll(".chip > input[type=\"checkbox\"]").forEach((c) => {
+      const chip = c.closest(".chip");
+      const sync = () => chip.classList.toggle("selected", c.checked);
+      c.addEventListener("change", sync);
+      sync();
+    });
+    document.querySelectorAll(".seg-item input").forEach((r) => {
+      r.addEventListener("change", () => {
+        const seg = r.closest(".seg");
+        if (!seg) return;
+        seg.querySelectorAll(".seg-item").forEach((item) => {
+          const input = item.querySelector("input");
+          item.classList.toggle("selected", !!(input && input.checked));
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-docs-tabs]").forEach((tabs) => {
+      tabs.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.querySelectorAll(".tab").forEach((t) => t.classList.toggle("selected", t === tab));
+        });
+      });
+    });
+
+    const tocLinks = [...document.querySelectorAll(".docs-toc a")];
+    const sections = tocLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        tocLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id));
+      });
+    }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+    sections.forEach((s) => io.observe(s));
+  </script>
+</body>
+</html>

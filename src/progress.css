@@ -1,8 +1,9 @@
 progress,
 .progress {
+  -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: .5rem;
+  height: .625rem;
   border: 0;
   overflow: hidden;
   border-radius: var(--m-r-full);

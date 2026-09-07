@@ -3,8 +3,8 @@ details,
   border: 1px solid var(--m-border);
   border-radius: var(--m-r-sm);
   background: var(--m-bg);
-  padding: .7em 1em;
-  margin: .5em 0;
+  padding: .85em 1.15em;
+  margin: .6em 0;
 }
 details summary,
 .acc summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; justify-content: space-between; }
@@ -13,15 +13,15 @@ details summary::-webkit-details-marker,
 details summary::after,
 .acc summary::after {
   content: "";
-  width: .55em;
-  height: .55em;
+  width: .65em;
+  height: .65em;
   border: 2px solid var(--m-fg-3);
   border-top: 0;
   border-left: 0;
-  rotate: 45deg;
-  transition: rotate var(--m-dur);
+  transform: rotate(45deg);
+  transition: transform var(--m-dur);
 }
 details[open] summary::after,
-.acc[open] summary::after { rotate: 225deg; }
+.acc[open] summary::after { transform: rotate(225deg); }
 details[open] summary,
 .acc[open] summary { margin-bottom: .4em; }

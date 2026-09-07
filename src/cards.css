@@ -5,14 +5,14 @@
   box-shadow: var(--m-shadow);
   overflow: hidden;
 }
-.card-body { padding: 1rem 1.25rem; }
-.card-title { font-size: 1.08rem; margin: 0 0 .2em; }
-.card-sub { font-size: .85rem; color: var(--m-fg-3); margin: 0; }
+.card-body { padding: 1.15rem 1.35rem; }
+.card-title { font-size: 1.2rem; margin: 0 0 .25em; }
+.card-sub { font-size: .9375rem; color: var(--m-fg-3); margin: 0; }
 .card-bar {
   display: flex;
   align-items: center;
-  gap: .5rem;
-  padding: .8rem 1.25rem;
+  gap: .6rem;
+  padding: .9rem 1.35rem;
   border-top: 1px solid var(--m-border);
   background: var(--m-surface);
 }

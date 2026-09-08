@@ -8,7 +8,7 @@
 }
 .toast-title { font-weight: 700; margin: 0 0 .15em; }
 .toast p { margin: 0; font-size: 1rem; opacity: .85; }
-.toast-success { background: var(--m-success); color: #fff; }
+.toast-success { background: var(--m-success); color: var(--m-on-success); }
 .toast-danger { background: var(--m-danger); color: #fff; }
 .toast-primary { background: var(--m-primary); color: var(--m-on-primary); }
 
@@ -48,7 +48,7 @@
 }
 .alert-title { margin: 0; font-weight: 700; }
 .alert-actions { display: flex; gap: .4rem; flex-shrink: 0; }
-.alert-success { border-left-color: var(--m-success); background: var(--m-alert-success-bg); }
+.alert-success { border-left-color: var(--m-success); background: var(--m-alert-success-bg); color: var(--m-fg); }
 .alert-warning { border-left-color: var(--m-warning); background: var(--m-alert-warning-bg); }
 .alert-danger { border-left-color: var(--m-danger); background: var(--m-alert-danger-bg); }
 .alert-primary { border-left-color: var(--m-primary); background: var(--m-primary-soft); }

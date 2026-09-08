@@ -13,7 +13,7 @@
       "mates-icons": "https://esm.sh/mates-icons@latest",
       "mates-virtual": "https://esm.sh/mates-virtual@latest",
       "mates-db": "https://esm.sh/mates-db@latest",
-      "mates-ide": "https://esm.sh/mates-ide@0.1.6?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
+      "mates-ide": "https://esm.sh/mates-ide@0.1.8?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
       "codemirror": "https://esm.sh/codemirror@latest",
       "@codemirror/commands": "https://esm.sh/@codemirror/commands@latest",
       "@codemirror/lang-css": "https://esm.sh/@codemirror/lang-css@latest",
@@ -47,6 +47,7 @@
       height: "100vh",
       storageKey: "mates-css-ide",
       matesCssCdn,
+      matesUiCdn: false,
     });
 
     const App = () => html`<div class="pg-ide">${x(WithScope, { viewFn: Ide })}</div>`;

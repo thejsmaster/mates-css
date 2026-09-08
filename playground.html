@@ -16,7 +16,7 @@
       "mates-icons": "https://esm.sh/mates-icons@latest",
       "mates-virtual": "https://esm.sh/mates-virtual@latest",
       "mates-db": "https://esm.sh/mates-db@latest",
-      "mates-ide": "https://esm.sh/mates-ide@0.1.6?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
+      "mates-ide": "https://esm.sh/mates-ide@0.1.8?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
       "codemirror": "https://esm.sh/codemirror@latest",
       "@codemirror/commands": "https://esm.sh/@codemirror/commands@latest",
       "@codemirror/lang-css": "https://esm.sh/@codemirror/lang-css@latest",
@@ -115,6 +115,7 @@ litRender(App(), document.getElementById("app"));
 `;
 
     const root = document.getElementById("root");
+    root.replaceChildren();
 
     const themeLabel = () =>
       "Theme: " + (document.documentElement.getAttribute("data-theme") || "auto");
@@ -133,6 +134,7 @@ litRender(App(), document.getElementById("app"));
       fillContainer: true,
       storageKey: "mates-css-ide",
       matesCssCdn,
+      matesUiCdn: false,
       hideOpenPreview: location.protocol === "file:",
       ...(previewWindowUrl ? { previewWindowUrl } : {}),
     };

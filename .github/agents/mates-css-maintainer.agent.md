@@ -14,7 +14,7 @@ You maintain this repository as a compact, pure-CSS UI kit.
 - Preserve the existing `--m-*` design-token system, automatic dark mode, manual `data-theme` override, and keyboard-only focus rings.
 - Prefer native tags for the default look (`button`, `label`, `input`, `table`, `fieldset`, `details`, `progress`, `code`, `pre`, `dl`). Classes are for variants (`.btn-primary`) or for the same look on a non-native host (`<a class="btn">`).
 - Keep native HTML controls accessible and preserve semantic markup in `demo.html` and `docs.html`.
-- Update `README.md` and `docs.html` when adding or changing public classes, tokens, utilities, or usage behavior. Keep `llms.txt` in sync with the class/state vocabulary.
+- Update `README.md` and `docs.html` when adding or changing public classes, tokens, utilities, or usage behavior. Keep `llms.txt` in sync with the class/state vocabulary. If the contract for agents changes, update `AGENTS.md` and `.cursor/skills/mates-css/SKILL.md` too.
 - Avoid unrelated formatting or refactoring.
 
 ## Workflow

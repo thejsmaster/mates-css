@@ -1,6 +1,10 @@
 # Mates CSS
 
-A compact pure-CSS UI kit — **64.2kb raw (11.0kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
+**We don't flash, we deliver!**
+
+CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system.
+
+A compact pure-CSS UI kit — **75.0kb raw (12.4kb gzipped)**. No JS, no SCSS. Framework-agnostic: drop the stylesheet into any HTML, React, Vue, Svelte, or plain page.
 
 Styled via **native tags** when possible (`button`, `label`, `input`, `table`…). **Classes** are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`). Overlay open state is the `.open` class — your app toggles it.
 
@@ -30,18 +34,53 @@ import "mates-css";
 
 Unminified bundle: `mates-css/css` or `mates.css`. Copy that file if you don't want a bundler.
 
+## Use with AI
+
+**mates-css** is the CSS library an agent should load and build against. It is not the Mates JS framework. If a widget is missing, the agent should compose native HTML and `--m-*` tokens — not invent classes or pull in another CSS kit.
+
+**In Cursor / Claude / ChatGPT**, attach or fetch:
+
+- Contract: [`llms.txt`](llms.txt) — `https://unpkg.com/mates-css/llms.txt` or `https://raw.githubusercontent.com/thejsmaster/mates-css/main/llms.txt`
+- Project rules: [`AGENTS.md`](AGENTS.md)
+- Live markup: [`docs.html`](docs.html)
+
+Paste this into custom instructions or a project prompt:
+
+```
+Build UI with mates-css. Always call it mates-css — never "Mates".
+Mates is a separate JavaScript framework. mates-css is a framework-agnostic
+CSS library: it pre-styles native HTML (button, input, table, details, …)
+and offers optional CSS classes. It has no JavaScript runtime.
+
+Install: npm install mates-css then import "mates-css"
+Read the class contract: https://unpkg.com/mates-css/llms.txt
+
+Use only classes listed there. Native HTML first; classes are variants
+(.btn-primary) or the same look on a non-native host (<a class="btn">).
+Overlays (.modal .menu .pop .drawer .sheet .search): add class .open
+Current item: class .selected (not .active, except drag-over on .drop).
+
+If mates-css has no component, build it from scratch with native HTML,
+var(--m-*) tokens, and .m-* utilities. Do not invent class names.
+Do not add Tailwind, Bootstrap, Bulma, or another CSS framework.
+```
+
+Copy `.cursor/skills/mates-css/` into an app to auto-apply the same rules when the agent writes UI.
+
 ## Dark mode
 
-Automatic via `prefers-color-scheme`. Force it per page:
+Follows the OS by default (`prefers-color-scheme`). Leave `data-theme` off unless you need to override.
 
 ```html
 <html data-theme="dark">
+<html data-theme="light">
 ```
 
 Toggle at runtime:
 
 ```js
 document.documentElement.setAttribute('data-theme', 'dark');
+document.documentElement.removeAttribute('data-theme'); // back to OS
 ```
 
 ## Open states
@@ -85,11 +124,13 @@ Stacking, low to high: `--m-z-sticky` (20) → `--m-z-menu` (40, also popover an
 | [Tags](#tags) | `.tag` |
 | [Forms](#forms) | bare `<label>` / inputs / `.switch` / `.fgroup` |
 | [Form extras](#form-extras) | `.field`, `.input-wrap`, `.chip`, `.rate`, `.seg`, `.drop`, `.search` |
+| [Files, number, OTP, cards](#files-number-otp-choice-cards) | `.files` / `.num` / `.otp` / `.pick` |
 | [Cards](#cards) | `.card` + parts |
-| [Tables](#tables) | bare `<table>` (+ `.table-wrap`, `.sticky`) |
-| [Tabs](#tabs) | `.tabs` + `.tab` |
+| [Tables](#tables) | bare `<table>` (+ `.table-wrap`, `.compact`, `.sorted`) |
+| [Tabs](#tabs) | `.tabs` + `.tab` (+ `.tabs-v`) |
 | [Alerts & toasts](#alerts--toasts) | `.alert` / `.toast` / `.toasts` / `.banner` |
 | [Skeleton, spinner, empty](#skeleton-spinner-empty) | `.skel` / `.spin` / `.empty` |
+| [Result & count](#result--count) | `.result` / `.count` |
 | [Tooltips](#tooltips) | `.tooltip` + `data-tip` |
 | [Modal](#modal) | `.modal` + `.open` |
 | [Menu](#menu) | `.menu` + `.open` |
@@ -100,10 +141,12 @@ Stacking, low to high: `--m-z-sticky` (20) → `--m-z-menu` (40, also popover an
 | [Breadcrumbs, steps](#breadcrumbs-steps) | `.crumbs` / `.steps` |
 | [Sidenav](#sidenav) | `.sidenav` |
 | [Bottom nav](#bottom-nav) | `.bottom-nav` |
+| [Subnav, TOC, footer, FAB](#subnav-toc-footer-fab) | `.subnav` / `.toc` / `.footer` / `.fab` |
 | [Avatar, status, badge](#avatar) | `.avatar` / `.status` / `.badge` |
 | [Progress](#progress) | bare `<progress>` |
 | [Lists & timeline](#lists--timeline) | `.list` / `.timeline` |
-| [Stats & definition list](#stats--definition-list) | `.stat` / bare `<dl>` |
+| [Stats & definition list](#stats--definition-list) | `.stat` / bare `<dl>` / `.props` |
+| [Messages, quote, figure](#messages-quote-figure) | `.msg` / `.quote` / `.fig` / `.link-card` / `.tree` |
 | [Code & prose](#code--prose) | bare `<code>` / `<pre>` / `.prose` |
 | [Charts](#charts) | `.chart-bars`, `.donut`, `.ring`, `.spark` |
 | [Shell & layout blocks](#shell--layout-blocks) | `.shell`, `.split`, `.aspect` |
@@ -149,6 +192,7 @@ Use `.btn` / `.input` / `.check` / `.label` / `.table` / `.acc` / `.progress` wh
 | `.btn-elevated` | faint rest shadow (not a 3D bevel) |
 | `.btn-spin` | loading spinner (`::after`) |
 | `.btn-close` | icon-only close control |
+| `.fab` | circular action; pin with `.fixed` |
 | `.btn-group` | **on the parent** wrapping sibling buttons |
 
 ```html
@@ -261,6 +305,46 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 
 ---
 
+## Files, number, OTP, choice cards
+
+```html
+<div class="files">
+  <div class="file">
+    <span class="file-name">brief.pdf</span>
+    <span class="file-meta">128 KB</span>
+    <button class="btn-close" aria-label="Remove"></button>
+  </div>
+</div>
+
+<div class="num">
+  <button type="button" class="num-btn" aria-label="Decrease">−</button>
+  <input type="number" value="2">
+  <button type="button" class="num-btn" aria-label="Increase">+</button>
+</div>
+
+<div class="input-wrap">
+  <input type="password" value="secret">
+  <button type="button" class="pass-toggle">Show</button>
+</div>
+
+<div class="otp">
+  <input maxlength="1" inputmode="numeric" aria-label="Digit 1">
+  <input maxlength="1" inputmode="numeric" aria-label="Digit 2">
+</div>
+
+<label class="pick selected">
+  <input type="radio" name="plan" checked>
+  <span>
+    <span class="pick-title">Pro</span>
+    <span class="pick-sub">$20 / month</span>
+  </span>
+</label>
+```
+
+Number +/− and password visibility are CSS slots — toggle the value / `type` from your app. Choice cards use `.selected` on older browsers.
+
+---
+
 ## Cards
 
 | Class | Where |
@@ -294,8 +378,9 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 | `.table-wrap` | optional outer wrapper (horizontal scroll) |
 | *(none)* | bare `<table>` is styled |
 | `.table` | same look on a non-table wrapper |
-| `.striped` / `.bordered` / `.sticky` | on the `<table>` |
+| `.striped` / `.bordered` / `.sticky` / `.compact` | on the `<table>` |
 | `.selected` | on a `<tr>` |
+| `.sorted.asc` / `.sorted.desc` | on a `<th>` |
 
 ```html
 <div class="table-wrap">
@@ -319,6 +404,7 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 |---|---|
 | `.tabs` | parent |
 | `.tabs-line` | optional on parent for underline style |
+| `.tabs-v` | optional on parent for a vertical stack |
 | `.tab` | each tab control |
 | `.selected` | on the active `.tab` |
 
@@ -333,6 +419,8 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
   <button class="tab selected">Underline</button>
   <button class="tab">Variant</button>
 </div>
+
+<div class="tabs tabs-line tabs-v">…</div>
 ```
 
 ---
@@ -341,7 +429,7 @@ Bare `input[type=range]` is styled. The filled track reads `--v` (0–100). Defa
 
 ### Alert
 
-**Required:** `.alert` on the box. Optional: `.alert-primary` `.alert-success` `.alert-warning` `.alert-danger`.
+**Required:** `.alert` on the box. Optional: `.alert-primary` `.alert-success` `.alert-warning` `.alert-danger`. Optional `.alert-head` / `.alert-title` / `.alert-actions`.
 
 ```html
 <div class="alert">Neutral alert.</div>
@@ -472,10 +560,11 @@ Bare `<details>` + `<summary>`. Use `.acc` only on a non-`details` host.
 
 ## Progress
 
-Bare `<progress>`. Use `.progress` on a non-native host.
+Bare `<progress>`. Use `.progress` on a non-native host. Omit `value` for an indeterminate bar.
 
 ```html
 <progress value="65" max="100"></progress>
+<progress aria-label="Loading"></progress>
 ```
 
 ---
@@ -687,6 +776,20 @@ Add `role="img"` + `aria-label` on chart containers for accessibility.
 
 ---
 
+## Result & count
+
+```html
+<div class="result result-ok">
+  <span class="result-icon" aria-hidden="true">✓</span>
+  <p class="result-title">Paid</p>
+  <div class="result-actions"><button>Receipt</button></div>
+</div>
+
+Inbox <span class="count">12</span>
+```
+
+---
+
 ## Menu
 
 **Required:** `.menu` wrapping a trigger (`<button>`) and `.menu-panel`. Items are `.menu-item` (use links or buttons). Optional `.menu-r`, `.menu-sep`, `.menu-danger`.
@@ -758,7 +861,7 @@ Add `.open` on `.drawer` or `.sheet`. Optional `.drawer-r` docks the drawer to t
 </ol>
 ```
 
-Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user moves.
+Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user moves. Add `.steps-v` for a vertical stepper.
 
 ---
 
@@ -785,6 +888,27 @@ Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user move
   <a class="bnav-item" href="#">Inbox</a>
 </nav>
 ```
+
+---
+
+## Subnav, TOC, footer, FAB
+
+```html
+<nav class="subnav">
+  <a class="selected" href="#">Overview</a>
+  <a href="#">Members</a>
+</nav>
+
+<nav class="toc">
+  <a class="selected" href="#intro">Intro</a>
+  <a href="#install">Install</a>
+</nav>
+
+<footer class="footer">© 2026 Mates CSS</footer>
+<button class="fab" aria-label="Create">+</button>
+```
+
+Pin the FAB with `.fixed`.
 
 ---
 
@@ -818,6 +942,10 @@ Toggle `.done` / `.current` / `.selected` / `.disabled` from JS as the user move
 <dl>
   <dt>Plan</dt><dd>Pro</dd>
 </dl>
+
+<dl class="props">
+  <dt>Plan</dt><dd>Pro</dd>
+</dl>
 ```
 
 ---
@@ -831,6 +959,41 @@ Bare `<code>` and `<pre>`. Use `.code` / `.code-block` on a non-native host. `.p
 <pre>npm install mates-css</pre>
 <article class="prose">…</article>
 <span class="kbd-row"><kbd>⌘</kbd><kbd>K</kbd></span>
+```
+
+---
+
+## Messages, quote, figure
+
+```html
+<div class="msgs">
+  <div class="msg">Hi<span class="msg-meta">Ada</span></div>
+  <div class="msg msg-out">Hello</div>
+</div>
+
+<figure class="quote">
+  <blockquote>Paste it into any stack.</blockquote>
+  <figcaption>Sean Freeman</figcaption>
+</figure>
+
+<figure class="fig">
+  <img src="shot.jpg" alt="">
+  <figcaption>Product shot</figcaption>
+</figure>
+
+<a class="link-card" href="#">
+  <span class="link-card-img"></span>
+  <span class="link-card-body"><b>Title</b><span>example.com</span></span>
+</a>
+
+<ul class="tree">
+  <li>
+    <details open>
+      <summary>src</summary>
+      <ul><li>index.css</li></ul>
+    </details>
+  </li>
+</ul>
 ```
 
 Banner: `.banner` (optional `.banner-warn` / `.banner-danger`). Toast stack: `.toasts` (corner `.toasts-tl/tr/bl`) wrapping `.toast` children.
@@ -956,9 +1119,9 @@ When you rebrand `--m-primary`, also set `--m-primary-soft`, `--m-primary-soft-2
 
 | | |
 |---|---|
-| Raw | 64.2kb |
-| Minified | 52.7kb |
-| **Min + gzip** | **11.0kb** |
+| Raw | 75.0kb |
+| Minified | 61.5kb |
+| **Min + gzip** | **12.4kb** |
 
 ## Source
 
@@ -971,7 +1134,7 @@ npm run watch
 
 ## Docs
 
-Open [`docs.html`](docs.html) — one-page catalog: install snippets, live component on the left, markup on the right. Playground: [mates-js.dev/playground](https://mates-js.dev/playground).
+Open [`docs.html`](docs.html) — one-page catalog: install snippets, live component on the left, markup on the right. Playground: [`playground.html`](playground.html). Agents: [`llms.txt`](llms.txt) and [`AGENTS.md`](AGENTS.md).
 
 ## Demo
 

@@ -1,0 +1,10 @@
+node_modules
+.cursor
+.github
+.zcode
+.idea
+dist
+demo_res
+.DS_Store
+*.md.gz
+*.min.css.gz

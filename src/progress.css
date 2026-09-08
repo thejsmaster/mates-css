@@ -16,3 +16,19 @@ progress::-webkit-progress-value,
 .progress::-webkit-progress-value { background: var(--m-primary); border-radius: var(--m-r-full); }
 progress::-moz-progress-bar,
 .progress::-moz-progress-bar { background: var(--m-primary); border-radius: var(--m-r-full); }
+progress:indeterminate::-webkit-progress-bar,
+progress:not([value])::-webkit-progress-bar {
+  background: linear-gradient(90deg, var(--m-surface) 0%, var(--m-primary) 45%, var(--m-surface) 100%);
+  background-size: 200% 100%;
+  animation: m-indet 1.2s linear infinite;
+}
+progress:indeterminate::-moz-progress-bar,
+progress:not([value])::-moz-progress-bar {
+  background: var(--m-primary);
+  width: 35%;
+}
+@keyframes m-indet { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  progress:indeterminate::-webkit-progress-bar,
+  progress:not([value])::-webkit-progress-bar { animation: none; background: var(--m-primary-soft-2); }
+}

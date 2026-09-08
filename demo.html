@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,15 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
   <style>
     .demo { max-width: 56rem; margin: 0 auto; padding: 1rem 1.25rem 4rem; }
+    .demo-nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--m-z-sticky);
+      background: var(--m-bg);
+      margin: 0 0 1.5rem;
+      padding-top: .35rem;
+      padding-bottom: .5rem;
+    }
     .theme-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 999; }
     .row-demo { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: .75rem; }
     .type-list > .overline { margin: 1.35rem 0 .35rem; }
@@ -23,28 +32,29 @@
 </head>
 <body>
   <div class="theme-toggle">
-    <button class="btn-sm" onclick="cycleTheme()">Theme: light</button>
+    <button class="btn-sm" onclick="cycleTheme()">Theme: auto</button>
   </div>
 
   <div class="demo">
+    <div class="demo-nav">
+      <nav class="nav">
+        <span class="nav-brand">Mates</span>
+        <a href="#buttons" class="selected">Buttons</a>
+        <a href="#forms">Forms</a>
+        <a href="#charts">Charts</a>
+        <a href="#overlays">Overlays</a>
+        <a href="#navplus">Nav</a>
+        <a href="#shell">Shell</a>
+        <a href="#type">Type</a>
+        <a href="#utilities">Utilities</a>
+        <span class="nav-space"></span>
+        <span class="badge"><span class="avatar avatar-sm">AV</span><i class="badge-dot"></i></span>
+      </nav>
+    </div>
     <p class="overline">v0.5.0 · ~11kb gzipped</p>
     <h1 style="margin-top:.2em;">Mates CSS</h1>
+    <p class="muted" style="margin-top:0;"><strong>We don't flash, we deliver!</strong></p>
     <p class="muted">Compact CSS UI kit — blue primary, tokens, auto dark mode. Overlays open when you add <span class="mono">.open</span> (the demo script below is only a preview).</p>
-
-    <!-- nav -->
-    <nav class="nav" style="margin: 1.5rem 0;">
-      <span class="nav-brand">Mates</span>
-      <a href="#buttons" class="selected">Buttons</a>
-      <a href="#forms">Forms</a>
-      <a href="#charts">Charts</a>
-      <a href="#overlays">Overlays</a>
-      <a href="#navplus">Nav</a>
-      <a href="#shell">Shell</a>
-      <a href="#type">Type</a>
-      <a href="#utilities">Utilities</a>
-      <span class="nav-space"></span>
-      <span class="badge"><span class="avatar avatar-sm">AV</span><i class="badge-dot"></i></span>
-    </nav>
 
     <h2 id="buttons">Buttons</h2>
     <div class="row-demo">
@@ -137,6 +147,24 @@
           <input type="text" value="example.com">
           <button class="btn-primary">Go</button>
         </div>
+        <label>Number</label>
+        <div class="num">
+          <button type="button" class="num-btn" aria-label="Decrease">−</button>
+          <input type="number" value="2" min="0" max="99" aria-label="Quantity">
+          <button type="button" class="num-btn" aria-label="Increase">+</button>
+        </div>
+        <label>Password</label>
+        <div class="input-wrap">
+          <input type="password" value="secret12" aria-label="Password" autocomplete="off">
+          <button type="button" class="pass-toggle">Show</button>
+        </div>
+        <label>OTP</label>
+        <div class="otp" aria-label="One-time code">
+          <input maxlength="1" inputmode="numeric" aria-label="Digit 1">
+          <input maxlength="1" inputmode="numeric" aria-label="Digit 2">
+          <input maxlength="1" inputmode="numeric" aria-label="Digit 3">
+          <input maxlength="1" inputmode="numeric" aria-label="Digit 4">
+        </div>
       </div>
     </div>
 
@@ -167,8 +195,8 @@
 
     <h2>Table &amp; tabs</h2>
     <div class="table-wrap">
-      <table class="striped">
-        <thead><tr><th>Plan</th><th>Price</th><th>Status</th></tr></thead>
+      <table class="striped compact">
+        <thead><tr><th class="sorted asc">Plan</th><th>Price</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td>Free</td><td>$0</td><td><span class="tag tag-soft-success">active</span></td></tr>
           <tr class="selected"><td>Pro</td><td>$20</td><td><span class="tag tag-primary">selected</span></td></tr>
@@ -184,6 +212,18 @@
     <div class="tabs tabs-line" style="margin-top:1rem;">
       <button class="tab selected">Underline</button>
       <button class="tab">Variant</button>
+    </div>
+    <div class="m-flex m-gap m-flex-wrap m-t-15 m-i-start">
+      <div class="tabs tabs-line tabs-v">
+        <button class="tab selected">Account</button>
+        <button class="tab">Billing</button>
+        <button class="tab">Team</button>
+      </div>
+      <nav class="subnav m-flex-1">
+        <a class="selected" href="#forms">Overview</a>
+        <a href="#forms">Members</a>
+        <a href="#forms">Settings</a>
+      </nav>
     </div>
 
     <h2 id="charts">Charts</h2>
@@ -343,7 +383,12 @@
       <a href="#">Docs</a>
       <span class="current">Components</span>
     </nav>
-    <ol class="steps">
+    <ol class="steps m-b-15">
+      <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
+      <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
+      <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
+    </ol>
+    <ol class="steps steps-v" style="max-width:14rem;">
       <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
       <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
       <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
@@ -558,6 +603,8 @@
 
     <h2>Misc</h2>
     <progress value="65" max="100"></progress>
+    <progress class="m-t-10" aria-label="Loading"></progress>
+    <p class="m-t-10">Inbox <span class="count">12</span> · Alerts <span class="count count-danger">3</span> · New <span class="count count-primary">1</span></p>
     <div class="divider">divider</div>
     <div class="row-demo">
       <span class="avatar">AL</span>
@@ -572,6 +619,81 @@
     <div class="row g-sm" style="margin-top:1rem;">
       <div class="c-4"><div class="alert" style="margin:0">c-4</div></div>
       <div class="c-8"><div class="alert" style="margin:0">c-8</div></div>
+    </div>
+
+    <h2>More patterns</h2>
+    <div class="picks m-b-15" style="max-width:28rem;">
+      <label class="pick selected"><input type="radio" name="plan" checked><span><span class="pick-title">Pro</span><span class="pick-sub">$20 / month</span></span></label>
+      <label class="pick"><input type="radio" name="plan"><span><span class="pick-title">Team</span><span class="pick-sub">$75 / month</span></span></label>
+    </div>
+    <div class="files m-b-15" style="max-width:28rem;">
+      <div class="file"><span class="file-name">brief.pdf</span><span class="file-meta">128 KB</span><button class="btn-close" type="button" aria-label="Remove"></button></div>
+      <div class="file"><span class="file-name">logo.svg</span><span class="file-meta">4 KB</span><button class="btn-close" type="button" aria-label="Remove"></button></div>
+    </div>
+    <dl class="props m-b-15" style="max-width:28rem;"><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd><dt>Region</dt><dd>eu-west</dd></dl>
+    <div class="alert alert-primary">
+      <div class="alert-head"><p class="alert-title">New API</p><div class="alert-actions"><button type="button" class="btn-sm">Docs</button></div></div>
+      <p>v0.5 ships overlay <span class="mono">.open</span>.</p>
+    </div>
+    <div class="m-grid m-grid-cols-2 m-gap m-b-15">
+      <div class="result result-ok p-10">
+        <span class="result-icon" aria-hidden="true">✓</span>
+        <p class="result-title">Paid</p>
+        <p class="muted m-0">Invoice #1042</p>
+        <div class="result-actions"><button type="button" class="btn-sm">Receipt</button></div>
+      </div>
+      <div class="result result-err p-10">
+        <span class="result-icon" aria-hidden="true">✕</span>
+        <p class="result-title">Failed</p>
+        <p class="muted m-0">Card was declined.</p>
+        <div class="result-actions"><button type="button" class="btn-sm btn-danger">Retry</button></div>
+      </div>
+    </div>
+    <div class="msgs m-b-15" style="max-width:22rem;">
+      <div class="msg">Can you ship the kit today?<span class="msg-meta">Ada · 4:02</span></div>
+      <div class="msg msg-out">Yes — CSS only.<span class="msg-meta">You · 4:03</span></div>
+    </div>
+    <figure class="quote m-b-15" style="max-width:28rem;">
+      <blockquote>The best UI kit is the one you can paste into any stack.</blockquote>
+      <figcaption>Sean Freeman</figcaption>
+    </figure>
+    <figure class="fig m-b-15" style="max-width:22rem;">
+      <div class="aspect" style="background:var(--m-surface)"></div>
+      <figcaption>16×9 figure with caption</figcaption>
+    </figure>
+    <a class="link-card m-b-15" href="#type" style="max-width:28rem;">
+      <span class="link-card-img"></span>
+      <span class="link-card-body"><b>Mates CSS</b><span>mates-js.dev</span></span>
+    </a>
+    <div class="m-flex m-gap m-flex-wrap m-i-start m-b-15">
+      <ul class="tree" style="min-width:14rem;">
+        <li>
+          <details open>
+            <summary>src</summary>
+            <ul>
+              <li>
+                <details>
+                  <summary>patterns</summary>
+                  <ul>
+                    <li>tree.css</li>
+                    <li>files.css</li>
+                  </ul>
+                </details>
+              </li>
+              <li>buttons.css</li>
+              <li>forms.css</li>
+            </ul>
+          </details>
+        </li>
+        <li>README.md</li>
+        <li>package.json</li>
+      </ul>
+      <nav class="toc">
+        <a class="selected" href="#forms">Forms</a>
+        <a href="#charts">Charts</a>
+        <a href="#shell">Shell</a>
+      </nav>
+      <button type="button" class="fab" aria-label="Create">+</button>
     </div>
 
     <h2 id="type">Typography</h2>
@@ -878,17 +1000,19 @@
     </div>
   </div>
 
-  <footer class="container center" style="padding-block:2rem;">
-    <hr>
-    <small>Mates CSS — 64.2kb / 11.0kb gzipped. MIT.</small>
+  <footer class="footer">
+    <small>Mates CSS — 75.0kb / 12.4kb gzipped. MIT.</small>
   </footer>
 
   <script>
     function cycleTheme() {
       const html = document.documentElement;
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      document.querySelector('.theme-toggle button').textContent = 'Theme: ' + next;
+      const cur = html.getAttribute('data-theme');
+      if (!cur) html.setAttribute('data-theme', 'light');
+      else if (cur === 'light') html.setAttribute('data-theme', 'dark');
+      else html.removeAttribute('data-theme');
+      document.querySelector('.theme-toggle button').textContent =
+        'Theme: ' + (html.getAttribute('data-theme') || 'auto');
     }
     // the range's filled track reads --v (0-100, same variable charts use)
     document.querySelectorAll('input[type="range"]').forEach((r) => {
@@ -946,6 +1070,44 @@
         seg.querySelectorAll('.seg-item').forEach((item) => {
           const input = item.querySelector('input');
           item.classList.toggle('selected', !!(input && input.checked));
+        });
+      });
+    });
+    document.querySelectorAll('.pick input').forEach((r) => {
+      const sync = () => {
+        document.querySelectorAll('input[name="' + r.name + '"]').forEach((input) => {
+          const pick = input.closest('.pick');
+          if (pick) pick.classList.toggle('selected', input.checked);
+        });
+      };
+      r.addEventListener('change', sync);
+      sync();
+    });
+    document.querySelectorAll('.num').forEach((row) => {
+      const input = row.querySelector('input');
+      const btns = row.querySelectorAll('.num-btn');
+      if (!input || btns.length < 2) return;
+      btns[0].addEventListener('click', () => { input.stepDown(); input.dispatchEvent(new Event('change')); });
+      btns[1].addEventListener('click', () => { input.stepUp(); input.dispatchEvent(new Event('change')); });
+    });
+    document.querySelectorAll('.pass-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = btn.parentElement.querySelector('input');
+        if (!input) return;
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.textContent = show ? 'Hide' : 'Show';
+      });
+    });
+    document.querySelectorAll('.otp').forEach((row) => {
+      const inputs = [...row.querySelectorAll('input')];
+      inputs.forEach((el, i) => {
+        el.addEventListener('input', () => {
+          el.value = el.value.replace(/\D/g, '').slice(-1);
+          if (el.value && inputs[i + 1]) inputs[i + 1].focus();
+        });
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !el.value && inputs[i - 1]) inputs[i - 1].focus();
         });
       });
     });

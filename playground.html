@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mates-css playground</title>
+  <meta name="description" content="Live playground for mates-css. Edit HTML and JS, preview native tags and class variants.">
+  <link rel="stylesheet" href="mates.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700&amp;display=swap" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "mates": "https://esm.sh/mates@0.5.6",
+      "mates-ui": "https://esm.sh/mates-ui@0.7.3?external=mates,mates-virtual",
+      "mates-icons": "https://esm.sh/mates-icons@latest",
+      "mates-virtual": "https://esm.sh/mates-virtual@latest",
+      "mates-db": "https://esm.sh/mates-db@latest",
+      "mates-ide": "https://esm.sh/mates-ide@0.1.6?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
+      "codemirror": "https://esm.sh/codemirror@latest",
+      "@codemirror/commands": "https://esm.sh/@codemirror/commands@latest",
+      "@codemirror/lang-css": "https://esm.sh/@codemirror/lang-css@latest",
+      "@codemirror/lang-html": "https://esm.sh/@codemirror/lang-html@latest",
+      "@codemirror/lang-javascript": "https://esm.sh/@codemirror/lang-javascript@latest",
+      "@codemirror/lint": "https://esm.sh/@codemirror/lint@latest",
+      "@codemirror/state": "https://esm.sh/@codemirror/state@latest",
+      "@codemirror/theme-one-dark": "https://esm.sh/@codemirror/theme-one-dark@latest",
+      "@codemirror/view": "https://esm.sh/@codemirror/view@latest"
+    }
+  }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .pg-shell {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--m-bg);
+      --md-color-border: var(--m-border);
+      --md-border-default: var(--m-border);
+      --md-border-primary: var(--m-primary);
+      --md-surface-card: var(--m-surface);
+      --md-surface-page: var(--m-bg);
+      --md-surface-section: var(--m-surface);
+      --md-surface-hover: var(--m-surface);
+      --md-surface-accent: var(--m-primary-soft);
+      --md-color-text: var(--m-fg);
+      --md-color-text-muted: var(--m-fg-2);
+      --md-color-primary: var(--m-primary);
+      --md-on-page: var(--m-fg);
+      --md-radius-md: var(--m-r);
+    }
+    .pg-top { flex-shrink: 0; padding: .5rem 1.15rem; border-bottom: 1px solid var(--m-border); background: var(--m-bg); }
+    .pg-top .nav { margin: 0; }
+    .pg-ide { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .pg-ide x-view { display: block; flex: 1; min-height: 0; height: 100%; }
+    .pg-boot { padding: 2rem 1.25rem; color: var(--m-fg-2); }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <p class="pg-boot">Loading playground…</p>
+  </div>
+  <script type="module">
+    import { html, render as litRender, x, WithScope } from "mates";
+    import { MatesIDE } from "mates-ide";
+
+    const matesCssCdn =
+      location.protocol === "file:"
+        ? "https://cdn.jsdelivr.net/npm/mates-css@0.5.0/mates.min.css"
+        : new URL("mates.min.css", location.href).href;
+    const previewWindowUrl =
+      location.protocol === "file:"
+        ? undefined
+        : new URL("playground-preview.html", location.href).href;
+
+    const STARTER_JS = `import { html, render as litRender } from "mates";
+
+const openModal = () => document.getElementById("hi").classList.add("open");
+const closeModal = () => document.getElementById("hi").classList.remove("open");
+
+const App = () => html\`
+  <div class="m-col m-gap p-30" style="max-width:28rem;margin:0 auto">
+    <p class="overline">mates-css</p>
+    <h1>Playground</h1>
+    <p class="muted">Native HTML plus class variants. Edit this file — the preview updates live.</p>
+    <div class="m-flex m-gap m-flex-wrap">
+      <button class="btn-primary" @click=\${openModal}>Open modal</button>
+      <button>Default</button>
+      <button class="btn-ghost">Ghost</button>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title">Card</p>
+        <p class="card-sub">Pre-styled tags. Variants are extra classes.</p>
+      </div>
+    </div>
+    <div class="modal" id="hi">
+      <div class="modal-overlay" @click=\${closeModal}></div>
+      <div class="modal-box">
+        <div class="modal-head">
+          <p class="modal-title">Hello</p>
+          <button class="btn-close" type="button" aria-label="Close" @click=\${closeModal}></button>
+        </div>
+        <div class="modal-body">
+          <p>Toggle <span class="mono">.open</span> on <span class="mono">.modal</span>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+\`;
+
+litRender(App(), document.getElementById("app"));
+`;
+
+    const root = document.getElementById("root");
+
+    const themeLabel = () =>
+      "Theme: " + (document.documentElement.getAttribute("data-theme") || "auto");
+
+    const cycleTheme = () => {
+      const el = document.documentElement;
+      const cur = el.getAttribute("data-theme");
+      if (!cur) el.setAttribute("data-theme", "light");
+      else if (cur === "light") el.setAttribute("data-theme", "dark");
+      else el.removeAttribute("data-theme");
+      litRender(App(), root);
+    };
+
+    const ideProps = {
+      jsCode: STARTER_JS,
+      fillContainer: true,
+      storageKey: "mates-css-ide",
+      matesCssCdn,
+      hideOpenPreview: location.protocol === "file:",
+      ...(previewWindowUrl ? { previewWindowUrl } : {}),
+    };
+
+    const Ide = () => () => x(MatesIDE, ideProps);
+
+    const App = () => html`
+      <div class="pg-shell">
+        <header class="pg-top">
+          <nav class="nav" aria-label="Playground">
+            <a class="nav-brand" href="docs.html">mates-css</a>
+            <a href="docs.html">Docs</a>
+            <a href="demo.html">Demo</a>
+            <a href="playground.html" class="selected">Playground</a>
+            <span class="nav-space"></span>
+            <a href="https://github.com/thejsmaster/mates-css">GitHub</a>
+            <button type="button" class="btn-sm" @click=${cycleTheme}>${themeLabel()}</button>
+          </nav>
+        </header>
+        <div class="pg-ide">
+          ${x(WithScope, { viewFn: Ide })}
+        </div>
+      </div>
+    `;
+
+    litRender(App(), root);
+  </script>
+</body>
+</html>

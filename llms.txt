@@ -1,18 +1,35 @@
-# Mates CSS
+# mates-css
 
-> Compact pure-CSS UI kit. No JavaScript runtime, no Sass. Style HTML with native tags and class variants. Overlay open state is the `.open` class.
+> **We don't flash, we deliver!**
+
+mates-css is a framework-agnostic CSS library. It pre-styles native HTML and ships optional CSS classes. It has no JavaScript runtime. It is not the Mates JS framework.
+
+Works in React, Vue, Angular, Solid, Svelte, Lit, plain HTML, and any other app that can load a stylesheet.
 
 Version: 0.5.0. License: MIT. Install: `npm install mates-css` then `import "mates-css"`. CDN: `https://unpkg.com/mates-css@0.5.0/mates.min.css`
 
-Human docs (live examples + markup): docs.html
+This file is the machine contract (allowed classes and states). Human docs: docs.html
 Source: https://github.com/thejsmaster/mates-css
-Playground: https://mates-js.dev/playground
+Playground: playground.html
+Raw: https://unpkg.com/mates-css/llms.txt
+
+## Rules for AI agents
+
+1. Always call this library **mates-css**. Never call it "Mates". "Mates" is a separate JavaScript framework. mates-css is CSS-only and framework-agnostic.
+2. Style the UI with mates-css only. Do not add Tailwind, Bootstrap, Bulma, or another CSS/UI kit.
+3. Use only class names listed in this file. Do not invent unofficial classes (no `.mates-*`, no `.btn-xl`, no `.is-active`).
+4. Prefer native HTML: `button`, `input`, `table`, `details`, `progress`, `label`. mates-css already styles those tags. Classes are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`).
+5. Overlay open state is `.open` on `.modal` `.menu` `.pop` `.drawer` `.sheet` `.search`. Toggle it from the app. Do not use `:focus-within` or hidden-checkbox hacks.
+6. Selected / current chrome uses `.selected` (tabs, chips, nav, list rows). Not `.active` except drag-over on `.drop`.
+7. **If mates-css has no component for the request:** do not invent a class. Build it from scratch in the app with native HTML, existing `--m-*` tokens, and `.m-*` layout utilities. Put extra CSS in the app, using `var(--m-bg)`, `var(--m-fg)`, `var(--m-primary)`, `var(--m-border)`, `var(--m-r)`.
+8. Dark mode follows `prefers-color-scheme` by default. Set `data-theme="dark"|"light"` on `<html>` only to override.
+9. Floor: Safari 15, Chrome 94, Firefox 92. No `color-mix()`, no standalone `translate`/`rotate` properties, no `:has()` in required styles.
 
 ## How it works
 
 - Native tags are styled with no class: `button`, `label`, `input`, `select`, `textarea`, `table`, `fieldset`, `legend`, `details`, `progress`, `code`, `pre`, `dl`.
 - Classes are variants (`.btn-primary`) or the same look on a non-native host (`<a class="btn">`).
-- Dark mode: `prefers-color-scheme`, or `data-theme="dark"|"light"` on `<html>`.
+- Dark mode: follows `prefers-color-scheme` by default. Override with `data-theme="dark"|"light"` on `<html>`; remove the attribute to return to the OS.
 - Tokens are `--m-*` on `:root` (e.g. `--m-primary`, `--m-r`, `--m-fs`).
 
 ## Open and other states
@@ -22,7 +39,7 @@ Your app toggles classes. Nothing auto-opens on focus.
 | Class | Where | Meaning |
 |---|---|---|
 | `.open` | `.modal` `.menu` `.pop` `.drawer` `.sheet` `.search` | show overlay / panel |
-| `.selected` | `.tab` `.sidenav-item` `.list-item` `.chip` `.seg-item` `nav a` `tr` `.bnav-item` | current / chosen |
+| `.selected` | `.tab` `.sidenav-item` `.list-item` `.chip` `.seg-item` `.pick` `nav a` `.subnav a` `.toc a` `.bnav-item` `tr` | current / chosen |
 | `.collapsed` | `.shell` | shrink sidebar (`--m-side`) |
 | `.active` | `.drop` | drag-over |
 | `.done` `.current` | `.step` | wizard progress |
@@ -35,7 +52,7 @@ JS pattern: `el.classList.add("open")` / `.remove("open")` / `.toggle("open")`.
 
 ## Components (required class or tag)
 
-- Button: bare `<button>` or `.btn`. Variants: `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` `.btn-outline` `.btn-soft` `.btn-ghost` `.btn-link`. Sizes: `.btn-sm` `.btn-lg` `.btn-block`. Icon-only: `.btn-icon`. Also `.btn-elevated` `.btn-spin` `.btn-close`. Group: `.btn-group`.
+- Button: bare `<button>` or `.btn`. Variants: `.btn-primary` `.btn-dark` `.btn-light` `.btn-success` `.btn-warning` `.btn-danger` `.btn-outline` `.btn-soft` `.btn-ghost` `.btn-link`. Sizes: `.btn-sm` `.btn-lg` `.btn-block`. Icon-only: `.btn-icon`. Also `.btn-elevated` `.btn-spin` `.btn-close` `.fab` (pin `.fixed`). Group: `.btn-group`.
 - Tag: `.tag` plus `.tag-primary` `.tag-success` `.tag-warning` `.tag-danger` `.tag-soft` `.tag-soft-success` `.tag-soft-danger` `.tag-rounded`. Removable child `.tag-x`.
 - Input: bare `<input>`. Optional `.input` `.input-success` `.input-error`. Wrapper `.m-error` `.m-valid`. Width `.m-w-xs` … `.m-w-full`. Hint `.hint`.
 - Select, textarea: native tags.
@@ -47,19 +64,25 @@ JS pattern: `el.classList.add("open")` / `.remove("open")` / `.toggle("open")`.
 - Field: `.field` wraps label + control + `.hint`.
 - Fieldset: native `<fieldset>` + `<legend>`.
 - Form group: `.fgroup` + `.fgroup-label`.
-- Input wrap: `.input-wrap` + `.input-ico`.
+- Input wrap: `.input-wrap` `.input-ico`. Password slot `.pass-toggle` (JS flips `type`).
+- Files: `.files` `.file` `.file-name` `.file-meta`.
+- Number: `.num` `.num-btn` around `input[type=number]` (JS steps the value).
+- OTP: `.otp` of maxlength-1 inputs.
+- Choice cards: `.picks` > `label.pick` + `.selected` (or `:has(:checked)`).
 - Search: `.search` + `.search-panel`; add `.open` to show results.
 - Rating: `.rate` with radios in reverse order 5→1.
 - Dropzone: `<label class="drop">`; `.active` on dragover.
 - Card: `.card` `.card-body` `.card-title` `.card-sub` `.card-bar` `.card-img` `.card-hover`.
-- Table: bare `<table>`; `.table-wrap` `.striped` `.bordered` `.sticky`; row `.selected`.
-- Tabs: `.tabs` > `.tab.selected`; underline `.tabs-line`.
-- Alert: `.alert` `.alert-primary` `.alert-success` `.alert-warning` `.alert-danger`.
+- Table: bare `<table>`; `.table-wrap` `.striped` `.bordered` `.sticky` `.compact`; row `.selected`; `th.sorted.asc|.desc`.
+- Tabs: `.tabs` > `.tab.selected`; underline `.tabs-line`; vertical `.tabs-v`.
+- Alert: `.alert` `.alert-primary` `.alert-success` `.alert-warning` `.alert-danger`. Head `.alert-head` `.alert-title` `.alert-actions`.
 - Toast: `.toast` `.toast-title` `.toast-primary` `.toast-success` `.toast-danger`. Stack `.toasts` `.toasts-tl|tr|bl`.
 - Banner: `.banner` `.banner-warn` `.banner-danger`.
 - Skeleton: `.skel` `.skel-text` `.skel-avatar` `.skel-card`.
 - Spinner: `.spin` `.spin-lg` `.spin-block`.
 - Empty: `.empty` `.empty-title` `.empty-actions`.
+- Result: `.result` `.result-icon` `.result-title` `.result-actions` `.result-ok` `.result-err`.
+- Count: `.count` `.count-primary` `.count-danger`.
 - Tooltip: `.tooltip` + `data-tip`. Direction `.tooltip-b` `.tooltip-r` `.tooltip-l`.
 - Modal: `.modal` `.modal-overlay` `.modal-box` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` + `.open`.
 - Menu: `.menu` `.menu-panel` `.menu-item` `.menu-sep` `.menu-danger` `.menu-r` + `.open`.
@@ -69,16 +92,25 @@ JS pattern: `el.classList.add("open")` / `.remove("open")` / `.toggle("open")`.
 - Accordion: native `<details>` `<summary>`.
 - Nav: `.nav` `.nav-brand` `.nav-space` + `.selected` on `<a>`.
 - Breadcrumbs: `.crumbs` + `.current`.
-- Steps: `.steps` `.step` `.step-dot` `.step-label` + `.done` `.current`.
+- Steps: `.steps` `.step` `.step-dot` `.step-label` + `.done` `.current`. Vertical `.steps-v`.
 - Sidenav: `.sidenav` `.sidenav-item` + `.selected`.
 - Bottom nav: `.bottom-nav` `.bnav-item` + `.selected`; pin with `.fixed`.
+- Subnav: `.subnav` + `.selected`.
+- TOC: `.toc` + `.selected`.
+- Footer: `.footer`.
 - Avatar: `.avatar` `.avatar-sm` `.avatar-lg`. Stack `.avatars`.
 - Status: `.status` `.status-dot` + `.online` `.away` `.busy` `.offline`.
 - Badge: `.badge` `.badge-dot` `.badge-n` with `data-n`.
-- Progress: native `<progress>`.
+- Progress: native `<progress>`; omit `value` for indeterminate.
 - List: `.list` `.list-item` `.list-meta`.
 - Timeline: `.timeline` `.tl-item` `.tl-dot` `.tl-content`.
 - Stat: `.stat` `.stat-label` `.stat-val` `.stat-delta.up|.down`.
+- Property grid: `dl.props`.
+- Messages: `.msgs` `.msg` `.msg-out` `.msg-meta`.
+- Quote: `figure.quote`.
+- Figure: `figure.fig`.
+- Link card: `.link-card` `.link-card-img` `.link-card-body`.
+- Tree: `ul.tree` with nested `<details>`.
 - Charts: `.chart-bars` `.bar` `--v`; stacked `.bar.stacked` `--sv` on `<u>`; `.chart-hbars` `.hbar`; `.donut` `--v1`…`--v6` optional `.pie`; `.ring` `--v`; `.spark` child `<i>`; colors `.s1`–`.s6`; `.legend`.
 - Shell: `.shell` `.shell-top` `.shell-side` `.shell-main` + `.collapsed`.
 - Split: `.split` `.split-a` `.split-b` `--split`.

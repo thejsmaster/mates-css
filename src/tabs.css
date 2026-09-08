@@ -15,3 +15,20 @@
 .tabs-line { display: flex; background: none; padding: 0; border-radius: 0; border-bottom: 2px solid var(--m-border); width: auto; }
 .tabs-line .tab { border-radius: 0; margin-bottom: -2px; border-bottom: 2px solid transparent; }
 .tabs-line .tab.selected { background: transparent; box-shadow: none; color: var(--m-primary); border-bottom-color: var(--m-primary); }
+.tabs-v { flex-direction: column; align-items: stretch; }
+.tabs-line.tabs-v {
+  border-bottom: 0;
+  border-left: 2px solid var(--m-border);
+}
+.tabs-line.tabs-v .tab {
+  margin-bottom: 0;
+  margin-left: -2px;
+  border-bottom: 0;
+  border-left: 2px solid transparent;
+  text-align: left;
+  justify-content: flex-start;
+}
+.tabs-line.tabs-v .tab.selected {
+  border-bottom-color: transparent;
+  border-left-color: var(--m-primary);
+}

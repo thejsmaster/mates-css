@@ -9,8 +9,8 @@ label,
   margin: .3em 0;
   cursor: pointer;
 }
-label:has(> input[type="checkbox"]):not(.chip, .switch, .drop, .seg-item, .choice),
-label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item, .choice) {
+label:has(> input[type="checkbox"]):not(.chip, .switch, .drop, .seg-item, .choice, .pick),
+label:has(> input[type="radio"]):not(.chip, .switch, .drop, .seg-item, .choice, .pick) {
   display: flex;
   align-items: center;
   gap: .4em;

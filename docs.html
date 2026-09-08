@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mates CSS — Pure CSS UI kit, no JavaScript</title>
-  <meta name="description" content="Mates CSS is a pure CSS library with no JavaScript. Style HTML with native tags and class variants. Install mates-css and import it in React, Vue, Angular, Solid, Lit, or a CDN.">
-  <meta name="keywords" content="mates-css, CSS UI kit, no JavaScript CSS, CSS components, CSS buttons, CSS modal, CSS forms, CSS charts, dark mode CSS">
+  <meta name="description" content="CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system. Mates CSS is a pure CSS library with no JavaScript.">
+  <meta name="keywords" content="mates-css, CSS UI kit, no JavaScript CSS, CSS components, CSS buttons, CSS modal, CSS forms, CSS charts, dark mode CSS, llms.txt, AI">
   <meta name="author" content="Sean Freeman">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mates-js.dev/">
+  <link rel="alternate" type="text/plain" href="llms.txt" title="LLM">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Mates CSS — Pure CSS UI kit, no JavaScript">
-  <meta property="og:description" content="Style HTML with classes. No JS runtime. npm install mates-css or drop in a CDN link.">
+  <meta property="og:description" content="CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system.">
   <meta property="og:url" content="https://mates-js.dev/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Mates CSS">
-  <meta name="twitter:description" content="A pure CSS library with no JavaScript. Install mates-css and import it into your app.">
+  <meta name="twitter:description" content="CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system.">
   <link rel="stylesheet" href="mates.min.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700&amp;display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@
       {
         "@type": "SoftwareSourceCode",
         "name": "Mates CSS",
-        "description": "A compact pure-CSS UI kit with no JavaScript. Native HTML tags are styled by default; classes add variants. Overlay open state is the .open class.",
+        "description": "CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system.",
         "license": "https://opensource.org/license/mit",
         "codeRepository": "https://github.com/thejsmaster/mates-css",
         "programmingLanguage": "CSS",
@@ -44,16 +45,21 @@
   }
   </script>
   <style>
+    html { scroll-padding-top: 5rem; }
     .docs-top {
       position: sticky;
       top: 0;
-      z-index: var(--m-z-sticky);
+      z-index: var(--m-z-menu);
       background: var(--m-bg);
+      padding: .5rem 0;
     }
     .docs-top .nav { margin: 0 auto; max-width: 86rem; padding-inline: 1.15rem; }
-    .docs-hero { max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.25rem 1.5rem; }
+    .docs-hero { max-width: 52rem; margin: 0; padding: 2.5rem 0 1.5rem; scroll-margin-top: 5rem; }
     .docs-hero h1 { margin-top: .25em; font-size: 2.5rem; }
-    .docs-install { max-width: 52rem; margin: 0 auto; padding: 0 1.25rem 2.5rem; }
+    .docs-install { max-width: 52rem; margin: 0; padding: 0 0 2.5rem; scroll-margin-top: 5rem; }
+    .docs-body { min-width: 0; }
+    .docs-install > h3 { margin: 2rem 0 .65rem; font-size: 1.15rem; scroll-margin-top: 5rem; }
+    .docs-install > h3 + .docs-lead { margin-bottom: .75rem; }
     .docs-shell {
       display: grid;
       grid-template-columns: 13.5rem minmax(0, 1fr);
@@ -66,9 +72,11 @@
     .docs-toc {
       position: sticky;
       top: 4.25rem;
+      align-self: start;
       max-height: calc(100dvh - 5rem);
       overflow: auto;
       padding: .35rem 0 2rem;
+      background: var(--m-bg);
     }
     .docs-toc a {
       display: block;
@@ -148,6 +156,8 @@
     .docs-code .hljs-punctuation,
     .docs-code .hljs-operator { color: var(--m-fg-2); }
     .docs-fw-panel[hidden] { display: none; }
+    .docs-install .docs-fw-panel { margin-top: 1.5rem; }
+    .docs-install > .hint { margin-top: 1.5rem; }
     .docs-npm {
       display: flex;
       align-items: center;
@@ -192,99 +202,21 @@
     <nav class="nav" aria-label="Docs">
       <a class="nav-brand" href="#">Mates CSS</a>
       <a href="#install">Install</a>
+      <a href="#ai">AI</a>
       <a href="#catalog" class="selected">Components</a>
       <span class="nav-space"></span>
-      <div class="menu" id="docs-play">
-        <button type="button" aria-haspopup="menu" data-toggle="docs-play">Playground</button>
-        <div class="menu-panel" role="menu">
-          <a class="menu-item" href="https://mates-js.dev/playground" role="menuitem">Open playground</a>
-        </div>
-      </div>
+      <a href="playground.html">Playground</a>
       <a href="https://github.com/thejsmaster/mates-css">GitHub</a>
-      <button type="button" class="btn-sm" id="theme-btn" aria-label="Toggle color theme">Theme: light</button>
+      <button type="button" class="btn-sm" id="theme-btn" aria-label="Toggle color theme">Theme: auto</button>
     </nav>
   </header>
 
-  <header class="docs-hero">
-    <p class="overline">v0.5.0 · ~11.0kb gzipped · MIT</p>
-    <h1>Mates CSS</h1>
-    <p>A pure CSS library with no JavaScript. Style your HTML using the classes defined in this kit. Install <span class="mono">mates-css</span> and import it into your app component or root module in a frontend or fullstack application — or use the live CDN links.</p>
-    <p class="muted">Native tags (<span class="mono">button</span>, <span class="mono">input</span>, <span class="mono">table</span>…) are styled with no class. Classes are variants (<span class="mono">.btn-primary</span>) or the same look on a non-native host (<span class="mono">&lt;a class="btn"&gt;</span>). Overlays stay closed until your app adds <span class="mono">.open</span>.</p>
-  </header>
-
-  <section class="docs-install" id="install" aria-labelledby="install-title">
-    <h2 id="install-title">Install</h2>
-    <p class="docs-lead">Add the stylesheet once at the root of the app. After that, markup is enough — Mates CSS has no runtime.</p>
-    <div class="docs-npm" role="region" aria-label="npm install">
-      <code>npm install mates-css</code>
-    </div>
-    <div class="tabs" role="tablist" aria-label="Framework import examples">
-      <button type="button" class="tab selected" role="tab" aria-selected="true" data-fw="react">React</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="vue">Vue</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="mates">Mates</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="angular">Angular</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="solid">Solid</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="lit">Lit</button>
-      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="js">Plain JS</button>
-    </div>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="react"><code>// src/main.tsx — root module
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "mates-css";
-import App from "./App";
-
-createRoot(document.getElementById("root")).render(
-  &lt;StrictMode&gt;
-    &lt;App /&gt;
-  &lt;/StrictMode&gt;
-);</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="vue" hidden><code>// src/main.js — root module
-import { createApp } from "vue";
-import "mates-css";
-import App from "./App.vue";
-
-createApp(App).mount("#app");</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="mates" hidden><code>// app entry — Mates JS
-import "mates-css";
-import { App } from "./app.js";
-
-App.mount("#root");</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="angular" hidden><code>// src/main.ts — root module
-import { bootstrapApplication } from "@angular/platform-browser";
-import { App } from "./app/app";
-import "mates-css";
-
-bootstrapApplication(App);</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="solid" hidden><code>// src/index.jsx — root module
-import { render } from "solid-js/web";
-import "mates-css";
-import App from "./App";
-
-render(() =&gt; &lt;App /&gt;, document.getElementById("root"));</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="lit" hidden><code>// index.js — import once at the document root (not inside a shadow root)
-import "mates-css";
-import "./app.js";
-
-// app.js
-import { LitElement, html } from "lit";
-
-class AppShell extends LitElement {
-  createRenderRoot() { return this; } // light DOM so Mates classes apply
-  render() {
-    return html`&lt;button class="btn-primary"&gt;Save&lt;/button&gt;`;
-  }
-}
-customElements.define("app-shell", AppShell);</code></pre>
-    <pre class="docs-code docs-fw-panel m-t-10" data-fw-panel="js" hidden><code>&lt;!-- index.html — CDN, no bundler --&gt;
-&lt;link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/mates.min.css"&gt;
-
-&lt;button class="btn-primary"&gt;Hello&lt;/button&gt;</code></pre>
-    <p class="hint">CDN (jsDelivr): <span class="mono">https://cdn.jsdelivr.net/npm/mates-css@0.5.0/mates.min.css</span>. Unminified: import <span class="mono">mates-css/css</span> or <span class="mono">mates.css</span>.</p>
-  </section>
-
-  <div class="docs-shell" id="catalog">
+  <div class="docs-shell">
     <nav class="docs-toc sidenav" aria-label="Component list">
       <p class="overline">Start</p>
+      <a href="#overview">Overview</a>
+      <a href="#install">Install</a>
+      <a href="#ai">Use with AI</a>
       <a href="#states">States</a>
       <a href="#tokens">Tokens</a>
       <p class="overline">Actions</p>
@@ -307,6 +239,10 @@ customElements.define("app-shell", AppShell);</code></pre>
       <a href="#rating">Rating</a>
       <a href="#segmented">Segmented</a>
       <a href="#dropzone">Dropzone</a>
+      <a href="#files">Files</a>
+      <a href="#num">Number</a>
+      <a href="#otp">OTP</a>
+      <a href="#pick">Choice cards</a>
       <p class="overline">Surfaces</p>
       <a href="#card">Card</a>
       <a href="#table">Table</a>
@@ -318,6 +254,8 @@ customElements.define("app-shell", AppShell);</code></pre>
       <a href="#skeleton">Skeleton</a>
       <a href="#spinner">Spinner</a>
       <a href="#empty">Empty</a>
+      <a href="#result">Result</a>
+      <a href="#count">Count</a>
       <p class="overline">Overlays</p>
       <a href="#tooltip">Tooltip</a>
       <a href="#modal">Modal</a>
@@ -332,6 +270,10 @@ customElements.define("app-shell", AppShell);</code></pre>
       <a href="#steps">Steps</a>
       <a href="#sidenav">Sidenav</a>
       <a href="#bottom-nav">Bottom nav</a>
+      <a href="#subnav">Subnav</a>
+      <a href="#toc">TOC</a>
+      <a href="#footer">Footer</a>
+      <a href="#fab">FAB</a>
       <p class="overline">Indicators</p>
       <a href="#avatar">Avatar</a>
       <a href="#status">Status</a>
@@ -342,6 +284,12 @@ customElements.define("app-shell", AppShell);</code></pre>
       <a href="#timeline">Timeline</a>
       <a href="#stat">Stat</a>
       <a href="#dl">Definition list</a>
+      <a href="#props">Property grid</a>
+      <a href="#msg">Messages</a>
+      <a href="#quote">Quote</a>
+      <a href="#fig">Figure</a>
+      <a href="#link-card">Link card</a>
+      <a href="#tree">Tree</a>
       <a href="#code">Code</a>
       <p class="overline">Charts</p>
       <a href="#bars">Bar chart</a>
@@ -357,13 +305,111 @@ customElements.define("app-shell", AppShell);</code></pre>
       <a href="#utilities">Utility map</a>
     </nav>
 
-    <main>
+    <div class="docs-body">
+      <header class="docs-hero" id="overview">
+    <p class="overline">v0.5.0 · ~12.4kb gzipped · MIT</p>
+    <h1>Mates-CSS</h1>
+    <h2>A pure CSS library with no JavaScript.</h2>
+    <p class="muted" style="margin-top:0;"><strong>We don't flash, we deliver!</strong></p>
+    <p>CSS library for all frameworks like React, Vue, Mates, Angular, Solid, Svelte, Lit. Even plain JS. It even comes with a design system.</p>
+    <p>A pure CSS library with no JavaScript. Style your HTML using the classes defined in this kit. Install <span class="mono">mates-css</span> and import it into your app component or root module in a frontend or fullstack application — or use the live CDN links.</p>
+    <p class="muted">Native tags (<span class="mono">button</span>, <span class="mono">input</span>, <span class="mono">table</span>…) are styled with no class. Classes are variants (<span class="mono">.btn-primary</span>) or the same look on a non-native host (<span class="mono">&lt;a class="btn"&gt;</span>). Overlays stay closed until your app adds <span class="mono">.open</span>.</p>
+      </header>
+
+      <section class="docs-install" id="install" aria-labelledby="install-title">
+    <h2 id="install-title">Install</h2>
+    <p class="docs-lead">Add the stylesheet once at the root of the app. After that, markup is enough — Mates CSS has no runtime.</p>
+    <div class="docs-npm" role="region" aria-label="npm install">
+      <code>npm install mates-css</code>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Framework import examples">
+      <button type="button" class="tab selected" role="tab" aria-selected="true" data-fw="react">React</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="vue">Vue</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="mates">Mates</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="angular">Angular</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="solid">Solid</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="lit">Lit</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-fw="js">Plain JS</button>
+    </div>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="react"><code>// src/main.tsx — root module
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "mates-css";
+import App from "./App";
+
+createRoot(document.getElementById("root")).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="vue" hidden><code>// src/main.js — root module
+import { createApp } from "vue";
+import "mates-css";
+import App from "./App.vue";
+
+createApp(App).mount("#app");</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="mates" hidden><code>// app entry — Mates JS
+import "mates-css";
+import { App } from "./app.js";
+
+App.mount("#root");</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="angular" hidden><code>// src/main.ts — root module
+import { bootstrapApplication } from "@angular/platform-browser";
+import { App } from "./app/app";
+import "mates-css";
+
+bootstrapApplication(App);</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="solid" hidden><code>// src/index.jsx — root module
+import { render } from "solid-js/web";
+import "mates-css";
+import App from "./App";
+
+render(() =&gt; &lt;App /&gt;, document.getElementById("root"));</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="lit" hidden><code>// index.js — import once at the document root (not inside a shadow root)
+import "mates-css";
+import "./app.js";
+
+// app.js
+import { LitElement, html } from "lit";
+
+class AppShell extends LitElement {
+  createRenderRoot() { return this; } // light DOM so Mates classes apply
+  render() {
+    return html`&lt;button class="btn-primary"&gt;Save&lt;/button&gt;`;
+  }
+}
+customElements.define("app-shell", AppShell);</code></pre>
+    <pre class="docs-code docs-fw-panel" data-fw-panel="js" hidden><code>&lt;!-- index.html — CDN, no bundler --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/mates-css@0.5.0/mates.min.css"&gt;
+
+&lt;button class="btn-primary"&gt;Hello&lt;/button&gt;</code></pre>
+    <p class="hint">CDN (jsDelivr): <span class="mono">https://cdn.jsdelivr.net/npm/mates-css@0.5.0/mates.min.css</span>. Unminified: import <span class="mono">mates-css/css</span> or <span class="mono">mates.css</span>.</p>
+    <h3 id="ai">Use with AI</h3>
+    <p class="docs-lead">Point an agent at the class contract, then let it build against <span class="mono">mates-css</span>. That name is the CSS library — not the Mates JS framework. If a widget is missing, the agent should compose native HTML and <span class="mono">--m-*</span> tokens — not invent class names or pull in another kit.</p>
+    <p>Contract: <a href="llms.txt">llms.txt</a> · <span class="mono">https://unpkg.com/mates-css/llms.txt</span>. Project rules: <a href="AGENTS.md">AGENTS.md</a>.</p>
+    <pre class="docs-code"><code>Build UI with mates-css. mates-css is a framework-agnostic
+CSS library: it pre-styles native HTML (button, input, table, details, …)
+and offers optional CSS classes. It has no JavaScript runtime.
+
+Install: npm install mates-css then import "mates-css"
+Read the class contract: https://unpkg.com/mates-css/llms.txt
+
+Use only classes listed there. Native HTML first; classes are variants
+(.btn-primary) or the same look on a non-native host (&lt;a class="btn"&gt;).
+Overlays (.modal .menu .pop .drawer .sheet .search): add class .open
+Current item: class .selected (not .active, except drag-over on .drop).
+
+If mates-css has no component, build it from scratch with native HTML,
+var(--m-*) tokens, and .m-* utilities. use buit in classes whenever possible. Apply these classes to the native HTML elements using framework specific methods.</code></pre>
+      </section>
+
+      <main id="catalog">
       <section class="docs-sec" id="states" aria-labelledby="states-title">
         <h2 id="states-title">States</h2>
         <p class="docs-lead">Mates CSS does not open overlays on focus or with a hidden checkbox. Your app toggles classes. This is the full state vocabulary.</p>
         <div class="docs-note">
           <p><strong>Open overlays</strong> — add <span class="docs-k">.open</span> on the root: <span class="docs-k">.modal</span>, <span class="docs-k">.menu</span>, <span class="docs-k">.pop</span>, <span class="docs-k">.drawer</span>, <span class="docs-k">.sheet</span>, <span class="docs-k">.search</span>.</p>
-          <p><strong>Selected</strong> — <span class="docs-k">.selected</span> on <span class="docs-k">.tab</span>, <span class="docs-k">.sidenav-item</span>, <span class="docs-k">.list-item</span>, <span class="docs-k">.chip</span>, <span class="docs-k">.seg-item</span>, <span class="docs-k">.nav a</span>, <span class="docs-k">tr</span>.</p>
+          <p><strong>Selected</strong> — <span class="docs-k">.selected</span> on <span class="docs-k">.tab</span>, <span class="docs-k">.sidenav-item</span>, <span class="docs-k">.list-item</span>, <span class="docs-k">.chip</span>, <span class="docs-k">.seg-item</span>, <span class="docs-k">.pick</span>, <span class="docs-k">.nav a</span>, <span class="docs-k">.subnav a</span>, <span class="docs-k">.toc a</span>, <span class="docs-k">.bnav-item</span>, <span class="docs-k">tr</span>.</p>
           <p><strong>Collapsed</strong> — <span class="docs-k">.collapsed</span> on <span class="docs-k">.shell</span> shrinks the sidebar.</p>
           <p><strong>Active</strong> — <span class="docs-k">.active</span> on <span class="docs-k">.drop</span> while dragging files.</p>
           <p><strong>Done / current</strong> — <span class="docs-k">.done</span> and <span class="docs-k">.current</span> on <span class="docs-k">.step</span>; <span class="docs-k">.current</span> on a breadcrumb.</p>
@@ -385,7 +431,7 @@ menu.classList.toggle("open");</code></pre>
 
       <section class="docs-sec" id="tokens" aria-labelledby="tokens-title">
         <h2 id="tokens-title">Tokens</h2>
-        <p class="docs-lead">Everything is a <span class="mono">--m-*</span> CSS variable on <span class="mono">:root</span>. Dark mode follows <span class="mono">prefers-color-scheme</span>. Force a theme with <span class="mono">data-theme="dark"</span> or <span class="mono">"light"</span> on <span class="mono">&lt;html&gt;</span>.</p>
+        <p class="docs-lead">Everything is a <span class="mono">--m-*</span> CSS variable on <span class="mono">:root</span>. Theme follows the OS (<span class="mono">prefers-color-scheme</span>) by default — do not set <span class="mono">data-theme</span> unless you need to override. Force a theme with <span class="mono">data-theme="dark"</span> or <span class="mono">"light"</span> on <span class="mono">&lt;html&gt;</span>.</p>
         <div class="docs-row">
           <div class="docs-live">
             <p class="card-title m-0">Primary</p>
@@ -445,10 +491,12 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             </div>
           </div>
           <pre class="docs-code"><code>&lt;button class="btn-sm btn-spin"&gt;Loading&lt;/button&gt;
+&lt;button class="btn-sm"&gt;Small&lt;/button&gt;
 &lt;button class="btn-lg"&gt;Large&lt;/button&gt;
 &lt;button class="btn-elevated btn-primary"&gt;Elevated&lt;/button&gt;
 &lt;button class="btn-close" aria-label="Close"&gt;&lt;/button&gt;
 &lt;button class="btn-icon" aria-label="Add"&gt;+&lt;/button&gt;
+&lt;button class="btn-icon btn-ghost" aria-label="More"&gt;⋯&lt;/button&gt;
 &lt;div class="btn-group"&gt;
   &lt;button class="btn-primary"&gt;Left&lt;/button&gt;
   &lt;button class="btn-primary"&gt;Middle&lt;/button&gt;
@@ -471,7 +519,9 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;span class="tag"&gt;Default&lt;/span&gt;
 &lt;span class="tag tag-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="tag tag-success"&gt;Success&lt;/span&gt;
 &lt;span class="tag tag-soft-success"&gt;active&lt;/span&gt;
+&lt;span class="tag tag-rounded"&gt;Rounded&lt;/span&gt;
 &lt;span class="tag tag-primary"&gt;Removable &lt;span class="tag-x"&gt;&lt;/span&gt;&lt;/span&gt;</code></pre>
         </div>
       </section>
@@ -499,7 +549,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
 
 &lt;div class="m-error"&gt;
   &lt;label for="user"&gt;Username&lt;/label&gt;
-  &lt;input id="user" type="text"&gt;
+  &lt;input id="user" type="text" value="ada!!"&gt;
   &lt;span class="hint"&gt;Only letters and numbers.&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
@@ -516,6 +566,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;label for="plan"&gt;Plan&lt;/label&gt;
 &lt;select id="plan"&gt;
   &lt;option&gt;Choose one…&lt;/option&gt;
+  &lt;option&gt;Free&lt;/option&gt;
   &lt;option&gt;Pro&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </div>
@@ -564,9 +615,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
         <h2 id="switch-title">Switch</h2>
         <p class="docs-lead">Required: <span class="mono">.switch</span> on a <span class="mono">&lt;label&gt;</span> wrapping a real checkbox and an empty <span class="mono">&lt;i&gt;</span>. Checked state is the native input — no extra class.</p>
         <div class="docs-row">
-          <div class="docs-live m-flex m-gap m-i-center">
+          <div class="docs-live">
             <label class="switch"><input type="checkbox" checked><i></i></label>
-            <label class="switch"><input type="checkbox"><i></i></label>
           </div>
           <pre class="docs-code"><code>&lt;label class="switch"&gt;
   &lt;input type="checkbox" checked&gt;&lt;i&gt;&lt;/i&gt;
@@ -582,8 +632,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             <label for="d-rg">Volume</label>
             <input type="range" id="d-rg" min="0" max="100" value="60">
           </div>
-          <pre class="docs-code"><code>&lt;input type="range" min="0" max="100" value="50"
-  oninput="this.style.setProperty('--v', this.value)"&gt;</code></pre>
+          <pre class="docs-code"><code>&lt;label for="volume"&gt;Volume&lt;/label&gt;
+&lt;input type="range" id="volume" min="0" max="100" value="60"&gt;</code></pre>
         </div>
       </section>
 
@@ -621,8 +671,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;fieldset&gt;
   &lt;legend&gt;Profile&lt;/legend&gt;
-  &lt;label for="fn"&gt;Name&lt;/label&gt;
-  &lt;input id="fn" type="text"&gt;
+  &lt;div class="field"&gt;
+    &lt;label for="fn"&gt;Name&lt;/label&gt;
+    &lt;input id="fn" type="text" placeholder="Ada"&gt;
+  &lt;/div&gt;
 &lt;/fieldset&gt;</code></pre>
         </div>
       </section>
@@ -641,24 +693,33 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;div class="fgroup"&gt;
   &lt;span class="fgroup-label"&gt;https://&lt;/span&gt;
   &lt;input type="text" value="example.com"&gt;
-  &lt;button class="btn-primary"&gt;Go&lt;/button&gt;
+  &lt;button class="btn-primary" type="button"&gt;Go&lt;/button&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
 
       <section class="docs-sec" id="input-wrap" aria-labelledby="input-wrap-title">
         <h2 id="input-wrap-title">Input wrap</h2>
-        <p class="docs-lead">Required: <span class="mono">.input-wrap</span>. Put <span class="mono">.input-ico</span> on leading or trailing slots.</p>
+        <p class="docs-lead">Required: <span class="mono">.input-wrap</span>. Put <span class="mono">.input-ico</span> on leading or trailing slots. Password show/hide: trailing <span class="mono">.pass-toggle</span>; your JS flips the input <span class="mono">type</span>.</p>
         <div class="docs-row">
           <div class="docs-live">
             <div class="input-wrap">
               <span class="input-ico">@</span>
               <input type="text" placeholder="username" aria-label="Username">
             </div>
+            <div class="input-wrap m-t-10">
+              <input type="password" value="secret12" aria-label="Password" autocomplete="off">
+              <button type="button" class="pass-toggle">Show</button>
+            </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="input-wrap"&gt;
   &lt;span class="input-ico"&gt;@&lt;/span&gt;
-  &lt;input type="text"&gt;
+  &lt;input type="text" placeholder="username"&gt;
+&lt;/div&gt;
+
+&lt;div class="input-wrap"&gt;
+  &lt;input type="password" value="secret12"&gt;
+  &lt;button type="button" class="pass-toggle"&gt;Show&lt;/button&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -677,12 +738,13 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="search" id="search"&gt;
-  &lt;input type="search" placeholder="Search…"
-    onfocus="this.parentElement.classList.add('open')"&gt;
+  &lt;input type="search" placeholder="Search commands…"&gt;
   &lt;div class="search-panel"&gt;
-    &lt;a class="menu-item" href="#"&gt;Result&lt;/a&gt;
+    &lt;a class="menu-item" href="#"&gt;Open buttons&lt;/a&gt;
+    &lt;a class="menu-item" href="#"&gt;Open modal&lt;/a&gt;
   &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+&lt;!-- add .open on .search to show the panel --&gt;</code></pre>
         </div>
       </section>
 
@@ -696,7 +758,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             <span class="chip selected">Always on</span>
           </div>
           <pre class="docs-code"><code>&lt;label class="chip selected"&gt;&lt;input type="checkbox" checked&gt; Design&lt;/label&gt;
-&lt;button class="chip selected"&gt;Filter&lt;/button&gt;</code></pre>
+&lt;label class="chip"&gt;&lt;input type="checkbox"&gt; Backend&lt;/label&gt;
+&lt;span class="chip selected"&gt;Always on&lt;/span&gt;</code></pre>
         </div>
       </section>
 
@@ -737,6 +800,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;div class="seg"&gt;
   &lt;label class="seg-item selected"&gt;&lt;input type="radio" name="p" checked&gt; Day&lt;/label&gt;
   &lt;label class="seg-item"&gt;&lt;input type="radio" name="p"&gt; Week&lt;/label&gt;
+  &lt;label class="seg-item"&gt;&lt;input type="radio" name="p"&gt; Month&lt;/label&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -754,9 +818,103 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;label class="drop"&gt;
   &lt;input type="file" hidden&gt;
-  &lt;span&gt;Drop files&lt;/span&gt;
+  &lt;span&gt;Drop files here&lt;/span&gt;
   &lt;span class="hint"&gt;or click to browse&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="files" aria-labelledby="files-title">
+        <h2 id="files-title">Files</h2>
+        <p class="docs-lead">Attachment list: <span class="mono">.files</span> of <span class="mono">.file</span> rows. Name <span class="mono">.file-name</span>, size <span class="mono">.file-meta</span>. Remove with <span class="mono">.btn-close</span> — your app deletes the row.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="files">
+              <div class="file"><span class="file-name">brief.pdf</span><span class="file-meta">128 KB</span><button class="btn-close" type="button" aria-label="Remove"></button></div>
+              <div class="file"><span class="file-name">logo.svg</span><span class="file-meta">4 KB</span><button class="btn-close" type="button" aria-label="Remove"></button></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="files"&gt;
+  &lt;div class="file"&gt;
+    &lt;span class="file-name"&gt;brief.pdf&lt;/span&gt;
+    &lt;span class="file-meta"&gt;128 KB&lt;/span&gt;
+    &lt;button class="btn-close" aria-label="Remove"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="file"&gt;
+    &lt;span class="file-name"&gt;logo.svg&lt;/span&gt;
+    &lt;span class="file-meta"&gt;4 KB&lt;/span&gt;
+    &lt;button class="btn-close" aria-label="Remove"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="num" aria-labelledby="num-title">
+        <h2 id="num-title">Number</h2>
+        <p class="docs-lead"><span class="mono">.num</span> wraps − / native number / +. The buttons do not change the value until your app calls <span class="mono">stepDown</span> / <span class="mono">stepUp</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="num">
+              <button type="button" class="num-btn" aria-label="Decrease">−</button>
+              <input type="number" value="2" min="0" aria-label="Quantity">
+              <button type="button" class="num-btn" aria-label="Increase">+</button>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="num"&gt;
+  &lt;button type="button" class="num-btn" aria-label="Decrease"&gt;−&lt;/button&gt;
+  &lt;input type="number" value="2" min="0"&gt;
+  &lt;button type="button" class="num-btn" aria-label="Increase"&gt;+&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="otp" aria-labelledby="otp-title">
+        <h2 id="otp-title">OTP</h2>
+        <p class="docs-lead"><span class="mono">.otp</span> of single-character inputs. Focus-advance is your JS (the demo script shows a pattern).</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="otp">
+              <input maxlength="1" inputmode="numeric" aria-label="Digit 1">
+              <input maxlength="1" inputmode="numeric" aria-label="Digit 2">
+              <input maxlength="1" inputmode="numeric" aria-label="Digit 3">
+              <input maxlength="1" inputmode="numeric" aria-label="Digit 4">
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="otp"&gt;
+  &lt;input maxlength="1" inputmode="numeric" aria-label="Digit 1"&gt;
+  &lt;input maxlength="1" inputmode="numeric" aria-label="Digit 2"&gt;
+  &lt;input maxlength="1" inputmode="numeric" aria-label="Digit 3"&gt;
+  &lt;input maxlength="1" inputmode="numeric" aria-label="Digit 4"&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="pick" aria-labelledby="pick-title">
+        <h2 id="pick-title">Choice cards</h2>
+        <p class="docs-lead"><span class="mono">.picks</span> of <span class="mono">label.pick</span> wrapping a radio. Title <span class="mono">.pick-title</span>, hint <span class="mono">.pick-sub</span>. Selected: <span class="mono">.selected</span> (required on older browsers). Newer engines also match <span class="mono">:has(:checked)</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="picks">
+              <label class="pick selected"><input type="radio" name="d-plan" checked><span><span class="pick-title">Pro</span><span class="pick-sub">$20 / month</span></span></label>
+              <label class="pick"><input type="radio" name="d-plan"><span><span class="pick-title">Team</span><span class="pick-sub">$75 / month</span></span></label>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="picks"&gt;
+  &lt;label class="pick selected"&gt;
+    &lt;input type="radio" name="plan" checked&gt;
+    &lt;span&gt;
+      &lt;span class="pick-title"&gt;Pro&lt;/span&gt;
+      &lt;span class="pick-sub"&gt;$20 / month&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+  &lt;label class="pick"&gt;
+    &lt;input type="radio" name="plan"&gt;
+    &lt;span&gt;
+      &lt;span class="pick-title"&gt;Team&lt;/span&gt;
+      &lt;span class="pick-sub"&gt;$75 / month&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
         </div>
       </section>
 
@@ -783,6 +941,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
   &lt;/div&gt;
   &lt;div class="card-bar"&gt;
     &lt;button class="btn-primary btn-sm"&gt;Action&lt;/button&gt;
+    &lt;button class="btn-sm"&gt;Cancel&lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
@@ -790,12 +949,12 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
 
       <section class="docs-sec" id="table" aria-labelledby="table-title">
         <h2 id="table-title">Table</h2>
-        <p class="docs-lead">Bare <span class="mono">&lt;table&gt;</span> is styled. Wrap in <span class="mono">.table-wrap</span> for horizontal scroll. On the table: <span class="mono">.striped</span> <span class="mono">.bordered</span> <span class="mono">.sticky</span>. Selected row: <span class="mono">.selected</span> on <span class="mono">&lt;tr&gt;</span>. Use <span class="mono">.table</span> on a non-table host.</p>
+        <p class="docs-lead">Bare <span class="mono">&lt;table&gt;</span> is styled. Wrap in <span class="mono">.table-wrap</span> for horizontal scroll. On the table: <span class="mono">.striped</span> <span class="mono">.bordered</span> <span class="mono">.sticky</span> <span class="mono">.compact</span>. Selected row: <span class="mono">.selected</span> on <span class="mono">&lt;tr&gt;</span>. Sort hint: <span class="mono">.sorted.asc</span> or <span class="mono">.sorted.desc</span> on <span class="mono">&lt;th&gt;</span>. Use <span class="mono">.table</span> on a non-table host.</p>
         <div class="docs-row">
           <div class="docs-live">
             <div class="table-wrap">
-              <table class="striped">
-                <thead><tr><th>Plan</th><th>Price</th></tr></thead>
+              <table class="striped compact">
+                <thead><tr><th class="sorted asc">Plan</th><th>Price</th></tr></thead>
                 <tbody>
                   <tr><td>Free</td><td>$0</td></tr>
                   <tr class="selected"><td>Pro</td><td>$20</td></tr>
@@ -804,9 +963,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="table-wrap"&gt;
-  &lt;table class="striped"&gt;
-    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Plan&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;table class="striped compact"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th class="sorted asc"&gt;Plan&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
     &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;Free&lt;/td&gt;&lt;td&gt;$0&lt;/td&gt;&lt;/tr&gt;
       &lt;tr class="selected"&gt;&lt;td&gt;Pro&lt;/td&gt;&lt;td&gt;$20&lt;/td&gt;&lt;/tr&gt;
     &lt;/tbody&gt;
   &lt;/table&gt;
@@ -816,7 +976,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
 
       <section class="docs-sec" id="tabs" aria-labelledby="tabs-title">
         <h2 id="tabs-title">Tabs</h2>
-        <p class="docs-lead">Parent <span class="mono">.tabs</span>, each control <span class="mono">.tab</span>. Active: <span class="mono">.selected</span>. Underline style: add <span class="mono">.tabs-line</span> on the parent. Tabs are visual — switch panels in your app.</p>
+        <p class="docs-lead">Parent <span class="mono">.tabs</span>, each control <span class="mono">.tab</span>. Active: <span class="mono">.selected</span>. Underline style: add <span class="mono">.tabs-line</span> on the parent. Vertical: add <span class="mono">.tabs-v</span>. Tabs are visual — switch panels in your app.</p>
         <div class="docs-row">
           <div class="docs-live">
             <div class="tabs" data-docs-tabs>
@@ -824,26 +984,44 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <button type="button" class="tab">Analytics</button>
               <button type="button" class="tab">Settings</button>
             </div>
+            <div class="tabs tabs-line tabs-v m-t-15" data-docs-tabs>
+              <button type="button" class="tab selected">Account</button>
+              <button type="button" class="tab">Billing</button>
+              <button type="button" class="tab">Team</button>
+            </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="tabs"&gt;
   &lt;button class="tab selected"&gt;Overview&lt;/button&gt;
   &lt;button class="tab"&gt;Analytics&lt;/button&gt;
+  &lt;button class="tab"&gt;Settings&lt;/button&gt;
 &lt;/div&gt;
-&lt;div class="tabs tabs-line"&gt;…&lt;/div&gt;</code></pre>
+&lt;div class="tabs tabs-line tabs-v"&gt;
+  &lt;button class="tab selected"&gt;Account&lt;/button&gt;
+  &lt;button class="tab"&gt;Billing&lt;/button&gt;
+  &lt;button class="tab"&gt;Team&lt;/button&gt;
+&lt;/div&gt;</code></pre>
         </div>
       </section>
 
       <section class="docs-sec" id="alert" aria-labelledby="alert-title">
         <h2 id="alert-title">Alert</h2>
-        <p class="docs-lead">Required: <span class="mono">.alert</span>. Optional: <span class="mono">.alert-primary</span> <span class="mono">.alert-success</span> <span class="mono">.alert-warning</span> <span class="mono">.alert-danger</span>.</p>
+        <p class="docs-lead">Required: <span class="mono">.alert</span>. Optional: <span class="mono">.alert-primary</span> <span class="mono">.alert-success</span> <span class="mono">.alert-warning</span> <span class="mono">.alert-danger</span>. Optional head: <span class="mono">.alert-head</span> with <span class="mono">.alert-title</span> and <span class="mono">.alert-actions</span>.</p>
         <div class="docs-row">
           <div class="docs-live">
             <div class="alert">Neutral alert.</div>
-            <div class="alert alert-success"><strong>Done.</strong> Changes saved.</div>
-            <div class="alert alert-danger"><strong>Error.</strong> Please retry.</div>
+            <div class="alert alert-primary">
+              <div class="alert-head"><p class="alert-title">New API</p><div class="alert-actions"><button type="button" class="btn-sm">Docs</button></div></div>
+              <p>Callout with a title and action.</p>
+            </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="alert"&gt;Neutral alert.&lt;/div&gt;
-&lt;div class="alert alert-success"&gt;&lt;strong&gt;Done.&lt;/strong&gt; Saved.&lt;/div&gt;</code></pre>
+&lt;div class="alert alert-primary"&gt;
+  &lt;div class="alert-head"&gt;
+    &lt;p class="alert-title"&gt;New API&lt;/p&gt;
+    &lt;div class="alert-actions"&gt;&lt;button class="btn-sm"&gt;Docs&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Callout with a title and action.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
         </div>
       </section>
 
@@ -859,7 +1037,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
   &lt;p class="toast-title"&gt;Toast&lt;/p&gt;
   &lt;p&gt;Neutral dark toast.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class="toasts toasts-tr"&gt;…&lt;/div&gt;</code></pre>
+&lt;div class="toast toast-success"&gt;
+  &lt;p class="toast-title"&gt;Success&lt;/p&gt;
+  &lt;p&gt;Saved.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
         </div>
       </section>
 
@@ -887,7 +1068,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;div class="skel skel-avatar"&gt;&lt;/div&gt;
 &lt;div class="skel skel-text"&gt;&lt;/div&gt;
-&lt;div class="skel skel-card"&gt;&lt;/div&gt;</code></pre>
+&lt;div class="skel skel-text" style="width:60%"&gt;&lt;/div&gt;</code></pre>
         </div>
       </section>
 
@@ -900,7 +1081,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             <i class="spin spin-lg"></i>
           </div>
           <pre class="docs-code"><code>&lt;i class="spin"&gt;&lt;/i&gt;
-&lt;div class="spin-block"&gt;&lt;i class="spin spin-lg"&gt;&lt;/i&gt;&lt;/div&gt;</code></pre>
+&lt;i class="spin spin-lg"&gt;&lt;/i&gt;</code></pre>
         </div>
       </section>
 
@@ -918,7 +1099,28 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;div class="empty"&gt;
   &lt;p class="empty-title"&gt;No projects&lt;/p&gt;
   &lt;p class="muted"&gt;Create one to get started.&lt;/p&gt;
-  &lt;div class="empty-actions"&gt;&lt;button class="btn-primary"&gt;New&lt;/button&gt;&lt;/div&gt;
+  &lt;div class="empty-actions"&gt;&lt;button class="btn-primary btn-sm"&gt;New&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="result" aria-labelledby="result-title">
+        <h2 id="result-title">Result</h2>
+        <p class="docs-lead">Full-page outcome: <span class="mono">.result</span> with optional <span class="mono">.result-icon</span>, <span class="mono">.result-title</span>, and <span class="mono">.result-actions</span>. Variants: <span class="mono">.result-ok</span> <span class="mono">.result-err</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="result result-ok p-10">
+              <span class="result-icon" aria-hidden="true">✓</span>
+              <p class="result-title">Paid</p>
+              <p class="muted m-0">Invoice #1042</p>
+              <div class="result-actions"><button type="button" class="btn-sm">Receipt</button></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="result result-ok"&gt;
+  &lt;span class="result-icon" aria-hidden="true"&gt;✓&lt;/span&gt;
+  &lt;p class="result-title"&gt;Paid&lt;/p&gt;
+  &lt;p class="muted"&gt;Invoice #1042&lt;/p&gt;
+  &lt;div class="result-actions"&gt;&lt;button class="btn-sm"&gt;Receipt&lt;/button&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -995,6 +1197,7 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
     onclick="this.parentElement.classList.toggle('open')"&gt;Actions&lt;/button&gt;
   &lt;div class="menu-panel" role="menu"&gt;
     &lt;a class="menu-item" href="#" role="menuitem"&gt;Edit&lt;/a&gt;
+    &lt;a class="menu-item" href="#" role="menuitem"&gt;Duplicate&lt;/a&gt;
     &lt;hr class="menu-sep"&gt;
     &lt;button class="menu-item menu-danger" role="menuitem"&gt;Delete&lt;/button&gt;
   &lt;/div&gt;
@@ -1013,8 +1216,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             </div>
           </div>
           <pre class="docs-code"><code>&lt;div class="pop" id="more"&gt;
-  &lt;button onclick="this.parentElement.classList.toggle('open')"&gt;More&lt;/button&gt;
-  &lt;div class="pop-panel"&gt;Extra content&lt;/div&gt;
+  &lt;button onclick="this.parentElement.classList.toggle('open')"&gt;Popover&lt;/button&gt;
+  &lt;div class="pop-panel"&gt;Add .open on .pop.&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1084,7 +1287,11 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;details&gt;
   &lt;summary&gt;Accordion item one&lt;/summary&gt;
-  &lt;p&gt;Expand/collapse with native details — no JS.&lt;/p&gt;
+  &lt;p&gt;Expand with native details — no JS.&lt;/p&gt;
+&lt;/details&gt;
+&lt;details&gt;
+  &lt;summary&gt;Accordion item two&lt;/summary&gt;
+  &lt;p&gt;Another panel.&lt;/p&gt;
 &lt;/details&gt;</code></pre>
         </div>
       </section>
@@ -1105,7 +1312,9 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;nav class="nav"&gt;
   &lt;span class="nav-brand"&gt;Mates&lt;/span&gt;
   &lt;a href="#" class="selected"&gt;Home&lt;/a&gt;
+  &lt;a href="#"&gt;Docs&lt;/a&gt;
   &lt;span class="nav-space"&gt;&lt;/span&gt;
+  &lt;span class="avatar avatar-sm"&gt;AV&lt;/span&gt;
 &lt;/nav&gt;</code></pre>
         </div>
       </section>
@@ -1123,17 +1332,23 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;nav class="crumbs"&gt;
   &lt;a href="#"&gt;Home&lt;/a&gt;
-  &lt;span class="current"&gt;Here&lt;/span&gt;
+  &lt;a href="#"&gt;Docs&lt;/a&gt;
+  &lt;span class="current"&gt;Button&lt;/span&gt;
 &lt;/nav&gt;</code></pre>
         </div>
       </section>
 
       <section class="docs-sec" id="steps" aria-labelledby="steps-title">
         <h2 id="steps-title">Steps</h2>
-        <p class="docs-lead"><span class="mono">.steps</span> list of <span class="mono">.step</span>. States: <span class="mono">.done</span>, <span class="mono">.current</span>. Each step: <span class="mono">.step-dot</span> + <span class="mono">.step-label</span>.</p>
+        <p class="docs-lead"><span class="mono">.steps</span> list of <span class="mono">.step</span>. States: <span class="mono">.done</span>, <span class="mono">.current</span>. Each step: <span class="mono">.step-dot</span> + <span class="mono">.step-label</span>. Vertical: add <span class="mono">.steps-v</span>.</p>
         <div class="docs-row">
           <div class="docs-live">
             <ol class="steps">
+              <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
+              <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
+              <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
+            </ol>
+            <ol class="steps steps-v m-t-15" style="max-width:12rem;">
               <li class="step done"><span class="step-dot"></span><span class="step-label">Account</span></li>
               <li class="step current"><span class="step-dot"></span><span class="step-label">Plan</span></li>
               <li class="step"><span class="step-dot"></span><span class="step-label">Pay</span></li>
@@ -1143,7 +1358,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
   &lt;li class="step done"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Account&lt;/span&gt;&lt;/li&gt;
   &lt;li class="step current"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Plan&lt;/span&gt;&lt;/li&gt;
   &lt;li class="step"&gt;&lt;span class="step-dot"&gt;&lt;/span&gt;&lt;span class="step-label"&gt;Pay&lt;/span&gt;&lt;/li&gt;
-&lt;/ol&gt;</code></pre>
+&lt;/ol&gt;
+&lt;ol class="steps steps-v"&gt;…&lt;/ol&gt;</code></pre>
         </div>
       </section>
 
@@ -1160,7 +1376,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;nav class="sidenav"&gt;
   &lt;a class="sidenav-item selected" href="#"&gt;Home&lt;/a&gt;
-  &lt;a class="sidenav-item" href="#"&gt;Docs&lt;/a&gt;
+  &lt;a class="sidenav-item" href="#"&gt;Buttons&lt;/a&gt;
+  &lt;a class="sidenav-item disabled" href="#"&gt;Admin&lt;/a&gt;
 &lt;/nav&gt;</code></pre>
         </div>
       </section>
@@ -1179,8 +1396,71 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;nav class="bottom-nav" aria-label="Primary"&gt;
   &lt;a class="bnav-item selected" href="#"&gt;Home&lt;/a&gt;
+  &lt;a class="bnav-item" href="#"&gt;Search&lt;/a&gt;
   &lt;a class="bnav-item" href="#"&gt;Inbox&lt;/a&gt;
+  &lt;a class="bnav-item" href="#"&gt;Me&lt;/a&gt;
 &lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="subnav" aria-labelledby="subnav-title">
+        <h2 id="subnav-title">Subnav</h2>
+        <p class="docs-lead">Secondary links under a page title: <span class="mono">.subnav</span>. Active: <span class="mono">.selected</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <nav class="subnav">
+              <a class="selected" href="#subnav">Overview</a>
+              <a href="#subnav">Members</a>
+              <a href="#subnav">Settings</a>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="subnav"&gt;
+  &lt;a class="selected" href="#"&gt;Overview&lt;/a&gt;
+  &lt;a href="#"&gt;Members&lt;/a&gt;
+  &lt;a href="#"&gt;Settings&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">TOC</h2>
+        <p class="docs-lead">In-page skip list: <span class="mono">.toc</span> of links. Current: <span class="mono">.selected</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <nav class="toc">
+              <a class="selected" href="#button">Button</a>
+              <a href="#input">Input</a>
+              <a href="#table">Table</a>
+            </nav>
+          </div>
+          <pre class="docs-code"><code>&lt;nav class="toc"&gt;
+  &lt;a class="selected" href="#button"&gt;Button&lt;/a&gt;
+  &lt;a href="#input"&gt;Input&lt;/a&gt;
+  &lt;a href="#table"&gt;Table&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="footer" aria-labelledby="footer-title">
+        <h2 id="footer-title">Footer</h2>
+        <p class="docs-lead">App chrome: <span class="mono">.footer</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live p-0">
+            <footer class="footer">© 2026 Mates CSS</footer>
+          </div>
+          <pre class="docs-code"><code>&lt;footer class="footer"&gt;© 2026 Mates CSS&lt;/footer&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="fab" aria-labelledby="fab-title">
+        <h2 id="fab-title">FAB</h2>
+        <p class="docs-lead">Floating action: <span class="mono">.fab</span>. Pin with <span class="mono">.fixed</span> (bottom-right). Shown inline here so it does not cover the catalog.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <button type="button" class="fab" aria-label="Create">+</button>
+          </div>
+          <pre class="docs-code"><code>&lt;button class="fab" aria-label="Create"&gt;+&lt;/button&gt;
+&lt;button class="fab fixed" aria-label="Create"&gt;+&lt;/button&gt;</code></pre>
         </div>
       </section>
 
@@ -1198,10 +1478,13 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <span class="avatar avatar-sm">LG</span>
             </span>
           </div>
-          <pre class="docs-code"><code>&lt;span class="avatar"&gt;AL&lt;/span&gt;
-&lt;span class="avatars"&gt;
+          <pre class="docs-code"><code>&lt;span class="avatar avatar-sm"&gt;SM&lt;/span&gt;
+&lt;span class="avatar"&gt;AL&lt;/span&gt;
+&lt;span class="avatar avatar-lg"&gt;LG&lt;/span&gt;
+&lt;span class="avatars" aria-label="Members"&gt;
   &lt;span class="avatar avatar-sm"&gt;AL&lt;/span&gt;
   &lt;span class="avatar avatar-sm"&gt;SM&lt;/span&gt;
+  &lt;span class="avatar avatar-sm"&gt;LG&lt;/span&gt;
 &lt;/span&gt;</code></pre>
         </div>
       </section>
@@ -1215,7 +1498,9 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             <p class="status away"><i class="status-dot"></i> Away</p>
             <p class="status"><i class="status-dot busy"></i> Busy</p>
           </div>
-          <pre class="docs-code"><code>&lt;span class="status online"&gt;&lt;i class="status-dot"&gt;&lt;/i&gt; Online&lt;/span&gt;</code></pre>
+          <pre class="docs-code"><code>&lt;p class="status online"&gt;&lt;i class="status-dot"&gt;&lt;/i&gt; Online&lt;/p&gt;
+&lt;p class="status away"&gt;&lt;i class="status-dot"&gt;&lt;/i&gt; Away&lt;/p&gt;
+&lt;p class="status"&gt;&lt;i class="status-dot busy"&gt;&lt;/i&gt; Busy&lt;/p&gt;</code></pre>
         </div>
       </section>
 
@@ -1233,14 +1518,27 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
         </div>
       </section>
 
+      <section class="docs-sec" id="count" aria-labelledby="count-title">
+        <h2 id="count-title">Count</h2>
+        <p class="docs-lead">Inline numeric pill: <span class="mono">.count</span>. Optional <span class="mono">.count-primary</span> <span class="mono">.count-danger</span>. Use <span class="mono">.badge</span> when the number sits on a control.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <p class="m-0">Inbox <span class="count">12</span> · Alerts <span class="count count-danger">3</span></p>
+          </div>
+          <pre class="docs-code"><code>Inbox &lt;span class="count"&gt;12&lt;/span&gt; · Alerts &lt;span class="count count-danger"&gt;3&lt;/span&gt;</code></pre>
+        </div>
+      </section>
+
       <section class="docs-sec" id="progress" aria-labelledby="progress-title">
         <h2 id="progress-title">Progress</h2>
-        <p class="docs-lead">Bare <span class="mono">&lt;progress&gt;</span>. Use <span class="mono">.progress</span> on a non-native host.</p>
+        <p class="docs-lead">Bare <span class="mono">&lt;progress&gt;</span>. Use <span class="mono">.progress</span> on a non-native host. Omit <span class="mono">value</span> for an indeterminate bar.</p>
         <div class="docs-row">
           <div class="docs-live">
             <progress value="65" max="100"></progress>
+            <progress class="m-t-10" aria-label="Loading"></progress>
           </div>
-          <pre class="docs-code"><code>&lt;progress value="65" max="100"&gt;&lt;/progress&gt;</code></pre>
+          <pre class="docs-code"><code>&lt;progress value="65" max="100"&gt;&lt;/progress&gt;
+&lt;progress aria-label="Loading"&gt;&lt;/progress&gt;</code></pre>
         </div>
       </section>
 
@@ -1257,6 +1555,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;div class="list"&gt;
   &lt;a class="list-item selected" href="#"&gt;Inbox &lt;span class="list-meta"&gt;12&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="list-item" href="#"&gt;Sent &lt;span class="list-meta"&gt;3&lt;/span&gt;&lt;/a&gt;
+  &lt;a class="list-item disabled" href="#"&gt;Archive&lt;/a&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1274,7 +1574,11 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;div class="timeline"&gt;
   &lt;div class="tl-item"&gt;
     &lt;i class="tl-dot"&gt;&lt;/i&gt;
-    &lt;div class="tl-content"&gt;Shipped v0.5&lt;/div&gt;
+    &lt;div class="tl-content"&gt;&lt;b&gt;Shipped 0.5&lt;/b&gt;&lt;p class="muted"&gt;Overlays and shell.&lt;/p&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="tl-item"&gt;
+    &lt;i class="tl-dot"&gt;&lt;/i&gt;
+    &lt;div class="tl-content"&gt;&lt;b&gt;Charts&lt;/b&gt;&lt;p class="muted"&gt;Bars, donut, spark.&lt;/p&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
@@ -1304,7 +1608,137 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           </div>
           <pre class="docs-code"><code>&lt;dl&gt;
   &lt;dt&gt;Plan&lt;/dt&gt;&lt;dd&gt;Pro&lt;/dd&gt;
+  &lt;dt&gt;Seats&lt;/dt&gt;&lt;dd&gt;8&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="props" aria-labelledby="props-title">
+        <h2 id="props-title">Property grid</h2>
+        <p class="docs-lead">Bordered key/value: <span class="mono">dl.props</span> with native <span class="mono">&lt;dt&gt;</span> / <span class="mono">&lt;dd&gt;</span>. Bare <span class="mono">&lt;dl&gt;</span> stays the quiet definition list.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <dl class="props"><dt>Plan</dt><dd>Pro</dd><dt>Seats</dt><dd>8</dd></dl>
+          </div>
+          <pre class="docs-code"><code>&lt;dl class="props"&gt;
+  &lt;dt&gt;Plan&lt;/dt&gt;&lt;dd&gt;Pro&lt;/dd&gt;
+  &lt;dt&gt;Seats&lt;/dt&gt;&lt;dd&gt;8&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="msg" aria-labelledby="msg-title">
+        <h2 id="msg-title">Messages</h2>
+        <p class="docs-lead">Thread: <span class="mono">.msgs</span> of <span class="mono">.msg</span>. Outgoing: <span class="mono">.msg-out</span>. Meta: <span class="mono">.msg-meta</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <div class="msgs">
+              <div class="msg">Can you ship today?<span class="msg-meta">Ada · 4:02</span></div>
+              <div class="msg msg-out">Yes.<span class="msg-meta">You · 4:03</span></div>
+            </div>
+          </div>
+          <pre class="docs-code"><code>&lt;div class="msgs"&gt;
+  &lt;div class="msg"&gt;Can you ship today?&lt;span class="msg-meta"&gt;Ada · 4:02&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="msg msg-out"&gt;Yes.&lt;span class="msg-meta"&gt;You · 4:03&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="quote" aria-labelledby="quote-title">
+        <h2 id="quote-title">Quote</h2>
+        <p class="docs-lead">Testimonial: <span class="mono">figure.quote</span> with a native <span class="mono">&lt;blockquote&gt;</span> and <span class="mono">&lt;figcaption&gt;</span>. Bare blockquote stays the pull-quote.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <figure class="quote">
+              <blockquote>Paste it into any stack.</blockquote>
+              <figcaption>Sean Freeman</figcaption>
+            </figure>
+          </div>
+          <pre class="docs-code"><code>&lt;figure class="quote"&gt;
+  &lt;blockquote&gt;Paste it into any stack.&lt;/blockquote&gt;
+  &lt;figcaption&gt;Sean Freeman&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="fig" aria-labelledby="fig-title">
+        <h2 id="fig-title">Figure</h2>
+        <p class="docs-lead"><span class="mono">figure.fig</span> plus <span class="mono">&lt;figcaption&gt;</span>. Pair with <span class="mono">.aspect</span> when you need a ratio box.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <figure class="fig">
+              <div class="aspect" style="background:var(--m-surface)"></div>
+              <figcaption>16×9 product shot</figcaption>
+            </figure>
+          </div>
+          <pre class="docs-code"><code>&lt;figure class="fig"&gt;
+  &lt;div class="aspect"&gt;&lt;/div&gt;
+  &lt;figcaption&gt;16×9 product shot&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="link-card" aria-labelledby="link-card-title">
+        <h2 id="link-card-title">Link card</h2>
+        <p class="docs-lead">URL preview: <span class="mono">a.link-card</span> with <span class="mono">.link-card-img</span> and <span class="mono">.link-card-body</span>. Hover menus still use <span class="mono">.pop</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <a class="link-card" href="#link-card">
+              <span class="link-card-img"></span>
+              <span class="link-card-body"><b>Mates CSS</b><span>mates-js.dev</span></span>
+            </a>
+          </div>
+          <pre class="docs-code"><code>&lt;a class="link-card" href="#"&gt;
+  &lt;span class="link-card-img"&gt;&lt;/span&gt;
+  &lt;span class="link-card-body"&gt;&lt;b&gt;Mates CSS&lt;/b&gt;&lt;span&gt;mates-js.dev&lt;/span&gt;&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="docs-sec" id="tree" aria-labelledby="tree-title">
+        <h2 id="tree-title">Tree</h2>
+        <p class="docs-lead">File tree: <span class="mono">ul.tree</span>. Folders are native <span class="mono">&lt;details&gt;</span> / <span class="mono">&lt;summary&gt;</span>. Nested lists indent; files are plain <span class="mono">&lt;li&gt;</span>.</p>
+        <div class="docs-row">
+          <div class="docs-live">
+            <ul class="tree">
+              <li>
+                <details open>
+                  <summary>src</summary>
+                  <ul>
+                    <li>
+                      <details>
+                        <summary>patterns</summary>
+                        <ul><li>tree.css</li></ul>
+                      </details>
+                    </li>
+                    <li>buttons.css</li>
+                    <li>forms.css</li>
+                  </ul>
+                </details>
+              </li>
+              <li>README.md</li>
+              <li>package.json</li>
+            </ul>
+          </div>
+          <pre class="docs-code"><code>&lt;ul class="tree"&gt;
+  &lt;li&gt;
+    &lt;details open&gt;
+      &lt;summary&gt;src&lt;/summary&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;details&gt;
+            &lt;summary&gt;patterns&lt;/summary&gt;
+            &lt;ul&gt;&lt;li&gt;tree.css&lt;/li&gt;&lt;/ul&gt;
+          &lt;/details&gt;
+        &lt;/li&gt;
+        &lt;li&gt;buttons.css&lt;/li&gt;
+        &lt;li&gt;forms.css&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/details&gt;
+  &lt;/li&gt;
+  &lt;li&gt;README.md&lt;/li&gt;
+  &lt;li&gt;package.json&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
         </div>
       </section>
 
@@ -1333,9 +1767,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <div class="bar s2" style="--v: 45"><i data-v="45"></i><span>Wed</span></div>
             </div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="chart-bars" role="img" aria-label="Sales by day"&gt;
+          <pre class="docs-code"><code>&lt;div class="chart-bars" role="img" aria-label="Sales: Mon 65, Tue 90, Wed 45"&gt;
   &lt;div class="bar" style="--v: 65"&gt;&lt;i data-v="65"&gt;&lt;/i&gt;&lt;span&gt;Mon&lt;/span&gt;&lt;/div&gt;
-  &lt;div class="bar s2" style="--v: 90"&gt;&lt;i data-v="90"&gt;&lt;/i&gt;&lt;span&gt;Tue&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="bar" style="--v: 90"&gt;&lt;i data-v="90"&gt;&lt;/i&gt;&lt;span&gt;Tue&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="bar s2" style="--v: 45"&gt;&lt;i data-v="45"&gt;&lt;/i&gt;&lt;span&gt;Wed&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1350,12 +1785,23 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <div class="bar stacked" style="--v: 80"><i><u style="--sv: 40"></u><u class="s2" style="--sv: 25"></u><u class="s3" style="--sv: 15"></u></i><span>Q2</span></div>
             </div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="bar stacked" style="--v: 100"&gt;
-  &lt;i&gt;
-    &lt;u style="--sv: 45"&gt;&lt;/u&gt;
-    &lt;u class="s2" style="--sv: 30"&gt;&lt;/u&gt;
-  &lt;/i&gt;
-  &lt;span&gt;Q1&lt;/span&gt;
+          <pre class="docs-code"><code>&lt;div class="chart-bars" role="img" aria-label="Stacked Q1"&gt;
+  &lt;div class="bar stacked" style="--v: 100"&gt;
+    &lt;i&gt;
+      &lt;u style="--sv: 45"&gt;&lt;/u&gt;
+      &lt;u class="s2" style="--sv: 30"&gt;&lt;/u&gt;
+      &lt;u class="s3" style="--sv: 25"&gt;&lt;/u&gt;
+    &lt;/i&gt;
+    &lt;span&gt;Q1&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="bar stacked" style="--v: 80"&gt;
+    &lt;i&gt;
+      &lt;u style="--sv: 40"&gt;&lt;/u&gt;
+      &lt;u class="s2" style="--sv: 25"&gt;&lt;/u&gt;
+      &lt;u class="s3" style="--sv: 15"&gt;&lt;/u&gt;
+    &lt;/i&gt;
+    &lt;span&gt;Q2&lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1370,8 +1816,9 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <div class="hbar s2" style="--v: 65"><span>Frontend</span><i></i><b>65</b></div>
             </div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="chart-hbars"&gt;
+          <pre class="docs-code"><code>&lt;div class="chart-hbars" role="img" aria-label="Skills"&gt;
   &lt;div class="hbar" style="--v: 80"&gt;&lt;span&gt;Design&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;80&lt;/b&gt;&lt;/div&gt;
+  &lt;div class="hbar s2" style="--v: 65"&gt;&lt;span&gt;Frontend&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;65&lt;/b&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1391,8 +1838,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
           <pre class="docs-code"><code>&lt;div class="donut" style="--v1: 42; --v2: 28; --v3: 18; --v4: 12"&gt;
   &lt;b&gt;1,204&lt;/b&gt;
 &lt;/div&gt;
-&lt;div class="legend"&gt;
+&lt;div class="legend legend-v"&gt;
   &lt;span&gt;&lt;i class="s1"&gt;&lt;/i&gt;Organic&lt;/span&gt;
+  &lt;span&gt;&lt;i class="s2"&gt;&lt;/i&gt;Paid&lt;/span&gt;
+  &lt;span&gt;&lt;i class="s3"&gt;&lt;/i&gt;Referral&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1405,7 +1854,8 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
             <div class="ring" style="--v: 72; --m-donut-size: 7rem" role="img" aria-label="72 percent"><b>72%</b></div>
             <div class="ring s3" style="--v: 45; --m-donut-size: 7rem" role="img" aria-label="45 percent"><b>45%</b></div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="ring" style="--v: 72"&gt;&lt;b&gt;72%&lt;/b&gt;&lt;/div&gt;</code></pre>
+          <pre class="docs-code"><code>&lt;div class="ring" style="--v: 72"&gt;&lt;b&gt;72%&lt;/b&gt;&lt;/div&gt;
+&lt;div class="ring s3" style="--v: 45"&gt;&lt;b&gt;45%&lt;/b&gt;&lt;/div&gt;</code></pre>
         </div>
       </section>
 
@@ -1418,8 +1868,9 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <i style="--v:30"></i><i style="--v:55"></i><i style="--v:40"></i><i style="--v:80"></i><i style="--v:62"></i><i class="s2" style="--v:90"></i>
             </div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="spark"&gt;
-  &lt;i style="--v:30"&gt;&lt;/i&gt;&lt;i style="--v:55"&gt;&lt;/i&gt;&lt;i style="--v:80"&gt;&lt;/i&gt;
+          <pre class="docs-code"><code>&lt;div class="spark" role="img" aria-label="Rising trend"&gt;
+  &lt;i style="--v:30"&gt;&lt;/i&gt;&lt;i style="--v:55"&gt;&lt;/i&gt;&lt;i style="--v:40"&gt;&lt;/i&gt;
+  &lt;i style="--v:80"&gt;&lt;/i&gt;&lt;i style="--v:62"&gt;&lt;/i&gt;&lt;i class="s2" style="--v:90"&gt;&lt;/i&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1476,11 +1927,10 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
               <div class="alert m-0">col</div>
             </div>
           </div>
-          <pre class="docs-code"><code>&lt;div class="m-flex m-i-center m-j-between m-gap-sm"&gt;…&lt;/div&gt;
-&lt;div class="m-grid m-grid-cols-3 m-gap"&gt;…&lt;/div&gt;
-&lt;div class="m-row"&gt;
-  &lt;div class="c-4"&gt;⅓&lt;/div&gt;
-  &lt;div class="c-8"&gt;⅔&lt;/div&gt;
+          <pre class="docs-code"><code>&lt;div class="m-grid m-grid-cols-3 m-gap-sm"&gt;
+  &lt;div class="alert"&gt;col&lt;/div&gt;
+  &lt;div class="alert alert-primary"&gt;col&lt;/div&gt;
+  &lt;div class="alert"&gt;col&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </section>
@@ -1706,11 +2156,11 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
         </div>
       </section>
     </main>
+    </div>
   </div>
 
-  <footer class="container center" style="padding-block:2rem;">
-    <hr>
-    <small>Mates CSS v0.5.0 — 64.2kb / 11.0kb gzipped. MIT. <a href="https://github.com/thejsmaster/mates-css">Source</a></small>
+  <footer class="footer">
+    <small>Mates CSS v0.5.0 — 75.0kb / 12.4kb gzipped. MIT. <a href="https://github.com/thejsmaster/mates-css">Source</a></small>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
@@ -1763,9 +2213,11 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
     const themeBtn = byId("theme-btn");
     themeBtn.addEventListener("click", () => {
       const html = document.documentElement;
-      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      html.setAttribute("data-theme", next);
-      themeBtn.textContent = "Theme: " + next;
+      const cur = html.getAttribute("data-theme");
+      if (!cur) html.setAttribute("data-theme", "light");
+      else if (cur === "light") html.setAttribute("data-theme", "dark");
+      else html.removeAttribute("data-theme");
+      themeBtn.textContent = "Theme: " + (html.getAttribute("data-theme") || "auto");
     });
 
     document.querySelectorAll('input[type="range"]').forEach((r) => {
@@ -1828,6 +2280,44 @@ html[data-theme="dark"] { /* or prefers-color-scheme */ }</code></pre>
         seg.querySelectorAll(".seg-item").forEach((item) => {
           const input = item.querySelector("input");
           item.classList.toggle("selected", !!(input && input.checked));
+        });
+      });
+    });
+    document.querySelectorAll(".pick input").forEach((r) => {
+      const sync = () => {
+        document.querySelectorAll('input[name="' + r.name + '"]').forEach((input) => {
+          const pick = input.closest(".pick");
+          if (pick) pick.classList.toggle("selected", input.checked);
+        });
+      };
+      r.addEventListener("change", sync);
+      sync();
+    });
+    document.querySelectorAll(".num").forEach((row) => {
+      const input = row.querySelector("input");
+      const btns = row.querySelectorAll(".num-btn");
+      if (!input || btns.length < 2) return;
+      btns[0].addEventListener("click", () => input.stepDown());
+      btns[1].addEventListener("click", () => input.stepUp());
+    });
+    document.querySelectorAll(".pass-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const input = btn.parentElement.querySelector("input");
+        if (!input) return;
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        btn.textContent = show ? "Hide" : "Show";
+      });
+    });
+    document.querySelectorAll(".otp").forEach((row) => {
+      const inputs = [...row.querySelectorAll("input")];
+      inputs.forEach((el, i) => {
+        el.addEventListener("input", () => {
+          el.value = el.value.replace(/\D/g, "").slice(-1);
+          if (el.value && inputs[i + 1]) inputs[i + 1].focus();
+        });
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && !el.value && inputs[i - 1]) inputs[i - 1].focus();
         });
       });
     });

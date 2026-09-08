@@ -118,3 +118,25 @@
 .sidenav-item:hover { background: var(--m-surface); text-decoration: none; color: var(--m-fg); }
 .sidenav-item.selected { background: var(--m-primary-soft); color: var(--m-primary); }
 .sidenav-item.disabled { opacity: .45; pointer-events: none; }
+
+.steps-v { flex-direction: column; align-items: stretch; }
+.steps-v .step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: .5em;
+  flex: none;
+  width: 100%;
+}
+.steps-v .step-dot { grid-column: 1; grid-row: 1; }
+.steps-v .step-label { grid-column: 2; grid-row: 1; white-space: normal; overflow: visible; }
+.steps-v .step:not(:last-child)::after {
+  content: "";
+  grid-column: 1;
+  grid-row: 2;
+  width: 1px;
+  height: 1.15rem;
+  flex: none;
+  margin: .2em auto;
+  background: var(--m-border);
+}

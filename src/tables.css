@@ -26,3 +26,15 @@ table caption,
 .table caption { caption-side: bottom; padding: .55em 0; font-size: 1rem; color: var(--m-fg-3); text-align: left; }
 table.sticky thead th,
 .table.sticky thead th { position: sticky; top: 0; z-index: 1; }
+table.compact th, table.compact td,
+.table.compact th, .table.compact td { padding: .35em .6em; }
+th.sorted { cursor: pointer; }
+th.sorted::after {
+  content: "";
+  display: inline-block;
+  margin-left: .4em;
+  border: .28em solid transparent;
+  vertical-align: .12em;
+}
+th.sorted.asc::after { border-bottom-color: currentColor; border-top-width: 0; }
+th.sorted.desc::after { border-top-color: currentColor; border-bottom-width: 0; vertical-align: 0; }

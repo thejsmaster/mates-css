@@ -39,6 +39,15 @@
   margin: .8rem 0;
 }
 .alert p { margin: 0; }
+.alert-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .35em;
+}
+.alert-title { margin: 0; font-weight: 700; }
+.alert-actions { display: flex; gap: .4rem; flex-shrink: 0; }
 .alert-success { border-left-color: var(--m-success); background: var(--m-alert-success-bg); }
 .alert-warning { border-left-color: var(--m-warning); background: var(--m-alert-warning-bg); }
 .alert-danger { border-left-color: var(--m-danger); background: var(--m-alert-danger-bg); }

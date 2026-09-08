@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mates-css playground preview</title>
+  <link rel="stylesheet" href="mates.min.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "mates": "https://esm.sh/mates@0.5.6",
+      "mates-ui": "https://esm.sh/mates-ui@0.7.3?external=mates,mates-virtual",
+      "mates-icons": "https://esm.sh/mates-icons@latest",
+      "mates-virtual": "https://esm.sh/mates-virtual@latest",
+      "mates-db": "https://esm.sh/mates-db@latest",
+      "mates-ide": "https://esm.sh/mates-ide@0.1.6?external=mates,mates-ui,mates-icons,mates-virtual,mates-db,codemirror,@codemirror/commands,@codemirror/lang-css,@codemirror/lang-html,@codemirror/lang-javascript,@codemirror/lint,@codemirror/state,@codemirror/theme-one-dark,@codemirror/view",
+      "codemirror": "https://esm.sh/codemirror@latest",
+      "@codemirror/commands": "https://esm.sh/@codemirror/commands@latest",
+      "@codemirror/lang-css": "https://esm.sh/@codemirror/lang-css@latest",
+      "@codemirror/lang-html": "https://esm.sh/@codemirror/lang-html@latest",
+      "@codemirror/lang-javascript": "https://esm.sh/@codemirror/lang-javascript@latest",
+      "@codemirror/lint": "https://esm.sh/@codemirror/lint@latest",
+      "@codemirror/state": "https://esm.sh/@codemirror/state@latest",
+      "@codemirror/theme-one-dark": "https://esm.sh/@codemirror/theme-one-dark@latest",
+      "@codemirror/view": "https://esm.sh/@codemirror/view@latest"
+    }
+  }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #root, .pg-ide, .pg-ide x-view { height: 100%; display: block; }
+    .pg-ide x-view { min-height: 100dvh; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import { html, render as litRender, x, WithScope } from "mates";
+    import { MatesIDE } from "mates-ide";
+
+    const matesCssCdn =
+      location.protocol === "file:"
+        ? "https://cdn.jsdelivr.net/npm/mates-css@0.5.0/mates.min.css"
+        : new URL("mates.min.css", location.href).href;
+    const Ide = () => () => x(MatesIDE, {
+      previewOnly: true,
+      height: "100vh",
+      storageKey: "mates-css-ide",
+      matesCssCdn,
+    });
+
+    const App = () => html`<div class="pg-ide">${x(WithScope, { viewFn: Ide })}</div>`;
+    litRender(App(), document.getElementById("root"));
+  </script>
+</body>
+</html>

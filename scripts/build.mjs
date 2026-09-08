@@ -1,6 +1,11 @@
 import * as esbuild from "esbuild";
 import { gzipSync } from "node:zlib";
-import { readFileSync } from "node:fs";
+import {
+  copyFileSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
@@ -15,6 +20,23 @@ const shared = {
 
 await esbuild.build({ ...shared, outfile: "mates.css" });
 await esbuild.build({ ...shared, minify: true, outfile: "mates.min.css" });
+copyFileSync("docs.html", "index.html");
+
+rmSync("public", { recursive: true, force: true });
+mkdirSync("public", { recursive: true });
+for (const file of [
+  "index.html",
+  "docs.html",
+  "demo.html",
+  "playground.html",
+  "playground-preview.html",
+  "mates.css",
+  "mates.min.css",
+  "llms.txt",
+  "AGENTS.md",
+]) {
+  copyFileSync(file, `public/${file}`);
+}
 
 const raw = readFileSync("mates.css");
 const min = readFileSync("mates.min.css");
@@ -24,3 +46,4 @@ const kb = (n) => (n / 1024).toFixed(1);
 console.log(`mates.css     ${kb(raw.length)}kb`);
 console.log(`mates.min.css ${kb(min.length)}kb`);
 console.log(`gzip          ${kb(gzip)}kb`);
+console.log(`public/       static site for Vercel`);

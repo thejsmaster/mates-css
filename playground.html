@@ -73,7 +73,7 @@
     const previewWindowUrl =
       location.protocol === "file:"
         ? undefined
-        : new URL("playground-preview.html", location.href).href;
+        : `${location.origin}/playground-preview`;
 
     const STARTER_JS = `import { html, render as litRender } from "mates";
 
@@ -143,10 +143,10 @@ litRender(App(), document.getElementById("app"));
       <div class="pg-shell">
         <header class="pg-top">
           <nav class="nav" aria-label="Playground">
-            <a class="nav-brand" href="docs.html">mates-css</a>
-            <a href="docs.html">Docs</a>
-            <a href="demo.html">Demo</a>
-            <a href="playground.html" class="selected">Playground</a>
+            <a class="nav-brand" href="/">mates-css</a>
+            <a href="/">Docs</a>
+            <a href="/demo">Demo</a>
+            <a href="/playground" class="selected">Playground</a>
             <span class="nav-space"></span>
             <a href="https://github.com/thejsmaster/mates-css">GitHub</a>
             <button type="button" class="btn-sm" @click=${cycleTheme}>${themeLabel()}</button>

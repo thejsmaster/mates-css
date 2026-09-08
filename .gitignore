@@ -3,6 +3,7 @@ npm-debug.log
 demo_res
 docs
 index.html
+public
 yarn.lock
 .npmrc
 .idea/**/*node_modules/
